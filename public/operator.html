@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>AI Cabin - Operator</title>
+  <style>
+    body{font-family:system-ui,Arial;max-width:900px;margin:32px auto;padding:0 18px;line-height:1.45;background:#f6f7f9;color:#181818}
+    .card{background:#fff;border:1px solid #ddd;border-radius:16px;padding:20px;margin:16px 0;box-shadow:0 3px 12px #0000000b}
+    button,select{font-size:16px;padding:10px 14px;border-radius:10px;border:1px solid #aaa}
+    button{cursor:pointer}.start{background:#111;color:#fff}.stop{background:#fff;color:#a00}
+    .row{display:flex;gap:10px;align-items:center;flex-wrap:wrap}.status{font-weight:700}.meter{height:14px;background:#eee;border-radius:9px;overflow:hidden;flex:1;min-width:220px}.meter>div{height:100%;width:0;background:#222}
+    #qr{width:180px;height:180px;border:1px solid #ddd}.mono{font-family:ui-monospace,monospace;word-break:break-all}
+    .log{white-space:pre-wrap;background:#111;color:#eee;padding:12px;border-radius:10px;min-height:80px;max-height:220px;overflow:auto}
+  </style>
+</head>
+<body>
+  <h1>AI Cabin – Bàn điều khiển</h1>
+  <div class="card">
+    <h2>1. Chọn nguồn âm thanh từ mixer</h2>
+    <div class="row"><select id="device"></select><button id="refresh">Làm mới thiết bị</button></div>
+    <p>Nên chọn USB Audio Interface nhận AUX/REC OUT từ mixer. Tránh dùng microphone laptop.</p>
+    <div class="row"><span>Mức tín hiệu:</span><div class="meter"><div id="meterFill"></div></div></div>
+  </div>
+  <div class="card">
+    <h2>2. Bắt đầu phiên dịch</h2>
+    <div class="row"><label for="direction">Chiều dịch:</label><select id="direction"><option value="vi">Anh → Việt</option><option value="en">Việt → Anh</option></select></div>
+    <p>Chọn chiều dịch trước khi bắt đầu. Để đổi chiều, dừng phiên đang chạy.</p>
+    <div class="row"><button id="start" class="start">Bắt đầu Anh → Việt</button><button id="stop" class="stop" disabled>Dừng</button><span class="status" id="status">Chưa chạy</span></div>
+    <p id="detail"></p>
+  </div>
+  <div class="card">
+    <h2>3. QR cho người tham dự</h2>
+    <div class="row"><img id="qr" alt="QR"><div><div class="mono" id="listenerUrl"></div><p>Người nghe mở link, bấm “Bắt đầu nghe”, cắm tai nghe.</p></div></div>
+  </div>
+  <div class="card"><h2>Nhật ký</h2><div class="log" id="log"></div></div>
+<script src="/operator.js"></script>
+</body>
+</html>

@@ -1,0 +1,14 @@
+# Local API keys and environment configuration
+.env
+.env.*
+!.env.example
+
+# Installed dependencies
+node_modules/
+
+# Local server logs, recordings, and diagnostic results
+.cabin-*
+*.log
+
+# Generated Windows distribution archives
+AI-Cabin-*.zip

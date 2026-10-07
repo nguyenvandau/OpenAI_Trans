@@ -1,0 +1,18 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Nghe phiên dịch AI</title>
+  <style>
+    body{font-family:system-ui,Arial;margin:0;background:#f5f6f8;color:#161616}.wrap{max-width:720px;margin:0 auto;padding:26px 18px}
+    .card{background:#fff;border:1px solid #ddd;border-radius:18px;padding:22px;margin:14px 0}.hero{text-align:center;padding:28px}
+    button{font-size:20px;padding:14px 24px;border:0;border-radius:14px;background:#111;color:#fff}.pill{display:inline-block;padding:6px 10px;border-radius:999px;background:#eee;font-weight:600}
+    #subtitle{font-size:24px;line-height:1.45;min-height:120px}.source{font-size:14px;color:#666;max-height:90px;overflow:hidden}.hint{color:#666}
+  </style>
+</head>
+<body><div class="wrap">
+  <div class="card hero"><h1>🎧 Phiên dịch trực tiếp</h1><p><span class="pill" id="direction">Anh → Việt</span></p><button id="listen">Bắt đầu nghe</button><p class="hint">Cắm tai nghe để không ảnh hưởng người xung quanh.</p><p id="status">Đang kết nối…</p></div>
+  <div class="card"><h2 id="subtitleTitle">Phụ đề tiếng Việt</h2><div id="subtitle">…</div></div>
+  <div class="card"><h3>Nguyên văn (tham khảo)</h3><div class="source" id="source">…</div></div>
+</div><script src="/listener.js"></script></body></html>
