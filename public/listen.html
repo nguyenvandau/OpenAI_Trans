@@ -3,16 +3,72 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Nghe phiên dịch AI</title>
-  <style>
-    body{font-family:system-ui,Arial;margin:0;background:#f5f6f8;color:#161616}.wrap{max-width:720px;margin:0 auto;padding:26px 18px}
-    .card{background:#fff;border:1px solid #ddd;border-radius:18px;padding:22px;margin:14px 0}.hero{text-align:center;padding:28px}
-    button{font-size:20px;padding:14px 24px;border:0;border-radius:14px;background:#111;color:#fff}.pill{display:inline-block;padding:6px 10px;border-radius:999px;background:#eee;font-weight:600}
-    #subtitle{font-size:24px;line-height:1.45;min-height:120px}.source{font-size:14px;color:#666;max-height:90px;overflow:hidden}.hint{color:#666}
-  </style>
+  <meta name="theme-color" content="#970000" />
+  <title>Nghe phiên dịch | Viện Cơ Xương Khớp Bạch Mai</title>
+  <link rel="icon" type="image/png" href="/assets/ifr-logo.png" />
+  <link rel="stylesheet" href="/conference.css" />
+  <link rel="stylesheet" href="/captions.css" />
 </head>
-<body><div class="wrap">
-  <div class="card hero"><h1>🎧 Phiên dịch trực tiếp</h1><p><span class="pill" id="direction">Anh → Việt</span></p><button id="listen">Bắt đầu nghe</button><p class="hint">Cắm tai nghe để không ảnh hưởng người xung quanh.</p><p id="status">Đang kết nối…</p></div>
-  <div class="card"><h2 id="subtitleTitle">Phụ đề tiếng Việt</h2><div id="subtitle">…</div></div>
-  <div class="card"><h3>Nguyên văn (tham khảo)</h3><div class="source" id="source">…</div></div>
-</div><script src="/listener.js"></script></body></html>
+<body>
+  <a class="skip-link" href="#main">Đến nội dung chính</a>
+  <header class="site-header">
+    <div class="header-brand">
+      <img class="header-logo" src="/assets/ifr-logo.png" alt="Logo Viện Cơ Xương Khớp Bạch Mai" width="64" height="64" />
+      <b>HỆ THỐNG PHIÊN DỊCH HỘI NGHỊ</b>
+    </div>
+    <div class="conference-heading">
+      <small>VIỆN CƠ XƯƠNG KHỚP BẠCH MAI</small>
+      <strong>Phiên dịch trực tiếp Anh ↔ Việt</strong>
+    </div>
+    <span class="header-role">Dành cho đại biểu</span>
+  </header>
+  <main id="main" class="work listener-work" tabindex="-1">
+    <div class="page-heading">
+      <h1>NGHE PHIÊN DỊCH TRỰC TIẾP</h1>
+      <p>Theo dõi nội dung hội nghị qua âm thanh phiên dịch và phụ đề.</p>
+    </div>
+    <div class="listen-layout">
+      <section class="card listener-hero" aria-labelledby="listenTitle">
+        <div class="headphone-icon" aria-hidden="true">
+          <svg width="38" height="38" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 14v-3a8 8 0 0 1 16 0v3" /><rect x="3" y="12" width="5" height="9" rx="2" /><rect x="16" y="12" width="5" height="9" rx="2" /></svg>
+        </div>
+        <h2 id="listenTitle">ÂM THANH PHIÊN DỊCH</h2>
+        <p class="hint">Cắm tai nghe và bấm nút bên dưới để bắt đầu.</p>
+        <span class="pill" id="direction">Tự động Anh ↔ Việt</span>
+        <div class="listen-actions">
+          <button id="listen" class="primary listen-button" type="button">Bắt đầu nghe</button>
+          <button id="fullScreen" class="secondary fullscreen-button" type="button" aria-controls="captionStage">⛶ Full Screen</button>
+        </div>
+        <p class="listener-status" id="status" role="status" aria-live="polite">Đang kết nối…</p>
+        <p class="headphone-hint">Vui lòng sử dụng tai nghe để không ảnh hưởng đến người xung quanh.</p>
+      </section>
+      <div class="caption-toolbar">
+        <h2>PHỤ ĐỀ TRỰC TIẾP</h2>
+        <button id="showHistory" class="secondary" type="button" aria-haspopup="dialog">Xem lại toàn bộ</button>
+      </div>
+      <section id="captionStage" class="caption-stage" aria-label="Phụ đề song ngữ trực tiếp">
+        <button id="returnFromFullScreen" class="return-button" type="button" hidden>← Quay lại</button>
+        <div class="caption-columns">
+          <section class="language-panel vietnamese-panel" aria-labelledby="vietnameseTitle">
+            <h2 id="vietnameseTitle">BÁO CÁO VIÊN</h2>
+            <div class="caption-window" id="vietnameseWindow" role="log" aria-label="Lời thoại tiếng Việt" aria-live="off" lang="vi"><div id="vietnameseText" class="caption-text caption-empty">Chờ lời thoại tiếng Việt…</div></div>
+          </section>
+          <section class="language-panel english-panel" aria-labelledby="englishTitle">
+            <h2 id="englishTitle">SPEAKER</h2>
+            <div class="caption-window" id="englishWindow" role="log" aria-label="Lời thoại tiếng Anh" aria-live="off" lang="en"><div id="englishText" class="caption-text caption-empty">Waiting for English captions…</div></div>
+          </section>
+        </div>
+      </section>
+      <p class="hint caption-note">Hiển thị 5 dòng gần nhất ở mỗi bên. Bấm Bắt đầu nghe trước khi mở Full Screen nếu cần phát âm thanh.</p>
+    </div>
+  </main>
+  <footer class="site-footer">Viện Cơ Xương Khớp Bạch Mai · Phiên dịch hội nghị</footer>
+  <dialog id="historyDialog" class="history-dialog" aria-labelledby="historyTitle" aria-describedby="historyHint">
+    <div class="history-heading"><h2 id="historyTitle">Toàn bộ lời thoại</h2><button id="closeHistory" class="secondary" type="button" autofocus>Đóng</button></div>
+    <p id="historyHint" class="hint">Nội dung nhận được từ khi mở trang này. Tải bản lời thoại trước khi tải lại hoặc đóng trang để xem lại sau.</p>
+    <div id="historyContent" class="history-content"></div>
+    <div class="history-actions"><button id="downloadHistory" class="primary" type="button" disabled>Tải lời thoại (.txt)</button></div>
+  </dialog>
+  <script type="module" src="/listener.js"></script>
+</body>
+</html>

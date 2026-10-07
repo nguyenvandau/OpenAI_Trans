@@ -2,16 +2,40 @@ const $ = (id) => document.getElementById(id);
 let stream, ctx, source, processor, ws;
 let running = false;
 let lastReportedError = '';
+let selectionEdited = false;
 
 function log(s){ $('log').textContent = `[${new Date().toLocaleTimeString()}] ${s}\n` + $('log').textContent; }
 function wsUrl(path){ return `${location.protocol === 'https:' ? 'wss' : 'ws'}://${location.host}${path}`; }
-function updateDirection(){ $('start').textContent = `Bắt đầu ${$('direction').value === 'en' ? 'Việt → Anh' : 'Anh → Việt'}`; }
+function selectedTargetLanguage(){ return $('automaticMode').checked ? 'auto' : $('manualDirection').value; }
+function translationLabel(targetLanguage){
+  return targetLanguage === 'vi' ? 'thủ công Anh → Việt' : targetLanguage === 'en' ? 'thủ công Việt → Anh' : 'tự động Anh ↔ Việt';
+}
+function updateTranslationControls(){
+  const manual = $('manualMode').checked;
+  $('manualDirectionField').hidden = !manual;
+  $('translationHint').textContent = manual
+    ? `Cố định chiều dịch ${$('manualDirection').value === 'vi' ? 'Anh → Việt' : 'Việt → Anh'}. Có thể đổi chiều khi diễn giả đổi ngôn ngữ. Thay đổi áp dụng từ lượt nói mới; các lượt đã thu tiếp tục theo chiều cũ.`
+    : 'Tự nhận diện từng lượt nói: tiếng Anh dịch sang tiếng Việt, tiếng Việt dịch sang tiếng Anh. Thay đổi chế độ áp dụng từ lượt nói mới. Ngắt nhẹ giữa các câu để bản dịch được phát kịp thời.';
+}
+function changeTranslationSettings(){
+  selectionEdited = true;
+  updateTranslationControls();
+  if(ws?.readyState === WebSocket.OPEN){
+    ws.send(JSON.stringify({type:'translation_config', targetLanguage:selectedTargetLanguage()}));
+  }
+}
 
 async function loadConfig(){
   const cfg = await fetch('/api/config').then(r=>r.json());
-  if(!running){ $('direction').value = cfg.targetLanguage; updateDirection(); }
   $('listenerUrl').textContent = cfg.listenerUrl;
+  $('listenerUrl').href = cfg.listenerUrl;
   $('qr').src = `/api/qr.png?t=${Date.now()}`;
+  if(!selectionEdited && !running && ['auto','vi','en'].includes(cfg.targetLanguage)){
+    $('automaticMode').checked = cfg.targetLanguage === 'auto';
+    $('manualMode').checked = cfg.targetLanguage !== 'auto';
+    if(cfg.targetLanguage !== 'auto') $('manualDirection').value = cfg.targetLanguage;
+    updateTranslationControls();
+  }
   if(cfg.configurationError){
     $('status').textContent='Chưa cấu hình API key';
     $('detail').textContent=cfg.configurationError;
@@ -56,7 +80,6 @@ async function start(){
   running=true;
   lastReportedError='';
   $('start').disabled=true;
-  $('direction').disabled=true;
   $('detail').textContent='';
   const deviceId = $('device').value;
   stream = await navigator.mediaDevices.getUserMedia({
@@ -70,13 +93,24 @@ async function start(){
   const zeroGain = ctx.createGain(); zeroGain.gain.value = 0;
   source.connect(processor); processor.connect(zeroGain); zeroGain.connect(ctx.destination);
 
-  ws = new WebSocket(wsUrl(`/ws/source?targetLanguage=${encodeURIComponent($('direction').value)}`));
+  const initialTargetLanguage = selectedTargetLanguage();
+  ws = new WebSocket(wsUrl(`/ws/source?targetLanguage=${initialTargetLanguage}`));
   ws.binaryType='arraybuffer';
-  ws.onopen=()=>{ running=true; $('status').textContent='Đang kết nối OpenAI'; $('start').disabled=true; $('stop').disabled=false; log('Nguồn âm thanh đã nối tới server.'); };
+  ws.onopen=()=>{
+    running=true;
+    $('status').textContent='Đang kết nối OpenAI';
+    $('start').disabled=true;
+    $('stop').disabled=false;
+    log('Nguồn âm thanh đã nối tới server.');
+    // Capture changes made while microphone permission or the socket was still connecting.
+    if(selectedTargetLanguage() !== initialTargetLanguage) changeTranslationSettings();
+  };
   ws.onclose=()=>{ stop().catch(e=>log(e.message)); $('status').textContent='Đã ngắt'; log('WebSocket nguồn âm thanh đã đóng.'); };
   ws.onerror=()=>log('Lỗi WebSocket nguồn âm thanh.');
   ws.onmessage=(ev)=>{
     let m; try{ m=JSON.parse(ev.data); }catch{ return; }
+    if(m.type==='caption_warning'){ log('Lưu ý phiên dịch: ' + m.message); $('detail').textContent=m.message; return; }
+    if(m.type==='config_error'){ log(m.message); $('detail').textContent=m.message; return; }
     if(m.type!=='status') return;
     if(m.error){
       $('status').textContent='Lỗi dịch';
@@ -86,8 +120,9 @@ async function start(){
     } else {
       lastReportedError='';
       $('detail').textContent='';
-      $('status').textContent=m.aiReady?'Đang dịch trực tiếp':'Đang kết nối OpenAI';
+      $('status').textContent=m.aiReady?`Đang dịch ${translationLabel(m.targetLanguage)}`:'Đang kết nối OpenAI';
     }
+    if(m.message === 'Translation settings updated') log(`Đã chọn dịch ${translationLabel(m.targetLanguage)}; áp dụng từ lượt nói mới.`);
   };
 
   processor.onaudioprocess=(ev)=>{
@@ -109,11 +144,19 @@ async function stop(){
   try{ stream?.getTracks().forEach(t=>t.stop()); }catch{}
   try{ await ctx?.close(); }catch{}
   $('meterFill').style.width='0%'; $('status').textContent='Đã dừng'; $('start').disabled=false; $('stop').disabled=true;
-  $('direction').disabled=false;
 }
 
+$('toggleQr').onclick=()=>{
+  const show = $('qrPanel').hidden;
+  $('qrPanel').hidden = !show;
+  $('operatorGrid').classList.toggle('qr-visible', show);
+  $('toggleQr').setAttribute('aria-expanded', String(show));
+  $('toggleQr').textContent = show ? 'Ẩn QR nghe' : 'Hiện QR nghe';
+};
 $('refresh').onclick=refreshDevices;
-$('direction').onchange=updateDirection;
 $('start').onclick=()=>start().catch(async e=>{await stop(); log(e.message); $('status').textContent='Lỗi';});
 $('stop').onclick=stop;
+$('automaticMode').onchange=changeTranslationSettings;
+$('manualMode').onchange=changeTranslationSettings;
+$('manualDirection').onchange=changeTranslationSettings;
 loadConfig(); refreshDevices();

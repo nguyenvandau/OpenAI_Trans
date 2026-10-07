@@ -4,12 +4,12 @@
 
 1. Mixer tao mot AUX bus sach chi chua micro san khau.
 2. USB audio interface vao may Ingest/Operator.
-3. Ingest Worker chuyen audio thanh PCM16 24 kHz va gui lien tuc qua WebSocket toi `/v1/realtime/translations`.
-4. OpenAI tra ve translated PCM + transcript deltas.
+3. Ingest Worker chuyen audio thanh PCM16 24 kHz va gui lien tuc qua WebSocket toi `/v1/realtime?model=gpt-realtime-2`.
+4. VAD tach luot noi; `gpt-4o-transcribe` nhan dang Anh/Viet. Server xep hang doi ban chu dung thu tu, gui tung ban chu cho `gpt-realtime-2` dich sang ngon ngu con lai. OpenAI tra ve PCM + transcript deltas cho tung luot.
 5. Media Gateway encode audio sang Opus 24–48 kbps.
-6. WebRTC SFU phat 1 track `vi-translation` toi tat ca listener.
+6. WebRTC SFU phat 1 track `en-vi-translation` toi tat ca listener.
 7. Caption service phat target/source transcript qua data channel hoac WebSocket.
-8. Trang listener: nut Play, volume, Vietnamese captions, original captions, connection health.
+8. Trang listener: nut Play, volume, phu de phien dich Anh/Viet, nguyen van, connection health.
 
 ## Tai sao khong cho 500 dien thoai goi OpenAI truc tiep
 
