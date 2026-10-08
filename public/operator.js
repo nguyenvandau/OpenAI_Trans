@@ -1,5 +1,3 @@
-import { captureAudioConstraints } from './capture-options.js';
-
 const $ = id => document.getElementById(id);
 let stream, ctx, source, processor, ws;
 let running = false, stopping = false, stopTask = null;
@@ -11,9 +9,6 @@ function log(s) { $('log').textContent = `[${new Date().toLocaleTimeString()}] $
 function wsUrl(path) { return `${location.protocol === 'https:' ? 'wss' : 'ws'}://${location.host}${path}`; }
 function selectedTargetLanguage() { return $('manualDirection').value; }
 function translationLabel(language) { return language === 'en' ? 'Việt → Anh' : 'Anh → Việt'; }
-function setCaptureControls(disabled) {
-  for (const id of ['device', 'inputMode', 'refresh']) $(id).disabled = disabled;
-}
 function updateTranslationControls() {
   $('translationHint').textContent = `Dịch liên tục ${translationLabel(selectedTargetLanguage())} khi diễn giả đang nói. Đổi chiều dịch khi diễn giả đổi ngôn ngữ.`;
 }
@@ -41,17 +36,12 @@ async function loadConfig() {
 }
 
 async function refreshDevices() {
-  if (running || stopping) return;
-  const selectedDeviceId = $('device').value;
   try {
     const temp = await navigator.mediaDevices.getUserMedia({ audio: true });
     temp.getTracks().forEach(t => t.stop());
   } catch (error) { log('Chưa có quyền thu âm: ' + error.message); }
   const devices = (await navigator.mediaDevices.enumerateDevices()).filter(d => d.kind === 'audioinput');
-  // A permission request can finish after capture has already started.
-  if (running || stopping) return;
   $('device').replaceChildren(...devices.map((device, index) => new Option(device.label || 'Audio input ' + (index + 1), device.deviceId)));
-  if (devices.some(device => device.deviceId === selectedDeviceId)) $('device').value = selectedDeviceId;
 }
 
 function sendAudio(audio) {
@@ -88,13 +78,11 @@ async function start() {
   pendingAudio = [];
   pendingBytes = 0;
   $('start').disabled = true;
-  setCaptureControls(true);
   $('detail').textContent = '';
   $('status').textContent = 'Đang mở nguồn âm thanh';
   const deviceId = $('device').value;
-  const inputMode = $('inputMode').value;
   stream = await navigator.mediaDevices.getUserMedia({
-    audio: captureAudioConstraints(deviceId, inputMode),
+    audio: { deviceId: deviceId ? { exact: deviceId } : undefined, echoCancellation: false, noiseSuppression: false, autoGainControl: false },
     video: false,
   });
   ctx = new AudioContext({ sampleRate: 24000 });
@@ -112,7 +100,7 @@ async function start() {
   zeroGain.connect(ctx.destination);
 
   const initialLanguage = selectedTargetLanguage();
-  const socket = ws = new WebSocket(wsUrl(`/ws/source?targetLanguage=${initialLanguage}&inputMode=${inputMode}`));
+  const socket = ws = new WebSocket(wsUrl(`/ws/source?targetLanguage=${initialLanguage}`));
   socket.binaryType = 'arraybuffer';
   socket.onopen = () => {
     for (const audio of pendingAudio) socket.send(audio);
@@ -178,7 +166,6 @@ function stop() {
   $('start').disabled = true;
   $('stop').disabled = true;
   $('manualDirection').disabled = true;
-  setCaptureControls(true);
   $('status').textContent = 'Đang hoàn tất phần dịch cuối…';
   stopTask = (async () => {
     if (processor && ctx?.state === 'running') {
@@ -224,7 +211,6 @@ function stop() {
     $('start').disabled = false;
     $('stop').disabled = true;
     $('manualDirection').disabled = false;
-    setCaptureControls(false);
   });
   return stopTask;
 }

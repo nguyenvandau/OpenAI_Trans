@@ -26,8 +26,6 @@ Trên Windows, dùng `Copy-Item .env.example .env`, sau đó `npm.cmd install` v
 
 Mở trên laptop điều khiển: `http://localhost:3000/operator.html`. Người tham dự quét QR để vào `listen.html`.
 
-Mục **Cách thu âm** mặc định là **Microphone / mic phòng**, yêu cầu trình duyệt bật chống vọng và lọc nhiễu để giảm nguy cơ thu lại loa đang phát bản dịch. Dùng tai nghe khi thử bằng mic máy tính. Khi lấy tín hiệu sạch từ mixer qua USB/audio interface, chọn **Tín hiệu sạch từ mixer / audio interface** để giữ tín hiệu không qua xử lý mic của trình duyệt. Đường mixer vào ứng dụng chỉ chứa micro diễn giả, tách khỏi đường phát bản dịch.
-
 ## Cấu hình LAN
 
 Ví dụ IP laptop là `192.168.1.50`:
@@ -50,8 +48,6 @@ Phụ đề nguồn mặc định dùng `gpt-live-transcribe` trong một kết 
 
 Phụ đề nguồn và bản dịch có thể về lệch thời điểm, không được căn chỉnh từng từ hoặc từng câu. Web giữ nguyên các mảnh chữ, kể cả mảnh nằm giữa một từ; không chèn khoảng trắng hoặc bỏ mảnh chỉ vì trùng thời gian. Khi nhận kết quả nguồn hoàn chỉnh, bản cuối thay bản tạm của đúng lượt nhận dạng; ứng dụng không dùng bảng thuật ngữ để tìm/thay từ sau nhận dạng. Cách xử lý deltas và bản cuối dựa trên [hướng dẫn Realtime transcription](https://developers.openai.com/api/docs/guides/realtime-transcription).
 
-Hai kết nối API bỏ qua sự kiện nhận lại cùng `event_id` trong bộ nhớ 20.000 ID gần nhất của mỗi phiên. Cơ chế này tránh phát hai lần một gói âm thanh hoặc nối hai lần cùng mảnh phụ đề; không loại những câu diễn giả thực sự nhắc lại, các gói có ID khác, hoặc các mảnh có cùng thời gian. Nó không kiểm duyệt nội dung model tạo ra và không bảo đảm loại hết lời dịch tự thêm. API dịch hiện không có tham số prompt để buộc model không lặp; xem [giới hạn cấu hình của OpenAI](https://developers.openai.com/api/reference/resources/realtime/translation-client-events).
-
 Khi bấm **Dừng**, ứng dụng ngừng thu mic, gửi phần âm thanh còn lại rồi chờ cả phần dịch cuối và các phụ đề nguồn chưa hoàn tất. Trang nghe tiếp tục phát hết âm thanh đã nhận. Nút bắt đầu được mở lại sau khi hoàn tất đóng phiên hoặc kết thúc xử lý lỗi; phiên mới xóa phụ đề trực tiếp và bộ đệm âm thanh cũ, còn lịch sử vẫn được giữ. Xem [cách đóng phiên để nhận hết phần dịch cuối](https://developers.openai.com/api/docs/guides/realtime-translation#close-a-websocket-session).
 
 ## Bộ thuật ngữ hội nghị và phụ đề nguồn
@@ -65,7 +61,7 @@ Gói triển khai giữ đủ bốn file người dùng cung cấp cạnh `serve
 | `IFR2026_glossary_EN-VI.csv` | 475 mục: 407 thuật ngữ, 50 diễn giả, 18 đơn vị; giữ nguyên để đối chiếu. |
 | `IFR2026_Thuat_ngu_Anh-Viet.xlsx` | Bản tra cứu với các sheet thuật ngữ, diễn giả, đơn vị và từ khóa; không cần đọc XLSX trong lúc chạy. |
 
-Ứng dụng kiểm tra các trường nhận dạng đã cho phép từ hai JSON và giữ nguyên file gốc. Khi gửi cấu hình phụ đề nguồn, phần mô tả chủ đề, tên và địa điểm trong `prompt` được thay bằng yêu cầu chép nguyên văn lời nghe được: không thêm hoặc đoán từ, không hoàn thành câu chưa nói hết, không suy ra tên/số/chẩn đoán, không tự mở rộng viết tắt; giữ các lần lặp thực sự được nói. Từ khóa vẫn là gợi ý chính tả, không phải nội dung bắt buộc phải phát ra. Đây là yêu cầu cho model phụ đề nguồn, không phải ràng buộc âm thanh dịch. Nghĩa có `/`, tên có học hàm và ghi chú được giữ nguyên trong bộ đối chiếu; không tự chọn một nghĩa hoặc bổ sung học hàm vào lời thoại. Ví dụ `DM` có thể là viêm da cơ hoặc đái tháo đường nên không được tự thay theo viết tắt.
+Ứng dụng chỉ lấy các trường cấu hình nhận dạng đã cho phép từ hai JSON, kiểm tra từ khóa và ngôn ngữ, rồi bổ sung chỉ dẫn bám nội dung thực sự nghe được. Từ khóa là gợi ý chính tả, không phải nội dung bắt buộc phải phát ra. Nghĩa có `/`, tên có học hàm và ghi chú được giữ nguyên trong bộ đối chiếu; không tự chọn một nghĩa hoặc bổ sung học hàm vào lời thoại. Ví dụ `DM` có thể là viêm da cơ hoặc đái tháo đường nên không được tự thay theo viết tắt.
 
 Hai JSON đang đặt `delay: "medium"`. Tham số này chỉ điều chỉnh nhận dạng phụ đề nguồn, không làm dịch âm thanh chờ phụ đề. Có thể đổi `delay` trong các JSON rồi khởi động lại server; các giá trị hợp lệ là `minimal`, `low`, `medium`, `high`, `xhigh`. Độ trễ thực tế cần đo bằng âm thanh hội nghị. Việc nạp từ khóa chưa chứng minh chất lượng nhận dạng hoặc dịch chuyên ngành đã tốt hơn; cần đối chiếu bản ghi thật. Xem [cấu hình ngữ cảnh và độ trễ nhận dạng](https://developers.openai.com/api/docs/guides/realtime-transcription#add-transcription-context).
 
@@ -84,13 +80,10 @@ OPENAI_SOURCE_TRANSCRIPTION=gpt-realtime-whisper
 Trong `.env` có thể chỉnh lọc nhiễu:
 
 ```env
-# Mặc định: chọn bộ lọc API theo nguồn thu trên trang điều khiển.
-OPENAI_NOISE_REDUCTION=auto
-# Microphone / mic phòng: far_field; tín hiệu sạch từ mixer: tắt lọc API.
-# Có thể ghi đè: none (tắt), near_field (mic gần), far_field (mic phòng).
+# Nguồn sạch lấy trực tiếp từ mixer:
+OPENAI_NOISE_REDUCTION=none
+# Micro gần người nói: near_field; micro thu cả phòng: far_field.
 ```
-
-Với `auto`, chế độ **Microphone / mic phòng** bật chống vọng/lọc nhiễu trình duyệt và bộ lọc `far_field` của API ở cả hai kết nối; chế độ **Tín hiệu sạch từ mixer / audio interface** tắt các bộ lọc đó. Bộ lọc không cắt gói âm thanh hoặc khoảng lặng, không đợi ngừng nói rồi mới dịch. Nếu đang dùng `.env` cũ có `OPENAI_NOISE_REDUCTION=none`, đổi thành `auto` để dùng mặc định mới. Xem [loại bộ lọc theo microphone của OpenAI](https://developers.openai.com/api/reference/resources/realtime/translation-client-events).
 
 Khởi động lại server sau khi thay đổi `.env`. Cấu hình cũ `VAD_SILENCE_MS` không còn được sử dụng. API key chỉ được đọc trên server.
 

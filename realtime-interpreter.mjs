@@ -1,7 +1,6 @@
 import { EventEmitter } from 'node:events';
 import { randomUUID } from 'node:crypto';
 import WebSocket from 'ws';
-import { ServerEventGuard } from './server-event-guard.mjs';
 
 export const REALTIME_MODEL = 'gpt-realtime-translate';
 export const TRANSCRIPTION_MODEL = 'gpt-realtime-whisper';
@@ -40,7 +39,6 @@ export class RealtimeInterpreter extends EventEmitter {
     this.closeSent = false;
     this.pendingAudio = Buffer.alloc(0);
     this.finishTimer = null;
-    this.serverEvents = new ServerEventGuard();
     this.socket = createSocket(`wss://api.openai.com/v1/realtime/translations?model=${REALTIME_MODEL}`, {
       handshakeTimeout: 15000,
       headers: { Authorization: `Bearer ${apiKey}`, 'OpenAI-Safety-Identifier': 'conference-translation-operator' },
@@ -121,7 +119,7 @@ export class RealtimeInterpreter extends EventEmitter {
   }
 
   handleEvent(event) {
-    if (this.closed || !this.serverEvents.accept(event)) return;
+    if (this.closed) return;
     if (event.type === 'session.updated') {
       const language = event.session?.audio?.output?.language;
       if (!isTranslationTarget(language)) { this.fail('OpenAI chưa xác nhận ngôn ngữ bản dịch.'); return; }
@@ -146,7 +144,7 @@ export class RealtimeInterpreter extends EventEmitter {
       if (event.type === 'session.input_transcript.delta' && !this.sourceTranscription) return;
       this.emit(event.type === 'session.input_transcript.delta' ? 'source_delta' : 'target_delta', {
         delta: event.delta, itemId: `${this.streamId}:${this.segment}`,
-        targetLanguage: this.activeTargetLanguage, elapsedMs: event.elapsed_ms, eventId: event.event_id,
+        targetLanguage: this.activeTargetLanguage, elapsedMs: event.elapsed_ms,
       });
     } else if (event.type === 'session.closed') {
       this.markClosed(this.closeSent);
@@ -170,7 +168,6 @@ export class RealtimeInterpreter extends EventEmitter {
     this.closed = true;
     this.ready = false;
     this.pendingAudio = Buffer.alloc(0);
-    this.serverEvents.clear();
     clearTimeout(this.finishTimer);
     this.emit('closed', { drained });
   }

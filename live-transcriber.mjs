@@ -2,7 +2,6 @@ import { EventEmitter } from 'node:events';
 import { randomUUID } from 'node:crypto';
 import WebSocket from 'ws';
 import { transcriptionProfile } from './conference-glossary.mjs';
-import { ServerEventGuard } from './server-event-guard.mjs';
 
 export const LIVE_TRANSCRIPTION_MODEL = 'gpt-live-transcribe';
 const SAMPLE_RATE = 24000;
@@ -58,7 +57,6 @@ export class LiveTranscriber extends EventEmitter {
     this.pendingItems = new Set();
     this.items = new Map();
     this.finishTimer = null;
-    this.serverEvents = new ServerEventGuard();
     this.socket = createSocket('wss://api.openai.com/v1/realtime?intent=transcription', {
       handshakeTimeout: 15000,
       headers: { Authorization: `Bearer ${apiKey}`, 'OpenAI-Safety-Identifier': 'conference-source-captions' },
@@ -177,7 +175,7 @@ export class LiveTranscriber extends EventEmitter {
   }
 
   handleEvent(event) {
-    if (this.closed || !this.serverEvents.accept(event)) return;
+    if (this.closed) return;
     if (event.type === 'session.updated' || event.type === 'transcription_session.updated') {
       const model = event.session?.audio?.input?.transcription?.model || event.session?.input_audio_transcription?.model;
       if (model && model !== LIVE_TRANSCRIPTION_MODEL) { this.fail('OpenAI chưa xác nhận model nhận dạng phụ đề nguồn.'); return; }
@@ -200,7 +198,7 @@ export class LiveTranscriber extends EventEmitter {
     } else if (event.type === 'conversation.item.input_audio_transcription.delta') {
       const item = this.sourceItem(event.item_id);
       if (!item || item.completed || typeof event.delta !== 'string') return;
-      this.emit('source_delta', { itemId: item.itemId, delta: event.delta, targetLanguage: item.targetLanguage, eventId: event.event_id });
+      this.emit('source_delta', { itemId: item.itemId, delta: event.delta, targetLanguage: item.targetLanguage });
     } else if (event.type === 'conversation.item.input_audio_transcription.completed') {
       const item = this.sourceItem(event.item_id);
       if (!item || item.completed) return;
@@ -208,7 +206,7 @@ export class LiveTranscriber extends EventEmitter {
       this.pendingItems.delete(event.item_id);
       // The final transcript is authoritative; don't append it to partial text,
       // replace words with glossary translations, or infer text from silence.
-      this.emit('source_transcript', { itemId: item.itemId, text: typeof event.transcript === 'string' ? event.transcript : '', targetLanguage: item.targetLanguage, eventId: event.event_id });
+      this.emit('source_transcript', { itemId: item.itemId, text: typeof event.transcript === 'string' ? event.transcript : '', targetLanguage: item.targetLanguage });
       this.maybeFinish();
     } else if (event.type === 'conversation.item.input_audio_transcription.failed') {
       const item = this.sourceItem(event.item_id);
@@ -253,7 +251,6 @@ export class LiveTranscriber extends EventEmitter {
     this.commitRequests.length = 0;
     this.configurationTargets.length = 0;
     this.pendingItems.clear();
-    this.serverEvents.clear();
     clearTimeout(this.finishTimer);
     this.emit('closed', { drained });
   }

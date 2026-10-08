@@ -24,7 +24,6 @@ Giữ `OPENAI_API_KEY` thật trong `.env` và `PORT=3000`, hoặc đổi PORT n
 
 ```env
 OPENAI_SOURCE_TRANSCRIPTION=gpt-live-transcribe
-OPENAI_NOISE_REDUCTION=auto
 ```
 
 API key cần có quyền dùng `gpt-realtime-translate` và `gpt-live-transcribe`. Nếu project chưa dùng được Live Transcribe, chọn `OPENAI_SOURCE_TRANSCRIPTION=gpt-realtime-whisper`; lựa chọn này không dùng từ khóa chuyên ngành. Khởi động lại server sau khi đổi cấu hình.
@@ -36,7 +35,7 @@ Giữ đủ các file sau cạnh `server.mjs`, với đúng tên:
 - `IFR2026_glossary_EN-VI.csv`: 475 mục Anh–Việt để đối chiếu.
 - `IFR2026_Thuat_ngu_Anh-Viet.xlsx`: bản tra cứu thuật ngữ, diễn giả và đơn vị.
 
-Hai JSON dùng `delay: "medium"` cho phụ đề nguồn; không đặt độ trễ cho âm thanh dịch. Ứng dụng giữ nguyên file gốc, dùng các từ khóa nhưng thay phần mô tả chủ đề/tên/địa điểm trong prompt khi gửi API bằng yêu cầu chép nguyên văn lời nghe được, không đoán hoặc hoàn thành nội dung chưa nói. Yêu cầu này chỉ áp dụng cho phụ đề nguồn. CSV và XLSX không được dùng để tự tìm/thay từ trên phụ đề. Bộ thuật ngữ không được nạp vào `gpt-realtime-translate` vì model hiện không hỗ trợ prompt/glossary tùy chỉnh. Xem [cấu hình Realtime transcription](https://developers.openai.com/api/docs/guides/realtime-transcription) và [giới hạn thuật ngữ của Realtime Translation](https://developers.openai.com/cookbook/examples/voice_solutions/realtime_translation_guide#test-terminology-and-names-directly).
+Hai JSON dùng `delay: "medium"` cho phụ đề nguồn; không đặt độ trễ cho âm thanh dịch. CSV và XLSX không được dùng để tự tìm/thay từ trên phụ đề. Bộ thuật ngữ không được nạp vào `gpt-realtime-translate` vì model hiện không hỗ trợ prompt/glossary tùy chỉnh. Xem [cấu hình Realtime transcription](https://developers.openai.com/api/docs/guides/realtime-transcription) và [giới hạn thuật ngữ của Realtime Translation](https://developers.openai.com/cookbook/examples/voice_solutions/realtime_translation_guide#test-terminology-and-names-directly).
 
 ## 2. Chạy ứng dụng
 
@@ -72,8 +71,6 @@ Muốn chạy liên tục sau khi đóng Terminal hoặc khi server khởi độ
 ## 4. Kiểm tra trước khi dùng
 
 Mở trang điều khiển, chọn thiết bị thu từ mixer và chiều Anh → Việt hoặc Việt → Anh rồi bắt đầu phiên dịch. Ứng dụng giữ ngôn ngữ đầu ra đã chọn, không tự đổi chiều khi người nói đổi ngôn ngữ. Mở trang Listen, bấm Bắt đầu nghe, kiểm tra cả âm thanh và phụ đề. Âm thanh dịch dùng `gpt-realtime-translate`; phụ đề nguồn mặc định dùng kết nối `gpt-live-transcribe` riêng với từ khóa tương ứng. Dịch âm thanh không chờ phụ đề.
-
-Nếu thu bằng mic máy tính hoặc mic phòng, dùng chế độ **Microphone / mic phòng** và đeo tai nghe khi thử. Với `OPENAI_NOISE_REDUCTION=auto`, chế độ này bật chống vọng/lọc nhiễu trong trình duyệt và bộ lọc `far_field` của API cho cả phiên dịch lẫn phụ đề nguồn. Nếu thu từ mixer/audio interface, chọn chế độ **Tín hiệu sạch từ mixer / audio interface** để tắt các bộ lọc; đường thu chỉ lấy micro diễn giả, tách khỏi đường phát bản dịch. Nếu `.env` cũ đặt `OPENAI_NOISE_REDUCTION=none`, đổi thành `auto` rồi khởi động lại; `none`, `near_field`, `far_field` vẫn được ưu tiên nếu đặt rõ trong `.env`. Xem [cấu hình lọc microphone của OpenAI](https://developers.openai.com/api/reference/resources/realtime/translation-client-events). Sự kiện API nhận lại cùng mã được chặn trước khi phát âm thanh hoặc ghép phụ đề. Các biện pháp này chưa bảo đảm model không lặp hoặc tự thêm nội dung; cần đối chiếu đoạn ghi âm xảy ra lỗi với bản dịch.
 
 Khi Live Transcribe hoạt động, Whisper trong phiên dịch được tắt. Nếu Live gặp lỗi, ứng dụng báo trạng thái và chuyển phụ đề nguồn sang `gpt-realtime-whisper` trong phiên dịch đang chạy; không mở lại hoặc ngắt âm thanh dịch. Phụ đề nguồn cuối thay phụ đề tạm của đúng lượt nhận dạng. Hai cột chữ không được căn chỉnh từng từ hoặc từng câu.
 

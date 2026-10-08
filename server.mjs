@@ -6,14 +6,12 @@ import WebSocket, { WebSocketServer } from 'ws';
 import { RealtimeInterpreter, REALTIME_MODEL, TRANSCRIPTION_MODEL, isTranslationTarget } from './realtime-interpreter.mjs';
 import { LiveTranscriber, LIVE_TRANSCRIPTION_MODEL } from './live-transcriber.mjs';
 import { loadConferenceGlossary } from './conference-glossary.mjs';
-import { isCaptureMode, noiseReductionForCapture } from './public/capture-options.js';
 
 const PORT = Number(process.env.PORT || 3000);
 const DEFAULT_TARGET_LANGUAGE = 'vi';
 let targetLanguage = DEFAULT_TARGET_LANGUAGE;
-const noiseReductionSetting = process.env.OPENAI_NOISE_REDUCTION || 'auto';
-let inputMode = 'microphone';
-let noiseReduction = noiseReductionForCapture(inputMode, noiseReductionSetting);
+const noiseReductionType = process.env.OPENAI_NOISE_REDUCTION || 'none';
+const noiseReduction = ['near_field', 'far_field'].includes(noiseReductionType) ? { type: noiseReductionType } : null;
 const OPENAI_API_KEY = (process.env.OPENAI_API_KEY || '').trim();
 const PUBLIC_BASE_URL = (process.env.PUBLIC_BASE_URL || '').replace(/\/$/, '');
 const requestedTranscriptionModel = process.env.OPENAI_SOURCE_TRANSCRIPTION || LIVE_TRANSCRIPTION_MODEL;
@@ -38,7 +36,7 @@ app.use(express.static('public'));
 app.get('/', (_req, res) => res.redirect('/operator.html'));
 app.get('/api/config', (req, res) => {
   const base = PUBLIC_BASE_URL || `${req.protocol}://${req.get('host')}`;
-  res.json({ targetLanguage, inputMode, noiseReduction, model: REALTIME_MODEL, transcriptionModel, glossary: glossary?.metadata || null, sessionActive: sessionsActive(), listenerUrl: `${base}/listen.html`, configurationError });
+  res.json({ targetLanguage, model: REALTIME_MODEL, transcriptionModel, glossary: glossary?.metadata || null, sessionActive: sessionsActive(), listenerUrl: `${base}/listen.html`, configurationError });
 });
 app.get('/api/qr.png', async (req, res) => {
   try {
@@ -86,8 +84,6 @@ function currentStatus(message = '') {
     aiReady,
     listeners: listenerWss.clients.size,
     targetLanguage,
-    inputMode,
-    noiseReduction,
     draining: sessionsDraining(),
     captionWarning,
     error: lastError,
@@ -232,15 +228,9 @@ function closeTranslationSession() {
 }
 
 sourceWss.on('connection', (ws, req) => {
-  const params = new URL(req.url, 'http://localhost').searchParams;
-  const requestedLanguage = params.get('targetLanguage') ?? DEFAULT_TARGET_LANGUAGE;
-  const requestedInputMode = params.get('inputMode') ?? 'microphone';
+  const requestedLanguage = new URL(req.url, 'http://localhost').searchParams.get('targetLanguage') ?? DEFAULT_TARGET_LANGUAGE;
   if (!isTranslationTarget(requestedLanguage)) {
     ws.close(1008, 'Translation target must be vi or en.');
-    return;
-  }
-  if (!isCaptureMode(requestedInputMode)) {
-    ws.close(1008, 'Audio input mode must be microphone or mixer.');
     return;
   }
   if (sessionsDraining()) {
@@ -253,8 +243,6 @@ sourceWss.on('connection', (ws, req) => {
   sourceClient = ws;
   targetLanguage = requestedLanguage;
   closeTranslationSession();
-  inputMode = requestedInputMode;
-  noiseReduction = noiseReductionForCapture(inputMode, noiseReductionSetting);
   sourceFinishing = false;
   transcriptionModel = defaultTranscriptionModel;
   captionWarning = glossaryWarning;

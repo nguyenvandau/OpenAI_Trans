@@ -37,14 +37,7 @@
           <select id="device" aria-describedby="deviceHint"><option value="">Đang tải thiết bị…</option></select>
           <button id="refresh" class="secondary" type="button">Làm mới thiết bị</button>
         </div>
-        <label class="field-label" for="inputMode">Cách thu âm</label>
-        <div class="device-controls">
-          <select id="inputMode" aria-describedby="deviceHint">
-            <option value="microphone" selected>Microphone / mic phòng</option>
-            <option value="mixer">Tín hiệu sạch từ mixer / audio interface</option>
-          </select>
-        </div>
-        <p class="hint" id="deviceHint">Dùng tai nghe khi thu micro; tín hiệu từ mixer chỉ lấy micro diễn giả, tách khỏi đường phát bản dịch.</p>
+        <p class="hint" id="deviceHint">Chọn USB Audio Interface nhận tín hiệu AUX/REC OUT từ mixer để có âm thanh rõ và ổn định.</p>
         <div class="signal-row"><span>Mức tín hiệu</span><div class="meter" aria-hidden="true"><div id="meterFill"></div></div></div>
       </section>
       <section class="card session-card" aria-labelledby="sessionTitle">
@@ -83,6 +76,6 @@
     </div>
   </main>
   <footer class="site-footer">Viện Cơ Xương Khớp Bạch Mai · Phiên dịch hội nghị</footer>
-  <script type="module" src="/operator.js"></script>
+  <script src="/operator.js"></script>
 </body>
 </html>

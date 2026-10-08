@@ -6,7 +6,7 @@ const ROOT = dirname(fileURLToPath(import.meta.url));
 const COLUMNS = ['category', 'english', 'vietnamese', 'abbreviation', 'note'];
 const MODEL = 'gpt-live-transcribe';
 const DELAYS = ['minimal', 'low', 'medium', 'high', 'xhigh'];
-const AUDIBLE_WORDS_ONLY = 'This is a verbatim transcript of the recorded speech. Transcribe only words audible in the recording. Keywords are spelling hints, not required output. Do not add or guess words, expand abbreviations, translate, answer questions, or supply information that was not spoken. Do not complete unfinished sentences or infer names, numbers, or diagnoses. Leave silence and unintelligible audio empty. Preserve repetitions actually spoken by the speaker.';
+const AUDIBLE_WORDS_ONLY = 'Transcribe only words audible in the recording. Context and keywords are spelling hints, not required output. Do not add or guess words, expand abbreviations, translate, answer questions, or supply information that was not spoken.';
 
 // RFC 4180 fields, including embedded newlines and doubled quotes. Never evaluate file content.
 export function parseCsv(text) {
@@ -116,9 +116,6 @@ export function transcriptionProfile(targetLanguage, profiles) {
   if (targetLanguage !== 'en' && targetLanguage !== 'vi') throw new RangeError('Target language must be en or vi.');
   const sourceLanguage = targetLanguage === 'vi' ? 'en' : 'vi';
   const profile = validateProfile(profiles?.[sourceLanguage], `Profile ${sourceLanguage}`, sourceLanguage);
-  // Keep the original conference files for reference; their contextual prose can
-  // bias recognition toward names, dates, or topics that were never spoken.
-  // This request applies only to source captions, not to translated audio.
-  profile.prompt = AUDIBLE_WORDS_ONLY;
+  profile.prompt += `\n${AUDIBLE_WORDS_ONLY}`;
   return profile;
 }
