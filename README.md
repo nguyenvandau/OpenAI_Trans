@@ -52,18 +52,25 @@ Khi bấm **Dừng**, ứng dụng ngừng thu mic, gửi phần âm thanh còn 
 
 ## Bộ thuật ngữ hội nghị và phụ đề nguồn
 
-Gói triển khai giữ đủ bốn file người dùng cung cấp cạnh `server.mjs`:
+Gói triển khai giữ nguyên 16 file người dùng cung cấp: bộ gốc và ba bản `_v2`, `_v3`, `_v4`, đều nằm cạnh `server.mjs`. Các bản mới mở rộng tích lũy; ứng dụng hợp nhất và loại các mục/từ khóa trùng khi khởi động:
 
 | File | Cách dùng |
 | --- | --- |
-| `gpt-live-transcribe_EN_session.json` | 166 từ khóa nguồn tiếng Anh, dùng khi chọn Anh → Việt. |
-| `gpt-live-transcribe_VI_session.json` | 133 từ khóa nguồn tiếng Việt, gợi ý cả `vi` và `en` cho bài nói có chen tiếng Anh, dùng khi chọn Việt → Anh. |
-| `IFR2026_glossary_EN-VI.csv` | 475 mục: 407 thuật ngữ, 50 diễn giả, 18 đơn vị; giữ nguyên để đối chiếu. |
-| `IFR2026_Thuat_ngu_Anh-Viet.xlsx` | Bản tra cứu với các sheet thuật ngữ, diễn giả, đơn vị và từ khóa; không cần đọc XLSX trong lúc chạy. |
+| `gpt-live-transcribe_EN_session*.json` | Hợp nhất 337 từ khóa EN trong bốn JSON; bổ sung ba tên đơn vị đầy đủ từ XLSX, tổng **340** từ khóa cho Anh → Việt. |
+| `gpt-live-transcribe_VI_session*.json` | Hợp nhất 287 từ khóa trong bốn JSON; bổ sung ba tên đơn vị đầy đủ từ XLSX, tổng **290** từ khóa cho Việt → Anh; giữ gợi ý ngôn ngữ `vi` và `en`. |
+| `IFR2026_glossary_EN-VI*.csv` | Bộ gốc 475 mục; v2 671, v3 792, v4 955. Giữ trường `source`, `pair_type` của bản mới và các nghĩa/ghi chú khác nhau. |
+| `IFR2026_Thuat_ngu_Anh-Viet*.xlsx` | Bốn bản tra cứu với các sheet thuật ngữ, diễn giả, đơn vị và từ khóa; không đọc XLSX trong lúc thu/dịch. |
+| `IFR2026_glossary_EN-VI_supplement.csv` | Bốn cặp tên đơn vị chỉ có trong sheet `Don vi` của XLSX v2–v4; có địa chỉ ô để đối chiếu. |
 
-Ứng dụng chỉ lấy các trường cấu hình nhận dạng đã cho phép từ hai JSON, kiểm tra từ khóa và ngôn ngữ, rồi bổ sung chỉ dẫn bám nội dung thực sự nghe được. Từ khóa là gợi ý chính tả, không phải nội dung bắt buộc phải phát ra. Nghĩa có `/`, tên có học hàm và ghi chú được giữ nguyên trong bộ đối chiếu; không tự chọn một nghĩa hoặc bổ sung học hàm vào lời thoại. Ví dụ `DM` có thể là viêm da cơ hoặc đái tháo đường nên không được tự thay theo viết tắt.
+Sau hợp nhất có **959 mục đối chiếu: 865 thuật ngữ, 72 diễn giả, 22 đơn vị**, tăng 484 mục so với bộ gốc. Các dòng lặp qua nhiều phiên bản chỉ được tính một lần; ghi chú hoặc nguồn khác nhau được giữ. File gốc không bị ghi đè. Tự nhận các nhóm CSV và hai JSON cùng hậu tố `_vN`; khi bổ sung một nhóm mới, chép đủ các file rồi khởi động lại server.
 
-Hai JSON đang đặt `delay: "medium"`. Tham số này chỉ điều chỉnh nhận dạng phụ đề nguồn, không làm dịch âm thanh chờ phụ đề. Có thể đổi `delay` trong các JSON rồi khởi động lại server; các giá trị hợp lệ là `minimal`, `low`, `medium`, `high`, `xhigh`. Độ trễ thực tế cần đo bằng âm thanh hội nghị. Việc nạp từ khóa chưa chứng minh chất lượng nhận dạng hoặc dịch chuyên ngành đã tốt hơn; cần đối chiếu bản ghi thật. Xem [cấu hình ngữ cảnh và độ trễ nhận dạng](https://developers.openai.com/api/docs/guides/realtime-transcription#add-transcription-context).
+Ứng dụng chỉ lấy các trường cấu hình nhận dạng đã cho phép từ JSON, kiểm tra từ khóa và ngôn ngữ, rồi bổ sung chỉ dẫn bám nội dung thực sự nghe được như bản đang dùng. Giữ model, prompt, ngôn ngữ và delay của hai JSON gốc; các bản bổ sung chỉ mở rộng từ khóa, không nối các prompt. Từ khóa là gợi ý chính tả, không phải nội dung bắt buộc phải phát ra. Nghĩa có `/`, tên có học hàm và ghi chú được giữ nguyên trong bộ đối chiếu; không tự chọn một nghĩa hoặc bổ sung học hàm vào lời thoại. Ví dụ `DM` có thể là viêm da cơ hoặc đái tháo đường nên không được tự thay theo viết tắt.
+
+Các CSV/XLSX/JSON được lưu trên server web. Khi mở phiên phụ đề nguồn hoặc đổi chiều dịch, server gửi cấu hình gọn gồm prompt và từ khóa của ngôn ngữ nguồn sang OpenAI qua `session.update`; không tải toàn bộ CSV/XLSX, không tạo kho thuật ngữ hay huấn luyện model riêng. Âm thanh dịch `gpt-realtime-translate` không nhận bảng thuật ngữ hoặc kết quả phụ đề.
+
+Các file được đọc/hợp nhất một lần khi server khởi động. Mỗi phiên chỉ gửi danh sách từ khóa đã loại trùng, không gửi lại ở mỗi gói mic và không mở thêm phiên API theo số file. Thêm từ khóa tăng kích thước cấu hình và có thể ảnh hưởng thời gian khởi tạo/nhận dạng; chưa đo được mức tăng độ trễ trên hội nghị thực tế. Luồng dịch âm thanh không đợi phụ đề hoặc xử lý thuật ngữ. OpenAI không công bố mức chậm theo số từ khóa; cần đo bằng âm thanh thật. Xem [ngữ cảnh nhận dạng](https://developers.openai.com/api/docs/guides/realtime-transcription#add-transcription-context) và [đánh đổi độ trễ/chất lượng](https://developers.openai.com/api/docs/guides/realtime-transcription#tune-latency-and-accuracy).
+
+Hai JSON gốc đang đặt `delay: "medium"`; các bản mới cũng cùng giá trị. Tham số này chỉ điều chỉnh nhận dạng phụ đề nguồn, không làm dịch âm thanh chờ phụ đề. Có thể đổi `delay` trong hai JSON gốc rồi khởi động lại server; các giá trị hợp lệ là `minimal`, `low`, `medium`, `high`, `xhigh`. Độ trễ thực tế cần đo bằng âm thanh hội nghị. Việc nạp từ khóa chưa chứng minh chất lượng nhận dạng hoặc dịch chuyên ngành đã tốt hơn; cần đối chiếu bản ghi thật. Xem [cấu hình ngữ cảnh và độ trễ nhận dạng](https://developers.openai.com/api/docs/guides/realtime-transcription#add-transcription-context).
 
 Trong `.env`, lựa chọn mặc định là:
 

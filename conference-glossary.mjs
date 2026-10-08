@@ -1,9 +1,11 @@
-import { readFileSync } from 'node:fs';
+import { existsSync, readFileSync, readdirSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const ROOT = dirname(fileURLToPath(import.meta.url));
 const COLUMNS = ['category', 'english', 'vietnamese', 'abbreviation', 'note'];
+const EXTRA_COLUMNS = ['source', 'pair_type'];
+const SUPPLEMENT_FILE = 'IFR2026_glossary_EN-VI_supplement.csv';
 const MODEL = 'gpt-live-transcribe';
 const DELAYS = ['minimal', 'low', 'medium', 'high', 'xhigh'];
 const AUDIBLE_WORDS_ONLY = 'Transcribe only words audible in the recording. Context and keywords are spelling hints, not required output. Do not add or guess words, expand abbreviations, translate, answer questions, or supply information that was not spoken.';
@@ -67,16 +69,16 @@ function validateProfile(profile, label, expectedLanguage) {
   };
 }
 
-export function loadConferenceGlossary(directory = ROOT) {
-  const csvFile = 'IFR2026_glossary_EN-VI.csv';
+function readEntries(directory, csvFile) {
   const rows = parseCsv(readFileSync(join(directory, csvFile), 'utf8'));
   const header = rows.shift();
-  if (!header || header.length !== COLUMNS.length || new Set(header).size !== COLUMNS.length
-    || COLUMNS.some(column => !header.includes(column))) {
-    throw new Error(`${csvFile}: expected the five columns ${COLUMNS.join(',')}.`);
+  if (!header || new Set(header).size !== header.length
+    || COLUMNS.some(column => !header.includes(column))
+    || header.some(column => ![...COLUMNS, ...EXTRA_COLUMNS].includes(column))) {
+    throw new Error(`${csvFile}: expected the five columns ${COLUMNS.join(',')}; optional columns: ${EXTRA_COLUMNS.join(',')}.`);
   }
   const entries = rows.map((row, index) => {
-    if (row.length !== header.length) throw new Error(`${csvFile}: record ${index + 2} must have five fields.`);
+    if (row.length !== header.length) throw new Error(`${csvFile}: record ${index + 2} must have ${header.length} fields.`);
     const entry = Object.fromEntries(header.map((column, i) => [column, row[i]]));
     if (!entry.english.trim() || !entry.vietnamese.trim()) {
       throw new Error(`${csvFile}: record ${index + 2} has an empty English or Vietnamese term.`);
@@ -84,14 +86,83 @@ export function loadConferenceGlossary(directory = ROOT) {
     return entry;
   });
   if (!entries.length) throw new Error(`${csvFile}: no glossary entries.`);
+  return entries;
+}
+
+function readProfile(directory, language, suffix) {
+  const file = `gpt-live-transcribe_${language.toUpperCase()}_session${suffix}.json`;
+  let data;
+  try { data = JSON.parse(readFileSync(join(directory, file), 'utf8').replace(/^\uFEFF/, '')); }
+  catch (error) { throw new Error(`${file}: ${error.message}`, { cause: error }); }
+  return validateProfile(data?.session?.audio?.input?.transcription, file, language);
+}
+
+const normalized = value => value.normalize('NFC').trim();
+function appendUniqueKeywords(profile, keywords) {
+  const seen = new Set(profile.keywords.map(keyword => normalized(keyword).toLowerCase()));
+  for (const keyword of keywords) {
+    const key = normalized(keyword).toLowerCase();
+    if (!seen.has(key)) { seen.add(key); profile.keywords.push(keyword); }
+  }
+}
+
+export function loadConferenceGlossary(directory = ROOT) {
+  const versions = readdirSync(directory, { withFileTypes: true })
+    .filter(file => file.isFile())
+    .map(file => /^IFR2026_glossary_EN-VI(_v([1-9]\d*))\.csv$/u.exec(file.name))
+    .filter(Boolean)
+    .sort((left, right) => Number(left[2]) - Number(right[2]));
+  const suffixes = ['', ...versions.map(match => match[1])];
+  const entries = [], byTerm = new Map(), sourceFiles = [];
+  let duplicateEntries = 0;
+  function mergeEntries(file, rows = readEntries(directory, file)) {
+    sourceFiles.push(file);
+    for (const entry of rows) {
+      // Notes and alternative meanings are part of a row's identity. Additional
+      // source metadata enriches a matching older row instead of duplicating it.
+      const key = JSON.stringify(COLUMNS.map(column => normalized(entry[column])));
+      const candidates = byTerm.get(key) || [];
+      const existing = candidates.find(candidate => EXTRA_COLUMNS.every(column =>
+        !normalized(candidate[column] || '') || !normalized(entry[column] || '')
+        || normalized(candidate[column]) === normalized(entry[column]),
+      ));
+      if (existing) {
+        for (const column of EXTRA_COLUMNS) if (!normalized(existing[column] || '') && entry[column]) existing[column] = entry[column];
+        duplicateEntries++;
+      } else {
+        candidates.push(entry);
+        byTerm.set(key, candidates);
+        entries.push(entry);
+      }
+    }
+  }
 
   const profiles = {};
+  for (const suffix of suffixes) {
+    mergeEntries(`IFR2026_glossary_EN-VI${suffix}.csv`);
+    for (const language of ['en', 'vi']) {
+      const profile = readProfile(directory, language, suffix);
+      if (!profiles[language]) {
+        profiles[language] = { ...profile, keywords: [] };
+      }
+      // Keep the established model, context, language hints and latency setting.
+      // New dictionaries only expand spelling hints; never concatenate prompts.
+      appendUniqueKeywords(profiles[language], profile.keywords);
+    }
+  }
+  let supplementEntries = 0;
+  if (existsSync(join(directory, SUPPLEMENT_FILE))) {
+    const supplements = readEntries(directory, SUPPLEMENT_FILE);
+    const before = entries.length;
+    mergeEntries(SUPPLEMENT_FILE, supplements);
+    supplementEntries = entries.length - before;
+    // These organization names exist only in the supplied XLSX sheets.
+    // Include their literal names as hints without loading XLSX during capture.
+    appendUniqueKeywords(profiles.en, supplements.map(entry => entry.english));
+    appendUniqueKeywords(profiles.vi, supplements.map(entry => entry.vietnamese));
+  }
   for (const language of ['en', 'vi']) {
-    const file = `gpt-live-transcribe_${language.toUpperCase()}_session.json`;
-    let data;
-    try { data = JSON.parse(readFileSync(join(directory, file), 'utf8').replace(/^\uFEFF/, '')); }
-    catch (error) { throw new Error(`${file}: ${error.message}`, { cause: error }); }
-    profiles[language] = validateProfile(data?.session?.audio?.input?.transcription, file, language);
+    profiles[language] = validateProfile(profiles[language], `Merged profile ${language}`, language);
   }
   const abbreviations = new Map();
   for (const { abbreviation, english, vietnamese } of entries) {
@@ -105,6 +176,7 @@ export function loadConferenceGlossary(directory = ROOT) {
     entries, profiles,
     metadata: {
       entries: entries.length, keywordsEn: profiles.en.keywords.length, keywordsVi: profiles.vi.keywords.length,
+      bundles: suffixes.length, sourceFiles, duplicateEntries, supplementEntries,
       ambiguousAbbreviations: [...abbreviations.values()].filter(group => new Set(
         group.meanings.map(meaning => meaning.english.toLowerCase()),
       ).size > 1),

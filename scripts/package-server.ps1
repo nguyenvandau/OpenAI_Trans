@@ -10,8 +10,13 @@ $packageRoot = Join-Path $stagePath 'AI-Cabin'
 
 try {
   New-Item -ItemType Directory -Path $packageRoot | Out-Null
-  foreach ($name in @('server.mjs', 'realtime-interpreter.mjs', 'live-transcriber.mjs', 'conference-glossary.mjs', 'IFR2026_glossary_EN-VI.csv', 'IFR2026_Thuat_ngu_Anh-Viet.xlsx', 'gpt-live-transcribe_EN_session.json', 'gpt-live-transcribe_VI_session.json', 'package.json', 'package-lock.json', 'README.md', 'SERVER-SETUP.md', 'PRODUCTION_ARCHITECTURE.md', 'start-server.cmd', 'start-server.sh', '.env.example')) {
+  foreach ($name in @('server.mjs', 'realtime-interpreter.mjs', 'live-transcriber.mjs', 'conference-glossary.mjs', 'package.json', 'package-lock.json', 'README.md', 'SERVER-SETUP.md', 'PRODUCTION_ARCHITECTURE.md', 'start-server.cmd', 'start-server.sh', '.env.example')) {
     Copy-Item -LiteralPath (Join-Path $workspaceRoot $name) -Destination $packageRoot
+  }
+  # Preserve every original dictionary version, plus the XLSX-only reference pairs.
+  $glossaryPattern = '^(IFR2026_glossary_EN-VI(_v[1-9][0-9]*|_supplement)?\.csv|IFR2026_Thuat_ngu_Anh-Viet(_v[1-9][0-9]*)?\.xlsx|gpt-live-transcribe_(EN|VI)_session(_v[1-9][0-9]*)?\.json)$'
+  foreach ($file in Get-ChildItem -LiteralPath $workspaceRoot -File | Where-Object { $_.Name -match $glossaryPattern }) {
+    Copy-Item -LiteralPath $file.FullName -Destination $packageRoot
   }
   # The server must not inherit this machine's LAN address in a fresh deployment.
   $envTemplate = [System.IO.File]::ReadAllText((Join-Path $packageRoot '.env.example'))

@@ -6,7 +6,7 @@
 2. USB audio interface đưa âm thanh vào máy Operator. AudioWorklet thu PCM16 mono 24 kHz theo khung 200 ms và gửi tới server liên tục, gồm cả khoảng lặng.
 3. Server gửi cùng âm thanh tới hai kết nối độc lập: phiên dịch `/v1/realtime/translations?model=gpt-realtime-translate` và phiên phụ đề nguồn `/v1/realtime?intent=transcription` dùng `gpt-live-transcribe`.
 4. Phiên dịch trả âm thanh và chữ dịch theo ngôn ngữ đầu ra đã chọn (`vi` hoặc `en`). Không chờ VAD, ngắt câu hoặc nhận dạng hoàn chỉnh mới dịch. Người điều khiển đổi chiều khi diễn giả đổi ngôn ngữ; ứng dụng không tự đổi chiều.
-5. Phiên phụ đề nguồn nhận ngữ cảnh và từ khóa từ hai JSON hội nghị: 166 từ khóa EN cho Anh → Việt, 133 từ khóa VI cho Việt → Anh; profile VI gợi ý cả `vi` và `en`. `delay: "medium"` điều chỉnh phụ đề, không điều chỉnh âm thanh dịch.
+5. Phiên phụ đề nguồn dùng danh sách đã hợp nhất từ JSON gốc/v2/v3/v4 và ba tên đơn vị đầy đủ còn thiếu trong từng ngôn ngữ: 340 từ khóa EN cho Anh → Việt, 290 từ khóa VI cho Việt → Anh; profile VI gợi ý cả `vi` và `en`. Giữ ngữ cảnh và `delay: "medium"` của JSON gốc; delay điều chỉnh phụ đề, không điều chỉnh âm thanh dịch.
 6. Khi Live hoạt động, tắt phụ đề Whisper trong phiên dịch để tránh nguồn chữ trùng. Nếu Live lỗi, bật lại `gpt-realtime-whisper` trong cùng phiên dịch và thông báo trạng thái. Âm thanh dịch không chờ phụ đề và không phải khởi tạo lại kết nối.
 7. Khi dừng, kết thúc cả hai luồng: gửi `session.close` cho phiên dịch và nhận hết phần đuôi trước `session.closed`; commit phần âm thanh nhận dạng còn lại rồi nhận bản phụ đề cuối. Kết quả nguồn cuối thay bản tạm theo đúng `item_id`, không nối thêm một bản trùng.
 8. MVP phát PCM tới người nghe qua WebSocket. Với hệ thống đông người, thêm Media Gateway để mã hóa Opus 24–48 kbps rồi phát một track bản dịch qua WebRTC SFU. Phụ đề có thể đi qua data channel hoặc WebSocket.
@@ -15,7 +15,9 @@ Cả phòng dùng chung một phiên dịch và một phiên nhận dạng ngu�
 
 ## Bộ thuật ngữ và giới hạn sử dụng
 
-Gói ZIP giữ đủ `IFR2026_glossary_EN-VI.csv`, `IFR2026_Thuat_ngu_Anh-Viet.xlsx`, `gpt-live-transcribe_EN_session.json` và `gpt-live-transcribe_VI_session.json`. CSV gồm 475 mục: 407 thuật ngữ, 50 diễn giả và 18 đơn vị. XLSX là bản tra cứu; không thêm bộ đọc XLSX vào đường xử lý trực tiếp.
+Gói ZIP giữ nguyên 16 file thuộc bốn nhóm gốc/v2/v3/v4: CSV, XLSX và hai JSON nhận dạng mỗi nhóm. Các bộ CSV mở rộng tích lũy 475 → 671 → 792 → 955 mục; hợp nhất theo năm trường nội dung, bổ sung metadata `source`, `pair_type`, giữ ghi chú/nguồn khác nhau. `IFR2026_glossary_EN-VI_supplement.csv` chứa bốn cặp tên đơn vị chỉ có trong sheet `Don vi` của XLSX v2–v4, có địa chỉ ô để đối chiếu. Tổng **959 mục: 865 thuật ngữ, 72 diễn giả, 22 đơn vị**. XLSX và 35 ghi chú lỗi dịch trong bản v4 là tài liệu đối chiếu; không đọc XLSX hay áp dụng sửa từ tự động trong đường xử lý trực tiếp.
+
+Tải và hợp nhất một lần khi server khởi động. File gốc nằm trên server web; `session.update` gửi prompt và danh sách từ khóa của ngôn ngữ nguồn cho OpenAI khi mở hoặc cập nhật phiên nhận dạng. Không dùng Files API, vector store hay fine-tuning; không gửi bảng CSV/XLSX đến model dịch. Không gửi lại glossary theo mỗi gói âm thanh, không tạo thêm phiên API theo số bộ thuật ngữ. Danh sách lớn hơn tăng kích thước cấu hình và có thể ảnh hưởng khởi tạo/nhận dạng; chưa có đo đạc mức tăng độ trễ trên hội nghị thực tế. Xem [ngữ cảnh nhận dạng](https://developers.openai.com/api/docs/guides/realtime-transcription#add-transcription-context).
 
 Chỉ lấy các trường nhận dạng được cho phép từ JSON: model, prompt, keywords, languages và delay. Từ khóa là gợi ý, chỉ được xuất hiện khi âm thanh có nội dung đó. Giữ nguyên các cặp có nhiều nghĩa, ghi chú và học hàm trong bộ đối chiếu; không tìm/thay trên phụ đề hoặc sửa âm thanh theo bảng từ. `DM` có hai nghĩa và một số dòng có `/` chứa hai khái niệm khác nhau, nên thay thế máy móc có thể làm sai lời nói.
 

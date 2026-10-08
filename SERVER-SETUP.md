@@ -1,6 +1,6 @@
 # Chạy AI Cabin trên server
 
-Gói ZIP gồm ứng dụng, logo, toàn bộ thư viện chạy và bốn file thuật ngữ hội nghị. Server cần có **Node.js 20 trở lên**. Không cần chạy `npm install` khi đã giải nén đầy đủ gói.
+Gói ZIP gồm ứng dụng, logo, toàn bộ thư viện chạy, 16 file thuật ngữ gốc/v2/v3/v4 và một CSV bổ sung bốn cặp tên đơn vị chỉ có trong Excel. Server cần có **Node.js 20 trở lên**. Không cần chạy `npm install` khi đã giải nén đầy đủ gói.
 
 ## 1. Giải nén và cấu hình
 
@@ -28,14 +28,17 @@ OPENAI_SOURCE_TRANSCRIPTION=gpt-live-transcribe
 
 API key cần có quyền dùng `gpt-realtime-translate` và `gpt-live-transcribe`. Nếu project chưa dùng được Live Transcribe, chọn `OPENAI_SOURCE_TRANSCRIPTION=gpt-realtime-whisper`; lựa chọn này không dùng từ khóa chuyên ngành. Khởi động lại server sau khi đổi cấu hình.
 
-Giữ đủ các file sau cạnh `server.mjs`, với đúng tên:
+Giữ đủ các nhóm file sau cạnh `server.mjs`, với đúng tên gốc và các hậu tố `_v2`, `_v3`, `_v4`:
 
-- `gpt-live-transcribe_EN_session.json`: 166 từ khóa tiếng Anh cho chiều Anh → Việt.
-- `gpt-live-transcribe_VI_session.json`: 133 từ khóa cho chiều Việt → Anh, gợi ý nguồn `vi` và `en`.
-- `IFR2026_glossary_EN-VI.csv`: 475 mục Anh–Việt để đối chiếu.
-- `IFR2026_Thuat_ngu_Anh-Viet.xlsx`: bản tra cứu thuật ngữ, diễn giả và đơn vị.
+- `gpt-live-transcribe_EN_session*.json`: từ khóa tiếng Anh cho chiều Anh → Việt.
+- `gpt-live-transcribe_VI_session*.json`: từ khóa cho chiều Việt → Anh, gợi ý nguồn `vi` và `en`.
+- `IFR2026_glossary_EN-VI*.csv`: các cặp Anh–Việt để đối chiếu, giữ nguồn và loại cặp của bản mới.
+- `IFR2026_Thuat_ngu_Anh-Viet*.xlsx`: các bản tra cứu thuật ngữ, diễn giả và đơn vị.
+- `IFR2026_glossary_EN-VI_supplement.csv`: bốn cặp tên đơn vị thiếu trong CSV, lấy từ sheet `Don vi` của các XLSX mới.
 
-Hai JSON dùng `delay: "medium"` cho phụ đề nguồn; không đặt độ trễ cho âm thanh dịch. CSV và XLSX không được dùng để tự tìm/thay từ trên phụ đề. Bộ thuật ngữ không được nạp vào `gpt-realtime-translate` vì model hiện không hỗ trợ prompt/glossary tùy chỉnh. Xem [cấu hình Realtime transcription](https://developers.openai.com/api/docs/guides/realtime-transcription) và [giới hạn thuật ngữ của Realtime Translation](https://developers.openai.com/cookbook/examples/voice_solutions/realtime_translation_guide#test-terminology-and-names-directly).
+Ứng dụng hợp nhất/loại trùng khi khởi động, được **959 mục đối chiếu, 340 từ khóa EN, 290 từ khóa VI**. Đọc CSV và hai JSON cùng hậu tố `_vN`; để thêm nhóm mới, chép đủ nhóm rồi khởi động lại. Không ghi đè các file người dùng. Model, prompt, languages và delay được giữ theo hai JSON gốc; từ các bản mới chỉ bổ sung keywords. Hai JSON gốc dùng `delay: "medium"` cho phụ đề nguồn; không đặt độ trễ cho âm thanh dịch.
+
+File thuật ngữ nằm trên server web; chỉ cấu hình phụ đề gồm prompt/từ khóa được gửi sang OpenAI khi mở hoặc cập nhật phiên nhận dạng. Không tải toàn bộ CSV/XLSX lên OpenAI hay huấn luyện một model riêng. CSV và XLSX không được dùng để tự tìm/thay từ trên phụ đề. Bộ thuật ngữ không được nạp vào `gpt-realtime-translate` vì model hiện không hỗ trợ prompt/glossary tùy chỉnh. Âm thanh dịch chạy độc lập; nhiều file không làm ứng dụng đợi thêm trước mỗi cụm dịch. Danh sách từ khóa lớn hơn có thể ảnh hưởng khởi tạo/nhận dạng, cần đo trên bản ghi thật. Xem [cấu hình Realtime transcription](https://developers.openai.com/api/docs/guides/realtime-transcription) và [giới hạn thuật ngữ của Realtime Translation](https://developers.openai.com/cookbook/examples/voice_solutions/realtime_translation_guide#test-terminology-and-names-directly).
 
 ## 2. Chạy ứng dụng
 

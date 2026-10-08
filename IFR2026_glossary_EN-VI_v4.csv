@@ -1,0 +1,956 @@
+﻿category,english,vietnamese,abbreviation,note,source,pair_type
+Bệnh & hội chứng,rheumatology,thấp khớp học / chuyên khoa cơ xương khớp,,,Kỷ yếu IFR 2026,Cặp có sẵn
+Bệnh & hội chứng,rheumatic and musculoskeletal diseases,bệnh cơ xương khớp,RMDs,,Kỷ yếu IFR 2026,Cặp có sẵn
+Bệnh & hội chứng,musculoskeletal disorders,rối loạn cơ xương khớp / bệnh lý cơ xương khớp,MSD,,Kỷ yếu IFR 2026,Cặp có sẵn
+Bệnh & hội chứng,inflammatory arthritis,bệnh khớp viêm / viêm khớp,,,Kỷ yếu IFR 2026,Cặp có sẵn
+Bệnh & hội chứng,rheumatoid arthritis,viêm khớp dạng thấp,RA,VI viết tắt: VKDT,Kỷ yếu IFR 2026,Cặp có sẵn
+Bệnh & hội chứng,early rheumatoid arthritis,viêm khớp dạng thấp sớm,,,Kỷ yếu IFR 2026,Cặp có sẵn
+Bệnh & hội chứng,spondyloarthritis,viêm khớp cột sống,SpA,VI viết tắt: VKCS,Kỷ yếu IFR 2026,Cặp có sẵn
+Bệnh & hội chứng,axial spondyloarthritis,viêm khớp cột sống thể trục,axSpA,,Kỷ yếu IFR 2026,Cặp có sẵn
+Bệnh & hội chứng,ankylosing spondylitis,viêm cột sống dính khớp,AS,VI viết tắt: VCSDK,Kỷ yếu IFR 2026,Cặp có sẵn
+Bệnh & hội chứng,psoriatic arthritis,viêm khớp vảy nến,PsA,,Kỷ yếu IFR 2026,Cặp có sẵn
+Bệnh & hội chứng,difficult-to-treat psoriatic arthritis,viêm khớp vảy nến khó điều trị,D2T-PsA,,Kỷ yếu IFR 2026,Cặp có sẵn
+Bệnh & hội chứng,complex-to-manage PsA,PsA khó quản lý,C2M-PsA,,Kỷ yếu IFR 2026,Cặp có sẵn
+Bệnh & hội chứng,treatment-refractory PsA,PsA kháng trị,TR-PsA,,Kỷ yếu IFR 2026,Cặp có sẵn
+Bệnh & hội chứng,psoriasis,bệnh vảy nến,,,Kỷ yếu IFR 2026,Cặp có sẵn
+Bệnh & hội chứng,osteoarthritis,thoái hóa khớp,OA,VI viết tắt: THK,Kỷ yếu IFR 2026,Cặp có sẵn
+Bệnh & hội chứng,knee osteoarthritis,thoái hóa khớp gối,KOA,VI viết tắt: THKG,Kỷ yếu IFR 2026,Cặp có sẵn
+Bệnh & hội chứng,primary knee osteoarthritis,thoái hóa khớp gối nguyên phát,,,Kỷ yếu IFR 2026,Cặp có sẵn
+Bệnh & hội chứng,lumbar spondylosis,thoái hóa cột sống thắt lưng,,,Kỷ yếu IFR 2026,Cặp có sẵn
+Bệnh & hội chứng,osteoporosis,loãng xương,,,Kỷ yếu IFR 2026,Cặp có sẵn
+Bệnh & hội chứng,primary osteoporosis,loãng xương nguyên phát,,,Kỷ yếu IFR 2026,Cặp có sẵn
+Bệnh & hội chứng,postmenopausal osteoporosis,loãng xương sau mãn kinh,,,Kỷ yếu IFR 2026,Cặp có sẵn
+Bệnh & hội chứng,osteoporotic fracture,gãy xương do loãng xương,,,Kỷ yếu IFR 2026,Cặp có sẵn
+Bệnh & hội chứng,vertebral fracture,gãy xương đốt sống / gãy đốt sống,,,Kỷ yếu IFR 2026,Cặp có sẵn
+Bệnh & hội chứng,vertebral compression fracture,xẹp đốt sống,,,Kỷ yếu IFR 2026,Cặp có sẵn
+Bệnh & hội chứng,gout,gút / gout,,Người Việt nói 'gút',Kỷ yếu IFR 2026,Cặp có sẵn
+Bệnh & hội chứng,primary gout,gút nguyên phát,,,Kỷ yếu IFR 2026,Cặp có sẵn
+Bệnh & hội chứng,acute gout flare,cơn gút cấp,,,Kỷ yếu IFR 2026,Cặp có sẵn
+Bệnh & hội chứng,tophi,hạt tophi,,số ít: tophus,Kỷ yếu IFR 2026,Cặp có sẵn
+Bệnh & hội chứng,hyperuricemia,tăng acid uric máu,,,Kỷ yếu IFR 2026,Cặp có sẵn
+Bệnh & hội chứng,systemic lupus erythematosus,lupus ban đỏ hệ thống,SLE,,Kỷ yếu IFR 2026,Cặp có sẵn
+Bệnh & hội chứng,lupus nephritis,viêm thận lupus,LN,,Kỷ yếu IFR 2026,Cặp có sẵn
+Bệnh & hội chứng,Sjögren's disease / Sjögren syndrome,bệnh Sjögren / hội chứng Sjögren,SjD,đọc: 'Sơ-gren',Kỷ yếu IFR 2026,Cặp có sẵn
+Bệnh & hội chứng,systemic sclerosis,xơ cứng bì hệ thống,SSc,,Kỷ yếu IFR 2026,Cặp có sẵn
+Bệnh & hội chứng,scleroderma,xơ cứng bì,,,Kỷ yếu IFR 2026,Cặp có sẵn
+Bệnh & hội chứng,Raynaud's phenomenon / syndrome,hiện tượng / hội chứng Raynaud,,,Kỷ yếu IFR 2026,Cặp có sẵn
+Bệnh & hội chứng,digital ulcers,loét ngón,DUs,,Kỷ yếu IFR 2026,Cặp có sẵn
+Bệnh & hội chứng,digital ischaemia,thiếu máu cục bộ ngón,,,Kỷ yếu IFR 2026,Cặp có sẵn
+Bệnh & hội chứng,idiopathic inflammatory myopathies,bệnh cơ viêm tự phát,IIM,,Kỷ yếu IFR 2026,Cặp có sẵn
+Bệnh & hội chứng,dermatomyositis,viêm da cơ,DM,,Kỷ yếu IFR 2026,Cặp có sẵn
+Bệnh & hội chứng,polymyositis,viêm đa cơ,PM,,Kỷ yếu IFR 2026,Cặp có sẵn
+Bệnh & hội chứng,inclusion body myositis,viêm cơ thể vùi,IBM,,Kỷ yếu IFR 2026,Cặp có sẵn
+Bệnh & hội chứng,immune-mediated necrotizing myopathy,bệnh cơ hoại tử qua trung gian miễn dịch,IMNM,,Kỷ yếu IFR 2026,Cặp có sẵn
+Bệnh & hội chứng,antisynthetase syndrome,hội chứng kháng synthetase,ASSD,,Kỷ yếu IFR 2026,Cặp có sẵn
+Bệnh & hội chứng,interstitial lung disease,bệnh phổi kẽ / bệnh phổi mô kẽ,ILD,,Kỷ yếu IFR 2026,Cặp có sẵn
+Bệnh & hội chứng,connective tissue disease-associated ILD,bệnh phổi kẽ liên quan bệnh mô liên kết,CTD-ILD,,Kỷ yếu IFR 2026,Cặp có sẵn
+Bệnh & hội chứng,connective tissue diseases,bệnh tổ chức liên kết / bệnh mô liên kết,CTD,,Kỷ yếu IFR 2026,Cặp có sẵn
+Bệnh & hội chứng,progressive pulmonary fibrosis,xơ phổi tiến triển,PPF,,Kỷ yếu IFR 2026,Cặp có sẵn
+Bệnh & hội chứng,pulmonary hypertension,tăng áp lực động mạch phổi,PH,,Kỷ yếu IFR 2026,Cặp có sẵn
+Bệnh & hội chứng,autoimmune diseases,bệnh tự miễn,,,Kỷ yếu IFR 2026,Cặp có sẵn
+Bệnh & hội chứng,autoimmune arthropathies,bệnh khớp tự miễn,,,Kỷ yếu IFR 2026,Cặp có sẵn
+Bệnh & hội chứng,autoimmune inflammatory rheumatic diseases,bệnh thấp khớp viêm tự miễn,AIIRD,,Kỷ yếu IFR 2026,Cặp có sẵn
+Bệnh & hội chứng,IgA vasculitis,viêm mạch IgA,,,Kỷ yếu IFR 2026,Cặp có sẵn
+Bệnh & hội chứng,vasculitis,viêm mạch,,,Kỷ yếu IFR 2026,Cặp có sẵn
+Bệnh & hội chứng,juvenile idiopathic arthritis,viêm khớp tự phát thiếu niên,JIA,,Kỷ yếu IFR 2026,Cặp có sẵn
+Bệnh & hội chứng,systemic JIA,viêm khớp thiếu niên thể hệ thống,sJIA,,Kỷ yếu IFR 2026,Cặp có sẵn
+Bệnh & hội chứng,polyarthritis / oligoarthritis,thể đa khớp / thể ít khớp,,,Kỷ yếu IFR 2026,Cặp có sẵn
+Bệnh & hội chứng,enthesitis,viêm điểm bám gân,,,Kỷ yếu IFR 2026,Cặp có sẵn
+Bệnh & hội chứng,dactylitis,viêm ngón (ngón tay/chân hình khúc dồi),,,Kỷ yếu IFR 2026,Cặp có sẵn
+Bệnh & hội chứng,temporomandibular joint arthritis,viêm khớp thái dương hàm,TMJ arthritis,,Kỷ yếu IFR 2026,Cặp có sẵn
+Bệnh & hội chứng,chronic anterior uveitis,viêm màng bồ đào trước mạn tính,CAU,,Kỷ yếu IFR 2026,Cặp có sẵn
+Bệnh & hội chứng,uveitis,viêm màng bồ đào,,,Kỷ yếu IFR 2026,Cặp có sẵn
+Bệnh & hội chứng,macrophage activation syndrome,hội chứng kích hoạt đại thực bào,MAS,,Kỷ yếu IFR 2026,Cặp có sẵn
+Bệnh & hội chứng,paediatric rheumatology,thấp khớp nhi khoa,,,Kỷ yếu IFR 2026,Cặp có sẵn
+Bệnh & hội chứng,paediatric rheumatic disease,bệnh thấp khớp trẻ em,,,Kỷ yếu IFR 2026,Cặp có sẵn
+Bệnh & hội chứng,frailty syndrome,hội chứng dễ tổn thương / hội chứng suy yếu,,VI viết tắt trong bài: HCDBTT,Kỷ yếu IFR 2026,Cặp có sẵn
+Bệnh & hội chứng,sarcopenia,thiểu cơ / chứng thiểu cơ,,,Kỷ yếu IFR 2026,Cặp có sẵn
+Bệnh & hội chứng,osteosarcopenia,thiểu cơ – loãng xương đồng mắc,,,Kỷ yếu IFR 2026,Cặp có sẵn
+Bệnh & hội chứng,fibromyalgia,đau xơ cơ,,,Kỷ yếu IFR 2026,Cặp có sẵn
+Bệnh & hội chứng,chronic low back pain,đau thắt lưng mạn tính,CLBP,VI viết tắt: ĐTLMT,Kỷ yếu IFR 2026,Cặp có sẵn
+Bệnh & hội chứng,cervicobrachial syndrome,hội chứng cổ – vai – cánh tay,,,Kỷ yếu IFR 2026,Cặp có sẵn
+Bệnh & hội chứng,subacromial impingement syndrome,hội chứng hẹp khoang dưới mỏm cùng vai,SIS,,Kỷ yếu IFR 2026,Cặp có sẵn
+Bệnh & hội chứng,rotator cuff,chóp xoay (gân chóp xoay),,,Kỷ yếu IFR 2026,Cặp có sẵn
+Bệnh & hội chứng,calcific tendinopathy,bệnh lý gân vôi hóa,,,Kỷ yếu IFR 2026,Cặp có sẵn
+Bệnh & hội chứng,carpal tunnel syndrome,hội chứng đường hầm cổ tay,CTS,,Kỷ yếu IFR 2026,Cặp có sẵn
+Bệnh & hội chứng,medial epicondylitis,viêm điểm bám gân lồi cầu trong xương cánh tay,,golfer's elbow,Kỷ yếu IFR 2026,Cặp có sẵn
+Bệnh & hội chứng,plantar fasciitis,viêm cân gan chân,,,Kỷ yếu IFR 2026,Cặp có sẵn
+Bệnh & hội chứng,chronic osteomyelitis,viêm xương tủy mạn tính,,,Kỷ yếu IFR 2026,Cặp có sẵn
+Bệnh & hội chứng,vertebral osteomyelitis,viêm xương tủy cột sống,,,Kỷ yếu IFR 2026,Cặp có sẵn
+Bệnh & hội chứng,fracture-related infection,nhiễm trùng liên quan gãy xương,FRI,,Kỷ yếu IFR 2026,Cặp có sẵn
+Bệnh & hội chứng,infectious spondylodiscitis,viêm đốt sống đĩa đệm nhiễm khuẩn,,,Kỷ yếu IFR 2026,Cặp có sẵn
+Bệnh & hội chứng,spondylitis / discitis,viêm đốt sống / viêm đĩa đệm,,,Kỷ yếu IFR 2026,Cặp có sẵn
+Bệnh & hội chứng,spinal infection,nhiễm trùng cột sống,,,Kỷ yếu IFR 2026,Cặp có sẵn
+Bệnh & hội chứng,soft-tissue infection,nhiễm trùng phần mềm,,,Kỷ yếu IFR 2026,Cặp có sẵn
+Bệnh & hội chứng,post-infectious arthritis,viêm khớp hậu nhiễm trùng,,,Kỷ yếu IFR 2026,Cặp có sẵn
+Bệnh & hội chứng,reactive arthritis,viêm khớp phản ứng,ReA,,Kỷ yếu IFR 2026,Cặp có sẵn
+Bệnh & hội chứng,viral arthritis,viêm khớp do virus,,,Kỷ yếu IFR 2026,Cặp có sẵn
+Bệnh & hội chứng,post-streptococcal reactive arthritis,viêm khớp phản ứng hậu liên cầu,PSRA,,Kỷ yếu IFR 2026,Cặp có sẵn
+Bệnh & hội chứng,acute rheumatic fever,thấp tim cấp,ARF,,Kỷ yếu IFR 2026,Cặp có sẵn
+Bệnh & hội chứng,Lyme arthritis,viêm khớp Lyme,,,Kỷ yếu IFR 2026,Cặp có sẵn
+Bệnh & hội chứng,metabolic syndrome,hội chứng chuyển hóa,MetS,VI viết tắt: HCCH,Kỷ yếu IFR 2026,Cặp có sẵn
+Bệnh & hội chứng,diabetes mellitus,đái tháo đường,DM,,Kỷ yếu IFR 2026,Cặp có sẵn
+Bệnh & hội chứng,hypertension,tăng huyết áp,,,Kỷ yếu IFR 2026,Cặp có sẵn
+Bệnh & hội chứng,chronic kidney disease,bệnh thận mạn,CKD,,Kỷ yếu IFR 2026,Cặp có sẵn
+Bệnh & hội chứng,hepatitis B,viêm gan B,HBV,,Kỷ yếu IFR 2026,Cặp có sẵn
+Bệnh & hội chứng,comorbidity / comorbidities,bệnh đồng mắc,,,Kỷ yếu IFR 2026,Cặp có sẵn
+Bệnh & hội chứng,atherosclerotic cardiovascular disease,bệnh tim mạch do xơ vữa,ASCVD,,Kỷ yếu IFR 2026,Cặp có sẵn
+Bệnh & hội chứng,major adverse cardiovascular events,biến cố tim mạch nặng / chính,MACE,,Kỷ yếu IFR 2026,Cặp có sẵn
+Bệnh & hội chứng,venous thromboembolism,thuyên tắc huyết khối tĩnh mạch,VTE,,Kỷ yếu IFR 2026,Cặp có sẵn
+Bệnh & hội chứng,neuropathic pain,đau thần kinh / đau do nguyên nhân thần kinh,,,Kỷ yếu IFR 2026,Cặp có sẵn
+Bệnh & hội chứng,generalized pain,đau lan tỏa,,,Kỷ yếu IFR 2026,Cặp có sẵn
+Bệnh & hội chứng,central sensitization,nhạy cảm hóa trung ương,,,Kỷ yếu IFR 2026,Cặp có sẵn
+Bệnh & hội chứng,chronic ulcers,loét mạn tính,,,Kỷ yếu IFR 2026,Cặp có sẵn
+Lâm sàng & cơ chế,remission,lui bệnh,,,Kỷ yếu IFR 2026,Cặp có sẵn
+Lâm sàng & cơ chế,sustained remission,lui bệnh bền vững,,,Kỷ yếu IFR 2026,Cặp có sẵn
+Lâm sàng & cơ chế,drug-free remission,lui bệnh không dùng thuốc,,,Kỷ yếu IFR 2026,Cặp có sẵn
+Lâm sàng & cơ chế,clinical deep remission,lui bệnh sâu trên lâm sàng,CliDR,,Kỷ yếu IFR 2026,Cặp có sẵn
+Lâm sàng & cơ chế,low disease activity,mức độ hoạt động bệnh thấp,LDA,,Kỷ yếu IFR 2026,Cặp có sẵn
+Lâm sàng & cơ chế,lupus low disease activity state,trạng thái hoạt động bệnh lupus thấp,LLDAS,,Kỷ yếu IFR 2026,Cặp có sẵn
+Lâm sàng & cơ chế,disease activity,mức độ hoạt động bệnh,,,Kỷ yếu IFR 2026,Cặp có sẵn
+Lâm sàng & cơ chế,flare,đợt bùng phát / bùng phát,,,Kỷ yếu IFR 2026,Cặp có sẵn
+Lâm sàng & cơ chế,red flags,dấu hiệu cờ đỏ / cờ đỏ,,,Kỷ yếu IFR 2026,Cặp có sẵn
+Lâm sàng & cơ chế,early signs,dấu hiệu sớm,,,Kỷ yếu IFR 2026,Cặp có sẵn
+Lâm sàng & cơ chế,functional disability,khuyết tật chức năng / suy giảm chức năng,,,Kỷ yếu IFR 2026,Cặp có sẵn
+Lâm sàng & cơ chế,fall risk,nguy cơ ngã,,,Kỷ yếu IFR 2026,Cặp có sẵn
+Lâm sàng & cơ chế,cardiovascular risk,nguy cơ tim mạch,,,Kỷ yếu IFR 2026,Cặp có sẵn
+Lâm sàng & cơ chế,cardiometabolic,tim mạch – chuyển hóa,,,Kỷ yếu IFR 2026,Cặp có sẵn
+Lâm sàng & cơ chế,metaflammation,viêm chuyển hóa,,,Kỷ yếu IFR 2026,Cặp có sẵn
+Lâm sàng & cơ chế,imminent fracture risk,nguy cơ gãy xương cận kề,,,Kỷ yếu IFR 2026,Cặp có sẵn
+Lâm sàng & cơ chế,bone erosion,bào mòn xương,,,Kỷ yếu IFR 2026,Cặp có sẵn
+Lâm sàng & cơ chế,structural damage,tổn thương cấu trúc,,,Kỷ yếu IFR 2026,Cặp có sẵn
+Lâm sàng & cơ chế,new bone formation,hình thành xương mới,,,Kỷ yếu IFR 2026,Cặp có sẵn
+Lâm sàng & cơ chế,enthesiophyte,gai xương tại điểm bám gân/dây chằng,,,Kỷ yếu IFR 2026,Cặp có sẵn
+Lâm sàng & cơ chế,joint space,khe khớp,,,Kỷ yếu IFR 2026,Cặp có sẵn
+Lâm sàng & cơ chế,synovitis,viêm màng hoạt dịch,,,Kỷ yếu IFR 2026,Cặp có sẵn
+Lâm sàng & cơ chế,bone marrow edema,phù tủy xương,,,Kỷ yếu IFR 2026,Cặp có sẵn
+Lâm sàng & cơ chế,bone turnover,chu chuyển xương,,,Kỷ yếu IFR 2026,Cặp có sẵn
+Lâm sàng & cơ chế,rebound effect,hiệu ứng dội ngược (chu chuyển xương tăng vọt),,,Kỷ yếu IFR 2026,Cặp có sẵn
+Lâm sàng & cơ chế,bone mineral density,mật độ xương / mật độ khoáng xương,BMD,,Kỷ yếu IFR 2026,Cặp có sẵn
+Lâm sàng & cơ chế,bone quality,chất lượng xương,,,Kỷ yếu IFR 2026,Cặp có sẵn
+Lâm sàng & cơ chế,muscle strength / muscle mass,sức mạnh cơ / khối lượng cơ,,,Kỷ yếu IFR 2026,Cặp có sẵn
+Lâm sàng & cơ chế,physical performance,chức năng vận động / hiệu suất thể chất,,,Kỷ yếu IFR 2026,Cặp có sẵn
+Lâm sàng & cơ chế,phenotype,kiểu hình,,,Kỷ yếu IFR 2026,Cặp có sẵn
+Lâm sàng & cơ chế,inflammatory / metabolic / mechanical phenotype,kiểu hình viêm / chuyển hóa / cơ học,,,Kỷ yếu IFR 2026,Cặp có sẵn
+Lâm sàng & cơ chế,pain mechanisms,cơ chế đau,,,Kỷ yếu IFR 2026,Cặp có sẵn
+Lâm sàng & cơ chế,immune balance / immune homeostasis,cân bằng miễn dịch,,,Kỷ yếu IFR 2026,Cặp có sẵn
+Lâm sàng & cơ chế,regulatory T cells,tế bào T điều hòa,Treg,,Kỷ yếu IFR 2026,Cặp có sẵn
+Lâm sàng & cơ chế,effector T cells,tế bào T hiệu ứng,Teff,,Kỷ yếu IFR 2026,Cặp có sẵn
+Lâm sàng & cơ chế,B cells,tế bào B,,,Kỷ yếu IFR 2026,Cặp có sẵn
+Lâm sàng & cơ chế,type I interferon,interferon type I / interferon týp I,IFN-I,,Kỷ yếu IFR 2026,Cặp có sẵn
+Lâm sàng & cơ chế,autoantibodies,tự kháng thể,,,Kỷ yếu IFR 2026,Cặp có sẵn
+Lâm sàng & cơ chế,myositis-specific autoantibodies,tự kháng thể đặc hiệu viêm cơ,MSA,,Kỷ yếu IFR 2026,Cặp có sẵn
+Lâm sàng & cơ chế,retinal toxicity / ocular toxicity,tổn thương võng mạc / độc tính trên mắt,,,Kỷ yếu IFR 2026,Cặp có sẵn
+Lâm sàng & cơ chế,biofilm,màng sinh học,,bài VI ghi 'màng giả',Kỷ yếu IFR 2026,Cặp có sẵn
+Lâm sàng & cơ chế,skin lesions,tổn thương da,,,Kỷ yếu IFR 2026,Cặp có sẵn
+Lâm sàng & cơ chế,wound,vết thương,,,Kỷ yếu IFR 2026,Cặp có sẵn
+Lâm sàng & cơ chế,ulceration,loét,,,Kỷ yếu IFR 2026,Cặp có sẵn
+Lâm sàng & cơ chế,postmenopausal women,phụ nữ sau mãn kinh,,,Kỷ yếu IFR 2026,Cặp có sẵn
+Lâm sàng & cơ chế,older adults / elderly,người cao tuổi,,,Kỷ yếu IFR 2026,Cặp có sẵn
+Lâm sàng & cơ chế,inpatients / outpatients,bệnh nhân nội trú / ngoại trú,,,Kỷ yếu IFR 2026,Cặp có sẵn
+Lâm sàng & cơ chế,prolonged hospitalization,nằm viện kéo dài,,,Kỷ yếu IFR 2026,Cặp có sẵn
+Lâm sàng & cơ chế,disease patterns,mô hình bệnh tật,,,Kỷ yếu IFR 2026,Cặp có sẵn
+Lâm sàng & cơ chế,quality of life,chất lượng cuộc sống,QoL,,Kỷ yếu IFR 2026,Cặp có sẵn
+Lâm sàng & cơ chế,medication adherence,tuân thủ điều trị / tuân thủ dùng thuốc,,,Kỷ yếu IFR 2026,Cặp có sẵn
+Chẩn đoán & hình ảnh,blood tests,xét nghiệm máu,,,Kỷ yếu IFR 2026,Cặp có sẵn
+Chẩn đoán & hình ảnh,imaging,chẩn đoán hình ảnh / thăm dò hình ảnh,,,Kỷ yếu IFR 2026,Cặp có sẵn
+Chẩn đoán & hình ảnh,investigations,thăm dò / xét nghiệm,,,Kỷ yếu IFR 2026,Cặp có sẵn
+Chẩn đoán & hình ảnh,over-investigation,chỉ định quá nhiều xét nghiệm,,,Kỷ yếu IFR 2026,Cặp có sẵn
+Chẩn đoán & hình ảnh,ultrasound / ultrasonography,siêu âm,US,,Kỷ yếu IFR 2026,Cặp có sẵn
+Chẩn đoán & hình ảnh,Doppler ultrasound,siêu âm Doppler,,,Kỷ yếu IFR 2026,Cặp có sẵn
+Chẩn đoán & hình ảnh,ultrasound-guided injection,tiêm dưới hướng dẫn siêu âm,,,Kỷ yếu IFR 2026,Cặp có sẵn
+Chẩn đoán & hình ảnh,blind injection,tiêm mù (không có hướng dẫn hình ảnh),,,Kỷ yếu IFR 2026,Cặp có sẵn
+Chẩn đoán & hình ảnh,echocardiography,siêu âm tim,,,Kỷ yếu IFR 2026,Cặp có sẵn
+Chẩn đoán & hình ảnh,pulmonary artery systolic pressure,áp lực động mạch phổi tâm thu,PASP,,Kỷ yếu IFR 2026,Cặp có sẵn
+Chẩn đoán & hình ảnh,magnetic resonance imaging,cộng hưởng từ,MRI,,Kỷ yếu IFR 2026,Cặp có sẵn
+Chẩn đoán & hình ảnh,computed tomography,chụp cắt lớp vi tính,CT,,Kỷ yếu IFR 2026,Cặp có sẵn
+Chẩn đoán & hình ảnh,high-resolution CT,CT độ phân giải cao,HRCT,,Kỷ yếu IFR 2026,Cặp có sẵn
+Chẩn đoán & hình ảnh,photon-counting computed tomography,chụp cắt lớp vi tính đếm photon / CT lượng tử,PCCT,,Kỷ yếu IFR 2026,Cặp có sẵn
+Chẩn đoán & hình ảnh,high-resolution peripheral quantitative CT,CT định lượng ngoại vi độ phân giải cao,HR-pQCT,,Kỷ yếu IFR 2026,Cặp có sẵn
+Chẩn đoán & hình ảnh,dual-energy X-ray absorptiometry,đo hấp thụ tia X năng lượng kép,DXA,,Kỷ yếu IFR 2026,Cặp có sẵn
+Chẩn đoán & hình ảnh,DXA pitfalls,cạm bẫy DXA,,,Kỷ yếu IFR 2026,Cặp có sẵn
+Chẩn đoán & hình ảnh,vertebral fracture assessment,đánh giá gãy đốt sống,VFA,,Kỷ yếu IFR 2026,Cặp có sẵn
+Chẩn đoán & hình ảnh,trabecular bone score,điểm bè xương,TBS,,Kỷ yếu IFR 2026,Cặp có sẵn
+Chẩn đoán & hình ảnh,bone turnover markers,dấu ấn chu chuyển xương,BTMs,"CTX, P1NP",Kỷ yếu IFR 2026,Cặp có sẵn
+Chẩn đoán & hình ảnh,T-score,chỉ số T-score,,,Kỷ yếu IFR 2026,Cặp có sẵn
+Chẩn đoán & hình ảnh,radiography / X-ray,X-quang,,,Kỷ yếu IFR 2026,Cặp có sẵn
+Chẩn đoán & hình ảnh,bioelectrical impedance analysis,phân tích trở kháng điện sinh học,BIA,,Kỷ yếu IFR 2026,Cặp có sẵn
+Chẩn đoán & hình ảnh,antinuclear antibody,kháng thể kháng nhân,ANA,,Kỷ yếu IFR 2026,Cặp có sẵn
+Chẩn đoán & hình ảnh,extractable nuclear antigens,kháng nguyên nhân hòa tan / chiết xuất được,ENA,,Kỷ yếu IFR 2026,Cặp có sẵn
+Chẩn đoán & hình ảnh,anti-cyclic citrullinated peptide antibody,kháng thể kháng peptide citrullin hóa vòng,anti-CCP / ACPA,,Kỷ yếu IFR 2026,Cặp có sẵn
+Chẩn đoán & hình ảnh,rheumatoid factor,yếu tố dạng thấp,RF,,Kỷ yếu IFR 2026,Cặp có sẵn
+Chẩn đoán & hình ảnh,C-reactive protein,protein phản ứng C,CRP,,Kỷ yếu IFR 2026,Cặp có sẵn
+Chẩn đoán & hình ảnh,erythrocyte sedimentation rate,tốc độ máu lắng,ESR,,Kỷ yếu IFR 2026,Cặp có sẵn
+Chẩn đoán & hình ảnh,serum uric acid / serum urate,acid uric huyết thanh,SUA,,Kỷ yếu IFR 2026,Cặp có sẵn
+Chẩn đoán & hình ảnh,monosodium urate crystals,tinh thể urat monosodium,MSU,,Kỷ yếu IFR 2026,Cặp có sẵn
+Chẩn đoán & hình ảnh,25-hydroxyvitamin D,25-hydroxyvitamin D,25(OH)D,,Kỷ yếu IFR 2026,Cặp có sẵn
+Chẩn đoán & hình ảnh,HLA-B27,HLA-B27,,,Kỷ yếu IFR 2026,Cặp có sẵn
+Chẩn đoán & hình ảnh,ANCA,kháng thể kháng bào tương bạch cầu đa nhân trung tính,ANCA,,Kỷ yếu IFR 2026,Cặp có sẵn
+Chẩn đoán & hình ảnh,estimated glomerular filtration rate,mức lọc cầu thận ước tính,eGFR,,Kỷ yếu IFR 2026,Cặp có sẵn
+Chẩn đoán & hình ảnh,hepatitis B screening,sàng lọc virus viêm gan B,,"HBsAg, anti-HBc",Kỷ yếu IFR 2026,Cặp có sẵn
+Chẩn đoán & hình ảnh,optical coherence tomography,chụp cắt lớp quang học,OCT,,Kỷ yếu IFR 2026,Cặp có sẵn
+Chẩn đoán & hình ảnh,automated visual field,đo thị trường tự động,,Humphrey 24-2,Kỷ yếu IFR 2026,Cặp có sẵn
+Chẩn đoán & hình ảnh,slit-lamp examination,khám bằng đèn khe,,,Kỷ yếu IFR 2026,Cặp có sẵn
+Chẩn đoán & hình ảnh,diffusing capacity for carbon monoxide,khả năng khuếch tán CO,DLCO,,Kỷ yếu IFR 2026,Cặp có sẵn
+Chẩn đoán & hình ảnh,forced vital capacity,dung tích sống gắng sức,FVC,,Kỷ yếu IFR 2026,Cặp có sẵn
+Chẩn đoán & hình ảnh,single nucleotide polymorphism,đa hình đơn nucleotide,SNP,,Kỷ yếu IFR 2026,Cặp có sẵn
+Chẩn đoán & hình ảnh,candidate-gene study,nghiên cứu gen ứng viên,,,Kỷ yếu IFR 2026,Cặp có sẵn
+Chẩn đoán & hình ảnh,pan-immune-inflammation value,chỉ số viêm – miễn dịch toàn thể,PIV,,Kỷ yếu IFR 2026,Cặp có sẵn
+Chẩn đoán & hình ảnh,screening,sàng lọc,,,Kỷ yếu IFR 2026,Cặp có sẵn
+Chẩn đoán & hình ảnh,risk stratification,phân tầng nguy cơ,,,Kỷ yếu IFR 2026,Cặp có sẵn
+Chẩn đoán & hình ảnh,early diagnosis,chẩn đoán sớm,,,Kỷ yếu IFR 2026,Cặp có sẵn
+Chẩn đoán & hình ảnh,differential diagnosis,chẩn đoán phân biệt,,,Kỷ yếu IFR 2026,Cặp có sẵn
+Chẩn đoán & hình ảnh,classification criteria,tiêu chuẩn phân loại,,,Kỷ yếu IFR 2026,Cặp có sẵn
+Điều trị & nhóm thuốc,treat-to-target,điều trị theo mục tiêu / điều trị hướng đích,T2T,,Kỷ yếu IFR 2026,Cặp có sẵn
+Điều trị & nhóm thuốc,disease-modifying antirheumatic drugs,thuốc chống thấp khớp làm thay đổi diễn tiến bệnh,DMARDs,,Kỷ yếu IFR 2026,Cặp có sẵn
+Điều trị & nhóm thuốc,conventional synthetic DMARDs,DMARD tổng hợp cổ điển,csDMARDs,,Kỷ yếu IFR 2026,Cặp có sẵn
+Điều trị & nhóm thuốc,biologic DMARDs,DMARD sinh học / thuốc sinh học,bDMARDs,,Kỷ yếu IFR 2026,Cặp có sẵn
+Điều trị & nhóm thuốc,targeted synthetic DMARDs,DMARD tổng hợp nhắm đích / thuốc phân tử nhỏ,tsDMARDs,,Kỷ yếu IFR 2026,Cặp có sẵn
+Điều trị & nhóm thuốc,biologic therapy / biologic agents,điều trị sinh học / thuốc sinh học,,,Kỷ yếu IFR 2026,Cặp có sẵn
+Điều trị & nhóm thuốc,JAK inhibitors,thuốc ức chế JAK,JAKi,,Kỷ yếu IFR 2026,Cặp có sẵn
+Điều trị & nhóm thuốc,TNF inhibitors,thuốc kháng TNF / ức chế TNF,TNFi,,Kỷ yếu IFR 2026,Cặp có sẵn
+Điều trị & nhóm thuốc,IL-17 inhibitors,thuốc kháng IL-17,,,Kỷ yếu IFR 2026,Cặp có sẵn
+Điều trị & nhóm thuốc,IL-23 inhibitors,thuốc kháng IL-23,,,Kỷ yếu IFR 2026,Cặp có sẵn
+Điều trị & nhóm thuốc,IL-6 inhibitors / IL-1 inhibitors,thuốc ức chế IL-6 / IL-1,IL-6i / IL-1i,,Kỷ yếu IFR 2026,Cặp có sẵn
+Điều trị & nhóm thuốc,TYK2 inhibitor,thuốc ức chế TYK2,,,Kỷ yếu IFR 2026,Cặp có sẵn
+Điều trị & nhóm thuốc,PDE4 inhibitor,thuốc ức chế PDE4,,,Kỷ yếu IFR 2026,Cặp có sẵn
+Điều trị & nhóm thuốc,calcineurin inhibitors,thuốc ức chế calcineurin,CNI,,Kỷ yếu IFR 2026,Cặp có sẵn
+Điều trị & nhóm thuốc,low-dose interleukin-2,IL-2 liều thấp,LD-IL-2,,Kỷ yếu IFR 2026,Cặp có sẵn
+Điều trị & nhóm thuốc,glucocorticoids,glucocorticoid / corticoid,GC,,Kỷ yếu IFR 2026,Cặp có sẵn
+Điều trị & nhóm thuốc,glucocorticoid-sparing,giảm / tiết kiệm glucocorticoid,,,Kỷ yếu IFR 2026,Cặp có sẵn
+Điều trị & nhóm thuốc,bridging corticosteroids,corticoid bắc cầu,,,Kỷ yếu IFR 2026,Cặp có sẵn
+Điều trị & nhóm thuốc,intra-articular injection,tiêm nội khớp,IA,,Kỷ yếu IFR 2026,Cặp có sẵn
+Điều trị & nhóm thuốc,intra-articular glucocorticoids,tiêm glucocorticoid nội khớp,IAGC,,Kỷ yếu IFR 2026,Cặp có sẵn
+Điều trị & nhóm thuốc,hyaluronic acid,acid hyaluronic,HA,,Kỷ yếu IFR 2026,Cặp có sẵn
+Điều trị & nhóm thuốc,hybrid hyaluronic acid,acid hyaluronic dạng lai,H-HA,,Kỷ yếu IFR 2026,Cặp có sẵn
+Điều trị & nhóm thuốc,high / low molecular weight HA,HA khối lượng phân tử cao / thấp,HMW-HA / LMW-HA,,Kỷ yếu IFR 2026,Cặp có sẵn
+Điều trị & nhóm thuốc,antioxidant,chất chống oxy hóa,,,Kỷ yếu IFR 2026,Cặp có sẵn
+Điều trị & nhóm thuốc,platelet-rich plasma,huyết tương giàu tiểu cầu,PRP,,Kỷ yếu IFR 2026,Cặp có sẵn
+Điều trị & nhóm thuốc,regenerative medicine,y học tái tạo,,,Kỷ yếu IFR 2026,Cặp có sẵn
+Điều trị & nhóm thuốc,collagen therapy,liệu pháp collagen,,,Kỷ yếu IFR 2026,Cặp có sẵn
+Điều trị & nhóm thuốc,nonsteroidal anti-inflammatory drugs,thuốc chống viêm không steroid,NSAIDs,,Kỷ yếu IFR 2026,Cặp có sẵn
+Điều trị & nhóm thuốc,topical NSAIDs,NSAIDs tại chỗ / dùng ngoài,,,Kỷ yếu IFR 2026,Cặp có sẵn
+Điều trị & nhóm thuốc,transdermal patch,miếng dán qua da,,,Kỷ yếu IFR 2026,Cặp có sẵn
+Điều trị & nhóm thuốc,urate-lowering therapy,điều trị hạ acid uric máu,ULT,,Kỷ yếu IFR 2026,Cặp có sẵn
+Điều trị & nhóm thuốc,bone anabolic agents,thuốc tạo xương / thuốc đồng hóa xương,,,Kỷ yếu IFR 2026,Cặp có sẵn
+Điều trị & nhóm thuốc,antiresorptive agents,thuốc chống hủy xương,,,Kỷ yếu IFR 2026,Cặp có sẵn
+Điều trị & nhóm thuốc,bisphosphonates,bisphosphonat,,,Kỷ yếu IFR 2026,Cặp có sẵn
+Điều trị & nhóm thuốc,denosumab discontinuation,ngừng / chuyển tiếp denosumab,,,Kỷ yếu IFR 2026,Cặp có sẵn
+Điều trị & nhóm thuốc,calcium and vitamin D supplementation,bổ sung canxi và vitamin D,,,Kỷ yếu IFR 2026,Cặp có sẵn
+Điều trị & nhóm thuốc,synthetic antimalarial drugs,thuốc kháng sốt rét tổng hợp,,VI viết tắt: KSRTH,Kỷ yếu IFR 2026,Cặp có sẵn
+Điều trị & nhóm thuốc,dose tapering,giảm liều / giãn liều,,,Kỷ yếu IFR 2026,Cặp có sẵn
+Điều trị & nhóm thuốc,intravenous immunoglobulin,globulin miễn dịch truyền tĩnh mạch,IVIG,,Kỷ yếu IFR 2026,Cặp có sẵn
+Điều trị & nhóm thuốc,plasma exchange,thay huyết tương,PLEX,,Kỷ yếu IFR 2026,Cặp có sẵn
+Điều trị & nhóm thuốc,antifibrotic therapy,thuốc chống xơ hóa,,,Kỷ yếu IFR 2026,Cặp có sẵn
+Điều trị & nhóm thuốc,vaccination,tiêm chủng / vaccine,,,Kỷ yếu IFR 2026,Cặp có sẵn
+Điều trị & nhóm thuốc,antibiotics,kháng sinh,,,Kỷ yếu IFR 2026,Cặp có sẵn
+Điều trị & nhóm thuốc,radiofrequency ablation,đốt sóng cao tần,RFA,,Kỷ yếu IFR 2026,Cặp có sẵn
+Điều trị & nhóm thuốc,nerve block,phong bế thần kinh,,,Kỷ yếu IFR 2026,Cặp có sẵn
+Điều trị & nhóm thuốc,perineural hydrodissection,tiêm nong quanh thần kinh,,với dextrose 5%,Kỷ yếu IFR 2026,Cặp có sẵn
+Điều trị & nhóm thuốc,extracorporeal shock wave therapy,sóng xung kích ngoài cơ thể,ESWT,,Kỷ yếu IFR 2026,Cặp có sẵn
+Điều trị & nhóm thuốc,subacromial decompression,phẫu thuật giải ép dưới mỏm cùng vai,,,Kỷ yếu IFR 2026,Cặp có sẵn
+Điều trị & nhóm thuốc,negative pressure wound therapy / vacuum-assisted closure,hút áp lực âm liên tục,NPWT / VAC,,Kỷ yếu IFR 2026,Cặp có sẵn
+Điều trị & nhóm thuốc,therapeutic exercise,tập luyện trị liệu,,,Kỷ yếu IFR 2026,Cặp có sẵn
+Điều trị & nhóm thuốc,rehabilitation,phục hồi chức năng,,,Kỷ yếu IFR 2026,Cặp có sẵn
+Điều trị & nhóm thuốc,patient education,giáo dục người bệnh,,,Kỷ yếu IFR 2026,Cặp có sẵn
+Điều trị & nhóm thuốc,load management,điều chỉnh tải,,,Kỷ yếu IFR 2026,Cặp có sẵn
+Điều trị & nhóm thuốc,multimodal analgesia / pain management,giảm đau đa mô thức,,,Kỷ yếu IFR 2026,Cặp có sẵn
+Điều trị & nhóm thuốc,personalized treatment,điều trị cá thể hóa,,,Kỷ yếu IFR 2026,Cặp có sẵn
+Điều trị & nhóm thuốc,comprehensive management,điều trị toàn diện,,,Kỷ yếu IFR 2026,Cặp có sẵn
+Điều trị & nhóm thuốc,"plastic, reconstructive and aesthetic surgery","phẫu thuật tạo hình, tái tạo và thẩm mỹ",,,Kỷ yếu IFR 2026,Cặp có sẵn
+Điều trị & nhóm thuốc,spine surgery,phẫu thuật cột sống,,,Kỷ yếu IFR 2026,Cặp có sẵn
+Điều trị & nhóm thuốc,vertebroplasty / kyphoplasty,bơm cement tạo hình thân đốt sống,,,Kỷ yếu IFR 2026,Cặp có sẵn
+Điều trị & nhóm thuốc,cardiac surgery,phẫu thuật tim,,,Kỷ yếu IFR 2026,Cặp có sẵn
+Điều trị & nhóm thuốc,CAR-T cell therapy,liệu pháp tế bào CAR-T,CAR-T,,Kỷ yếu IFR 2026,Cặp có sẵn
+Tên thuốc,abaloparatide,abaloparatide,,Giữ nguyên tên quốc tế,Kỷ yếu IFR 2026,Cặp có sẵn
+Tên thuốc,adalimumab,adalimumab,,Giữ nguyên tên quốc tế,Kỷ yếu IFR 2026,Cặp có sẵn
+Tên thuốc,amitriptyline,amitriptyline,,Giữ nguyên tên quốc tế,Kỷ yếu IFR 2026,Cặp có sẵn
+Tên thuốc,anifrolumab,anifrolumab,,Giữ nguyên tên quốc tế,Kỷ yếu IFR 2026,Cặp có sẵn
+Tên thuốc,apremilast,apremilast,,Giữ nguyên tên quốc tế,Kỷ yếu IFR 2026,Cặp có sẵn
+Tên thuốc,baricitinib,baricitinib,,Giữ nguyên tên quốc tế,Kỷ yếu IFR 2026,Cặp có sẵn
+Tên thuốc,belimumab,belimumab,,Giữ nguyên tên quốc tế,Kỷ yếu IFR 2026,Cặp có sẵn
+Tên thuốc,brepocitinib,brepocitinib,,Giữ nguyên tên quốc tế,Kỷ yếu IFR 2026,Cặp có sẵn
+Tên thuốc,chloroquine,chloroquine,,Giữ nguyên tên quốc tế,Kỷ yếu IFR 2026,Cặp có sẵn
+Tên thuốc,chondroitin,chondroitin,,Giữ nguyên tên quốc tế,Kỷ yếu IFR 2026,Cặp có sẵn
+Tên thuốc,cyclophosphamide,cyclophosphamide,,Giữ nguyên tên quốc tế,Kỷ yếu IFR 2026,Cặp có sẵn
+Tên thuốc,cyclosporin,ciclosporin / cyclosporin A,,Giữ nguyên tên quốc tế,Kỷ yếu IFR 2026,Cặp có sẵn
+Tên thuốc,denosumab,denosumab,,Giữ nguyên tên quốc tế,Kỷ yếu IFR 2026,Cặp có sẵn
+Tên thuốc,deucravacitinib,deucravacitinib,,Giữ nguyên tên quốc tế,Kỷ yếu IFR 2026,Cặp có sẵn
+Tên thuốc,diclofenac,diclofenac,,Giữ nguyên tên quốc tế,Kỷ yếu IFR 2026,Cặp có sẵn
+Tên thuốc,duloxetine,duloxetine,,Giữ nguyên tên quốc tế,Kỷ yếu IFR 2026,Cặp có sẵn
+Tên thuốc,esflurbiprofen,esflurbiprofen,,Giữ nguyên tên quốc tế,Kỷ yếu IFR 2026,Cặp có sẵn
+Tên thuốc,etoposide,etoposide,,Giữ nguyên tên quốc tế,Kỷ yếu IFR 2026,Cặp có sẵn
+Tên thuốc,filgotinib,filgotinib,,Giữ nguyên tên quốc tế,Kỷ yếu IFR 2026,Cặp có sẵn
+Tên thuốc,flurbiprofen,flurbiprofen,,Giữ nguyên tên quốc tế,Kỷ yếu IFR 2026,Cặp có sẵn
+Tên thuốc,gabapentin,gabapentin,,Giữ nguyên tên quốc tế,Kỷ yếu IFR 2026,Cặp có sẵn
+Tên thuốc,glucosamine,glucosamine,,Giữ nguyên tên quốc tế,Kỷ yếu IFR 2026,Cặp có sẵn
+Tên thuốc,golimumab,golimumab,,Giữ nguyên tên quốc tế,Kỷ yếu IFR 2026,Cặp có sẵn
+Tên thuốc,guselkumab,guselkumab,,Giữ nguyên tên quốc tế,Kỷ yếu IFR 2026,Cặp có sẵn
+Tên thuốc,hydroxychloroquine,hydroxychloroquine,,Giữ nguyên tên quốc tế,Kỷ yếu IFR 2026,Cặp có sẵn
+Tên thuốc,infliximab,infliximab,,Giữ nguyên tên quốc tế,Kỷ yếu IFR 2026,Cặp có sẵn
+Tên thuốc,ixekizumab,ixekizumab,,Giữ nguyên tên quốc tế,Kỷ yếu IFR 2026,Cặp có sẵn
+Tên thuốc,methotrexate,methotrexate,,Giữ nguyên tên quốc tế,Kỷ yếu IFR 2026,Cặp có sẵn
+Tên thuốc,methylprednisolone,methylprednisolone,,Giữ nguyên tên quốc tế,Kỷ yếu IFR 2026,Cặp có sẵn
+Tên thuốc,mycophenolate mofetil (MMF),mycophenolate mofetil (MMF),,Giữ nguyên tên quốc tế,Kỷ yếu IFR 2026,Cặp có sẵn
+Tên thuốc,nintedanib,nintedanib,,Giữ nguyên tên quốc tế,Kỷ yếu IFR 2026,Cặp có sẵn
+Tên thuốc,obinutuzumab,obinutuzumab,,Giữ nguyên tên quốc tế,Kỷ yếu IFR 2026,Cặp có sẵn
+Tên thuốc,prednisolone,prednisolone,,Giữ nguyên tên quốc tế,Kỷ yếu IFR 2026,Cặp có sẵn
+Tên thuốc,pregabalin,pregabalin,,Giữ nguyên tên quốc tế,Kỷ yếu IFR 2026,Cặp có sẵn
+Tên thuốc,risankizumab,risankizumab,,Giữ nguyên tên quốc tế,Kỷ yếu IFR 2026,Cặp có sẵn
+Tên thuốc,rituximab,rituximab,,Giữ nguyên tên quốc tế,Kỷ yếu IFR 2026,Cặp có sẵn
+Tên thuốc,romosozumab,romosozumab,,Giữ nguyên tên quốc tế,Kỷ yếu IFR 2026,Cặp có sẵn
+Tên thuốc,secukinumab,secukinumab,,Giữ nguyên tên quốc tế,Kỷ yếu IFR 2026,Cặp có sẵn
+Tên thuốc,tacrolimus,tacrolimus,,Giữ nguyên tên quốc tế,Kỷ yếu IFR 2026,Cặp có sẵn
+Tên thuốc,teriparatide,teriparatide,,Giữ nguyên tên quốc tế,Kỷ yếu IFR 2026,Cặp có sẵn
+Tên thuốc,tocilizumab,tocilizumab,,Giữ nguyên tên quốc tế,Kỷ yếu IFR 2026,Cặp có sẵn
+Tên thuốc,tofacitinib,tofacitinib,,Giữ nguyên tên quốc tế,Kỷ yếu IFR 2026,Cặp có sẵn
+Tên thuốc,upadacitinib,upadacitinib,,Giữ nguyên tên quốc tế,Kỷ yếu IFR 2026,Cặp có sẵn
+Tên thuốc,vancomycin,vancomycin,,Giữ nguyên tên quốc tế,Kỷ yếu IFR 2026,Cặp có sẵn
+Tên thuốc,voclosporin,voclosporin,,Giữ nguyên tên quốc tế,Kỷ yếu IFR 2026,Cặp có sẵn
+Tên thuốc,zoledronic acid,acid zoledronic,,Giữ nguyên tên quốc tế,Kỷ yếu IFR 2026,Cặp có sẵn
+Thang điểm & chỉ số,Disease Activity Score 28,DAS28 (CRP / ESR),DAS28,,Kỷ yếu IFR 2026,Cặp có sẵn
+Thang điểm & chỉ số,Simplified Disease Activity Index,SDAI,SDAI,,Kỷ yếu IFR 2026,Cặp có sẵn
+Thang điểm & chỉ số,Disease Activity in Psoriatic Arthritis,DAPSA,DAPSA,,Kỷ yếu IFR 2026,Cặp có sẵn
+Thang điểm & chỉ số,ASDAS-CRP,ASDAS-CRP,,,Kỷ yếu IFR 2026,Cặp có sẵn
+Thang điểm & chỉ số,BASDAI / BASFI,BASDAI / BASFI,,,Kỷ yếu IFR 2026,Cặp có sẵn
+Thang điểm & chỉ số,Health Assessment Questionnaire Disability Index,HAQ-DI,HAQ-DI,,Kỷ yếu IFR 2026,Cặp có sẵn
+Thang điểm & chỉ số,ACR20 / ACR50 response,đáp ứng ACR20 / ACR50,,,Kỷ yếu IFR 2026,Cặp có sẵn
+Thang điểm & chỉ số,DORIS remission,lui bệnh theo DORIS,DORIS,,Kỷ yếu IFR 2026,Cặp có sẵn
+Thang điểm & chỉ số,Visual Analog Scale,thang điểm VAS / thang đánh giá đau dạng nhìn,VAS,,Kỷ yếu IFR 2026,Cặp có sẵn
+Thang điểm & chỉ số,Foot Function Index,chỉ số chức năng bàn chân,FFI,,Kỷ yếu IFR 2026,Cặp có sẵn
+Thang điểm & chỉ số,WOMAC index,chỉ số WOMAC,WOMAC,,Kỷ yếu IFR 2026,Cặp có sẵn
+Thang điểm & chỉ số,DN4 questionnaire,thang điểm / bộ câu hỏi DN4,DN4,,Kỷ yếu IFR 2026,Cặp có sẵn
+Thang điểm & chỉ số,Generalized Pain Questionnaire,bộ câu hỏi đau lan tỏa,GPQ,,Kỷ yếu IFR 2026,Cặp có sẵn
+Thang điểm & chỉ số,Widespread Pain Index,chỉ số đau lan tỏa,WPI,,Kỷ yếu IFR 2026,Cặp có sẵn
+Thang điểm & chỉ số,Morse Fall Scale,thang điểm Morse (nguy cơ ngã),MFS,,Kỷ yếu IFR 2026,Cặp có sẵn
+Thang điểm & chỉ số,Medication Adherence Report Scale,thang tuân thủ dùng thuốc MARS-5,MARS-5,,Kỷ yếu IFR 2026,Cặp có sẵn
+Thang điểm & chỉ số,EQ-5D-5L,bộ công cụ chất lượng cuộc sống EQ-5D-5L,,,Kỷ yếu IFR 2026,Cặp có sẵn
+Thang điểm & chỉ số,SARC-F / SARC-CalF,công cụ sàng lọc thiểu cơ SARC-F / SARC-CalF,,,Kỷ yếu IFR 2026,Cặp có sẵn
+Thang điểm & chỉ số,FRAX,công cụ FRAX (ước tính nguy cơ gãy xương),,,Kỷ yếu IFR 2026,Cặp có sẵn
+Thang điểm & chỉ số,SCORE-VN,thang điểm nguy cơ tim mạch SCORE-VN,,,Kỷ yếu IFR 2026,Cặp có sẵn
+Thang điểm & chỉ số,PREVENT-ASCVD risk estimate,thang điểm PREVENT-ASCVD,PREVENT,,Kỷ yếu IFR 2026,Cặp có sẵn
+Thang điểm & chỉ số,Genant classification,phân loại Genant,,,Kỷ yếu IFR 2026,Cặp có sẵn
+Thang điểm & chỉ số,Pfirrmann classification,phân loại Pfirrmann,,,Kỷ yếu IFR 2026,Cặp có sẵn
+Thang điểm & chỉ số,body mass index,chỉ số khối cơ thể,BMI,,Kỷ yếu IFR 2026,Cặp có sẵn
+Thang điểm & chỉ số,HbA1c,HbA1c,,,Kỷ yếu IFR 2026,Cặp có sẵn
+Thang điểm & chỉ số,EWGSOP2 / AWGS criteria,tiêu chuẩn EWGSOP2 / AWGS (thiểu cơ),,,Kỷ yếu IFR 2026,Cặp có sẵn
+"Tổ chức, khuyến cáo & thử nghiệm",European Alliance of Associations for Rheumatology,Liên minh các Hội Thấp khớp học châu Âu,EULAR,đọc: 'Iu-la',Kỷ yếu IFR 2026,Cặp có sẵn
+"Tổ chức, khuyến cáo & thử nghiệm",American College of Rheumatology,Hội Thấp khớp học Hoa Kỳ,ACR,,Kỷ yếu IFR 2026,Cặp có sẵn
+"Tổ chức, khuyến cáo & thử nghiệm",Asia-Pacific League of Associations for Rheumatology,Liên đoàn các Hội Thấp khớp học châu Á – Thái Bình Dương,APLAR,đọc: 'A-pờ-la',Kỷ yếu IFR 2026,Cặp có sẵn
+"Tổ chức, khuyến cáo & thử nghiệm",Vietnam Rheumatology Association,Hội Thấp khớp học Việt Nam,VRA,,Kỷ yếu IFR 2026,Cặp có sẵn
+"Tổ chức, khuyến cáo & thử nghiệm",Osteoarthritis Research Society International,Hiệp hội Nghiên cứu Thoái hóa khớp Quốc tế,OARSI,,Kỷ yếu IFR 2026,Cặp có sẵn
+"Tổ chức, khuyến cáo & thử nghiệm",ESCEO,"Hiệp hội châu Âu về khía cạnh lâm sàng và kinh tế của loãng xương, thoái hóa khớp và bệnh cơ xương",ESCEO,,Kỷ yếu IFR 2026,Cặp có sẵn
+"Tổ chức, khuyến cáo & thử nghiệm",KDIGO,Tổ chức Cải thiện Kết cục Toàn cầu về Bệnh thận,KDIGO,,Kỷ yếu IFR 2026,Cặp có sẵn
+"Tổ chức, khuyến cáo & thử nghiệm",GRAPPA,Nhóm Nghiên cứu và Đánh giá Vảy nến và Viêm khớp vảy nến,GRAPPA,,Kỷ yếu IFR 2026,Cặp có sẵn
+"Tổ chức, khuyến cáo & thử nghiệm",British Society for Rheumatology,Hội Thấp khớp học Anh,BSR,,Kỷ yếu IFR 2026,Cặp có sẵn
+"Tổ chức, khuyến cáo & thử nghiệm",NICE,Viện Quốc gia về Sức khỏe và Chất lượng Chăm sóc (Anh),NICE,,Kỷ yếu IFR 2026,Cặp có sẵn
+"Tổ chức, khuyến cáo & thử nghiệm",World Health Organization,Tổ chức Y tế Thế giới,WHO,,Kỷ yếu IFR 2026,Cặp có sẵn
+"Tổ chức, khuyến cáo & thử nghiệm",American Association of Clinical Endocrinology,Hội Nội tiết Lâm sàng Hoa Kỳ,AACE,,Kỷ yếu IFR 2026,Cặp có sẵn
+"Tổ chức, khuyến cáo & thử nghiệm",Fracture Liaison Service,dịch vụ liên kết gãy xương / mô hình liên kết đa chuyên khoa,FLS,,Kỷ yếu IFR 2026,Cặp có sẵn
+"Tổ chức, khuyến cáo & thử nghiệm",clinical practice guidelines,hướng dẫn thực hành lâm sàng,,,Kỷ yếu IFR 2026,Cặp có sẵn
+"Tổ chức, khuyến cáo & thử nghiệm",recommendations,khuyến cáo,,,Kỷ yếu IFR 2026,Cặp có sẵn
+"Tổ chức, khuyến cáo & thử nghiệm",2025 EULAR/ACR risk stratification criteria,tiêu chuẩn phân tầng nguy cơ EULAR/ACR 2025,,,Kỷ yếu IFR 2026,Cặp có sẵn
+"Tổ chức, khuyến cáo & thử nghiệm",2026 EULAR treatment recommendations,khuyến cáo điều trị EULAR 2026,,,Kỷ yếu IFR 2026,Cặp có sẵn
+"Tổ chức, khuyến cáo & thử nghiệm",randomized controlled trials,thử nghiệm lâm sàng ngẫu nhiên có đối chứng,RCTs,,Kỷ yếu IFR 2026,Cặp có sẵn
+"Tổ chức, khuyến cáo & thử nghiệm",sham surgery,phẫu thuật giả (đối chứng),,,Kỷ yếu IFR 2026,Cặp có sẵn
+"Tổ chức, khuyến cáo & thử nghiệm",real-world evidence / real-world treatment,bằng chứng / thực tế điều trị,,,Kỷ yếu IFR 2026,Cặp có sẵn
+"Tổ chức, khuyến cáo & thử nghiệm",systematic review,tổng quan tài liệu hệ thống,,,Kỷ yếu IFR 2026,Cặp có sẵn
+"Tổ chức, khuyến cáo & thử nghiệm",cross-sectional descriptive study,nghiên cứu mô tả cắt ngang,,,Kỷ yếu IFR 2026,Cặp có sẵn
+"Tổ chức, khuyến cáo & thử nghiệm",prospective study,nghiên cứu tiến cứu,,,Kỷ yếu IFR 2026,Cặp có sẵn
+"Tổ chức, khuyến cáo & thử nghiệm",associated factors / related factors,yếu tố liên quan,,,Kỷ yếu IFR 2026,Cặp có sẵn
+"Tổ chức, khuyến cáo & thử nghiệm",statistically significant,có ý nghĩa thống kê,,,Kỷ yếu IFR 2026,Cặp có sẵn
+"Tổ chức, khuyến cáo & thử nghiệm",odds ratio / confidence interval,tỷ suất chênh / khoảng tin cậy,OR / CI,,Kỷ yếu IFR 2026,Cặp có sẵn
+"Tổ chức, khuyến cáo & thử nghiệm","RA-BEAM, ProDERM, VALOR, GO-REVEAL, GO-VIBRANT",tên thử nghiệm lâm sàng (giữ nguyên),,,Kỷ yếu IFR 2026,Cặp có sẵn
+Điều dưỡng & chăm sóc,rheumatology nursing,điều dưỡng chuyên khoa cơ xương khớp,,,Kỷ yếu IFR 2026,Cặp có sẵn
+Điều dưỡng & chăm sóc,musculoskeletal nursing,điều dưỡng cơ xương khớp,,,Kỷ yếu IFR 2026,Cặp có sẵn
+Điều dưỡng & chăm sóc,nursing practice,thực hành điều dưỡng,,,Kỷ yếu IFR 2026,Cặp có sẵn
+Điều dưỡng & chăm sóc,nursing process (five-step),quy trình điều dưỡng (năm bước),,,Kỷ yếu IFR 2026,Cặp có sẵn
+Điều dưỡng & chăm sóc,nursing diagnosis,chẩn đoán điều dưỡng,,NANDA,Kỷ yếu IFR 2026,Cặp có sẵn
+Điều dưỡng & chăm sóc,nursing interventions,can thiệp điều dưỡng,,,Kỷ yếu IFR 2026,Cặp có sẵn
+Điều dưỡng & chăm sóc,person-centred / patient-centred care,chăm sóc lấy người bệnh làm trung tâm,,,Kỷ yếu IFR 2026,Cặp có sẵn
+Điều dưỡng & chăm sóc,self-management support,hỗ trợ tự quản lý,,,Kỷ yếu IFR 2026,Cặp có sẵn
+Điều dưỡng & chăm sóc,evidence-based care,chăm sóc dựa trên bằng chứng,,,Kỷ yếu IFR 2026,Cặp có sẵn
+Điều dưỡng & chăm sóc,electronic medical records,bệnh án điện tử / hồ sơ bệnh án điện tử,EMR,,Kỷ yếu IFR 2026,Cặp có sẵn
+Điều dưỡng & chăm sóc,predictive models,mô hình dự báo,,,Kỷ yếu IFR 2026,Cặp có sẵn
+Điều dưỡng & chăm sóc,multidisciplinary team,nhóm đa chuyên khoa,MDT,,Kỷ yếu IFR 2026,Cặp có sẵn
+Điều dưỡng & chăm sóc,interdisciplinary care,phối hợp liên chuyên khoa,,,Kỷ yếu IFR 2026,Cặp có sẵn
+Điều dưỡng & chăm sóc,primary care physicians,bác sĩ tuyến y tế ban đầu,,,Kỷ yếu IFR 2026,Cặp có sẵn
+Điều dưỡng & chăm sóc,post-fracture care,chăm sóc sau gãy xương,,,Kỷ yếu IFR 2026,Cặp có sẵn
+Điều dưỡng & chăm sóc,wound care,chăm sóc vết thương,,,Kỷ yếu IFR 2026,Cặp có sẵn
+Điều dưỡng & chăm sóc,smoking cessation,cai thuốc lá,,,Kỷ yếu IFR 2026,Cặp có sẵn
+Điều dưỡng & chăm sóc,follow-up,theo dõi / tái khám,,,Kỷ yếu IFR 2026,Cặp có sẵn
+Điều dưỡng & chăm sóc,care model,mô hình chăm sóc,,,Kỷ yếu IFR 2026,Cặp có sẵn
+Điều dưỡng & chăm sóc,roles and responsibilities,vai trò và trách nhiệm,,,Kỷ yếu IFR 2026,Cặp có sẵn
+Hội nghị,Annual Scientific Conference,Hội nghị khoa học thường niên,,,Kỷ yếu IFR 2026,Cặp có sẵn
+Hội nghị,Bach Mai National Institute for Rheumatology,Viện Cơ Xương Khớp Bạch Mai,IFR,tiền thân: Trung tâm Cơ Xương Khớp,Kỷ yếu IFR 2026,Cặp có sẵn
+Hội nghị,Bach Mai Hospital,Bệnh viện Bạch Mai,,,Kỷ yếu IFR 2026,Cặp có sẵn
+Hội nghị,VRA Midterm Meeting,Hội nghị giữa kỳ VRA,,,Kỷ yếu IFR 2026,Cặp có sẵn
+Hội nghị,APLAR Patronage,Hội nghị chuyên đề APLAR,,,Kỷ yếu IFR 2026,Cặp có sẵn
+Hội nghị,World Arthritis Day,Ngày Thế giới phòng chống bệnh thấp khớp (12/10),,,Kỷ yếu IFR 2026,Cặp có sẵn
+Hội nghị,World Osteoporosis Day,Ngày Loãng xương Thế giới (20/10),,,Kỷ yếu IFR 2026,Cặp có sẵn
+Hội nghị,Scientific Committee,Hội đồng khoa học,,,Kỷ yếu IFR 2026,Cặp có sẵn
+Hội nghị,Organizing Committee,Ban tổ chức,,,Kỷ yếu IFR 2026,Cặp có sẵn
+Hội nghị,plenary session / hall,phiên toàn thể / hội trường,,,Kỷ yếu IFR 2026,Cặp có sẵn
+Hội nghị,chairperson / moderator,chủ tọa,,,Kỷ yếu IFR 2026,Cặp có sẵn
+Hội nghị,Almaz Convention Center,Trung tâm Hội nghị Almaz,,,Kỷ yếu IFR 2026,Cặp có sẵn
+Hội nghị,abstract / keywords,tóm tắt / từ khóa,,,Kỷ yếu IFR 2026,Cặp có sẵn
+Hội nghị,Q&A session,phần hỏi đáp / thảo luận,,,Kỷ yếu IFR 2026,Cặp có sẵn
+"Học hàm, học vị",Professor (Prof.),Giáo sư (GS.),,,Kỷ yếu IFR 2026,Cặp có sẵn
+"Học hàm, học vị",Associate Professor (Assoc. Prof.),Phó Giáo sư (PGS.),,,Kỷ yếu IFR 2026,Cặp có sẵn
+"Học hàm, học vị",Doctor of Philosophy (PhD),Tiến sĩ (TS.),,,Kỷ yếu IFR 2026,Cặp có sẵn
+"Học hàm, học vị",Master (MSc),Thạc sĩ (ThS.),,,Kỷ yếu IFR 2026,Cặp có sẵn
+"Học hàm, học vị",Specialist Level I / II (Spec. I / II),Bác sĩ chuyên khoa I / II (BSCKI / BSCKII),,,Kỷ yếu IFR 2026,Cặp có sẵn
+"Học hàm, học vị","Bachelor of Nursing, RN",Cử nhân điều dưỡng (CNĐD),,,Kỷ yếu IFR 2026,Cặp có sẵn
+"Học hàm, học vị","Master of Nursing, RN",Thạc sĩ điều dưỡng (ThSĐD),,,Kỷ yếu IFR 2026,Cặp có sẵn
+"Học hàm, học vị",Specialist Nurse Level I,Điều dưỡng chuyên khoa I (ĐDCK1),,,Kỷ yếu IFR 2026,Cặp có sẵn
+"Học hàm, học vị",Director of the Institute,Viện trưởng,,,Kỷ yếu IFR 2026,Cặp có sẵn
+"Học hàm, học vị",Deputy Director,Phó Viện trưởng,,,Kỷ yếu IFR 2026,Cặp có sẵn
+"Học hàm, học vị",Head of Department,Trưởng khoa,,,Kỷ yếu IFR 2026,Cặp có sẵn
+Điều dưỡng & chăm sóc,nursing integration trends,xu thế hội nhập của điều dưỡng,,,"File 13, 14",Cặp có sẵn
+Điều dưỡng & chăm sóc,Vietnam Nurses Association,Hội Điều dưỡng Việt Nam,VNA,bản gốc EN ghi 'VietNam Nursing Asociation',"File 13, 14",Cặp có sẵn
+Điều dưỡng & chăm sóc,nurse-to-doctor ratio,tỷ lệ điều dưỡng/bác sĩ,,,"File 13, 14",Cặp có sẵn
+Điều dưỡng & chăm sóc,paid internship,thực tập tốt nghiệp có hưởng lương,,,"File 13, 14",Cặp có sẵn
+Điều dưỡng & chăm sóc,specialized rheumatology nurse,điều dưỡng chuyên khoa cơ xương khớp,SRN,VI viết tắt: ĐDCKCXK,"File 13, 14",Cặp có sẵn
+Điều dưỡng & chăm sóc,scope of practice,phạm vi hành nghề,,,"File 13, 14",Cặp có sẵn
+Điều dưỡng & chăm sóc,continuing education / continuous training,đào tạo liên tục,,,"File 13, 14",Cặp có sẵn
+Điều dưỡng & chăm sóc,role ambiguity,sự mơ hồ về vai trò,,,"File 13, 14",Cặp có sẵn
+Điều dưỡng & chăm sóc,Global Burden of Disease,Gánh nặng bệnh tật toàn cầu,GBD,,File 15,Cặp có sẵn
+Điều dưỡng & chăm sóc,multidisciplinary rehabilitation,phục hồi chức năng đa chuyên ngành,,,File 15,Cặp có sẵn
+Điều dưỡng & chăm sóc,physical therapist / physiotherapist,nhà vật lý trị liệu / kỹ thuật viên vật lý trị liệu,PT,,File 15,Cặp có sẵn
+Điều dưỡng & chăm sóc,occupational therapist,kỹ thuật viên hoạt động trị liệu,OT,,File 15,Cặp có sẵn
+Điều dưỡng & chăm sóc,physical activity,hoạt động thể chất,,,File 15,Cặp có sẵn
+Điều dưỡng & chăm sóc,early mobilization,vận động sớm,,,File 15,Cặp có sẵn
+Điều dưỡng & chăm sóc,repositioning,thay đổi tư thế,,,File 15,Cặp có sẵn
+Điều dưỡng & chăm sóc,activities of daily living,hoạt động sinh hoạt hằng ngày,ADL,,File 15,Cặp có sẵn
+Điều dưỡng & chăm sóc,caregiver,người chăm sóc,,,File 15,Cặp có sẵn
+Điều dưỡng & chăm sóc,nurse practitioner,điều dưỡng thực hành nâng cao,NP,,File 15,Cặp có sẵn
+Điều dưỡng & chăm sóc,sprain / muscle spasm,bong gân / co thắt cơ,,,File 15,Cặp có sẵn
+Điều dưỡng & chăm sóc,amputation,cắt cụt chi,,,File 15,Cặp có sẵn
+Bệnh & chăm sóc da,skin care,chăm sóc da,,,File 16,Cặp có sẵn
+Bệnh & chăm sóc da,erythema nodosum,hồng ban nút,,,File 16,Cặp có sẵn
+Bệnh & chăm sóc da,cellulitis,viêm mô tế bào,,,File 16,Cặp có sẵn
+Vết thương & chăm sóc vết thương,chronic wound,vết thương mạn tính,,,"File 17, 18",Cặp có sẵn
+Vết thương & chăm sóc vết thương,open wound / closed wound,vết thương hở / vết thương kín,,,"File 17, 18",Cặp có sẵn
+Vết thương & chăm sóc vết thương,diabetic ulcer / diabetic foot ulcer,loét do đái tháo đường / loét bàn chân đái tháo đường,DFU,,"File 17, 18",Cặp có sẵn
+Vết thương & chăm sóc vết thương,venous ulcer / arterial ulcer,loét tĩnh mạch / loét động mạch,,,"File 17, 18",Cặp có sẵn
+Vết thương & chăm sóc vết thương,necrotic tissue,mô hoại tử,,,"File 17, 18",Cặp có sẵn
+Vết thương & chăm sóc vết thương,wound debridement,cắt lọc vết thương,,,"File 17, 18",Cặp có sẵn
+Vết thương & chăm sóc vết thương,primary / secondary intention healing,liền vết thương nguyên phát / thứ phát,,bản gốc EN: primary / secondary healing,"File 17, 18",Cặp có sẵn
+Vết thương & chăm sóc vết thương,granulation tissue,mô hạt / tổ chức hạt,,bản gốc EN ghi 'granular tissue',"File 17, 18",Cặp có sẵn
+Vết thương & chăm sóc vết thương,epithelialization,biểu mô hóa,,,"File 17, 18",Cặp có sẵn
+Vết thương & chăm sóc vết thương,wound exudate,dịch tiết vết thương,,,"File 17, 18",Cặp có sẵn
+Vết thương & chăm sóc vết thương,advanced wound dressings,băng gạc tiên tiến,,bản gốc EN ghi 'advanced bandages',"File 17, 18",Cặp có sẵn
+Vết thương & chăm sóc vết thương,hyperbaric / topical oxygen therapy,oxy cao áp / oxy tại chỗ,,bản gốc VI ghi 'oxy cao tần' – cần hỏi diễn giả,"File 17, 18",Cặp có sẵn
+Vết thương & chăm sóc vết thương,stem cells,tế bào gốc,,,"File 17, 18",Cặp có sẵn
+Vết thương & chăm sóc vết thương,abscess,áp xe,,,"File 17, 18",Cặp có sẵn
+Vết thương & chăm sóc vết thương,incision and drainage,chích rạch (dẫn lưu),,,"File 17, 18",Cặp có sẵn
+Vết thương & chăm sóc vết thương,pseudomembrane / slough,giả mạc,,,"File 17, 18",Cặp có sẵn
+Vết thương & chăm sóc vết thương,tophus infection,nhiễm trùng hạt tophi,,bản gốc EN ghi 'tophi seed infection',"File 17, 18",Cặp có sẵn
+Vết thương & chăm sóc vết thương,chronic gout,gút mạn,,,"File 17, 18",Cặp có sẵn
+Vết thương & chăm sóc vết thương,type 2 diabetes,đái tháo đường týp 2,T2D,,"File 17, 18",Cặp có sẵn
+Vết thương & chăm sóc vết thương,case report,báo cáo ca bệnh,,,"File 17, 18",Cặp có sẵn
+Vết thương & chăm sóc vết thương,erector spinae muscles,nhóm cơ dựng sống,,,"File 17, 18",Cặp có sẵn
+Vết thương & chăm sóc vết thương,retroperitoneal space,khoang sau phúc mạc,,,"File 17, 18",Cặp có sẵn
+Vết thương & chăm sóc vết thương,conventional moist gauze dressing,"thay băng, đắp gạc ẩm kinh điển",,,"File 17, 18",Cặp có sẵn
+Vết thương & chăm sóc vết thương,Viet Duc University Hospital,Bệnh viện Hữu nghị Việt Đức,,,"File 17, 18",Cặp có sẵn
+Chẩn đoán & lâm sàng,low back pain,đau cột sống thắt lưng / đau thắt lưng,LBP,,File 30,Cặp có sẵn
+Chẩn đoán & lâm sàng,referral to a rheumatologist,chuyển tới bác sĩ chuyên khoa cơ xương khớp,,,File 30,Cặp có sẵn
+Chẩn đoán & lâm sàng,pain generator,nguồn gây đau (theo giải phẫu),,,File 30,Cặp có sẵn
+Chẩn đoán & lâm sàng,history and physical examination,hỏi bệnh sử và khám thực thể,,,File 30,Cặp có sẵn
+Chẩn đoán & lâm sàng,general practitioner / primary care physician,bác sĩ tuyến cơ sở,GP,,File 30,Cặp có sẵn
+Chẩn đoán & lâm sàng,inflammatory back pain,đau cột sống thắt lưng kiểu viêm,IBP,,File 30,Cặp có sẵn
+Chẩn đoán & lâm sàng,self-limited,tự khỏi,,,File 30,Cặp có sẵn
+Chẩn đoán & lâm sàng,recurrence rate,tỷ lệ tái phát,,,File 30,Cặp có sẵn
+Điều dưỡng & chăm sóc,elderly patients,người bệnh cao tuổi,,,"File 31, 33, 35",Cặp có sẵn
+Điều dưỡng & chăm sóc,population ageing,già hóa dân số,,,"File 31, 33, 35",Cặp có sẵn
+Điều dưỡng & chăm sóc,personal hygiene,vệ sinh cá nhân,,,"File 31, 33, 35",Cặp có sẵn
+Điều dưỡng & chăm sóc,medication overuse / drug misuse,lạm dụng thuốc,,,"File 31, 33, 35",Cặp có sẵn
+Điều dưỡng & chăm sóc,psychological / emotional support,chăm sóc tinh thần,,,"File 31, 33, 35",Cặp có sẵn
+Điều dưỡng & chăm sóc,occupational guidance / career counseling,hướng nghiệp / tư vấn hướng nghiệp,,,"File 31, 33, 35",Cặp có sẵn
+Điều dưỡng & chăm sóc,return to work,quay trở lại công việc,RTW,,"File 31, 33, 35",Cặp có sẵn
+Điều dưỡng & chăm sóc,work absence / sick leave,nghỉ việc / nghỉ ốm,,,"File 31, 33, 35",Cặp có sẵn
+Điều dưỡng & chăm sóc,musculoskeletal pain,đau cơ xương khớp,,,"File 31, 33, 35",Cặp có sẵn
+Điều dưỡng & chăm sóc,chronic musculoskeletal pain,đau cơ xương khớp mạn tính,,,"File 31, 33, 35",Cặp có sẵn
+Điều dưỡng & chăm sóc,mental disorders,rối loạn tâm thần,,,"File 31, 33, 35",Cặp có sẵn
+Điều dưỡng & chăm sóc,mental health problems,vấn đề sức khỏe tâm thần,,,"File 31, 33, 35",Cặp có sẵn
+Điều dưỡng & chăm sóc,depression / anxiety,trầm cảm / lo âu,,,"File 31, 33, 35",Cặp có sẵn
+Điều dưỡng & chăm sóc,sleep disturbance,rối loạn giấc ngủ,,,"File 31, 33, 35",Cặp có sẵn
+Điều dưỡng & chăm sóc,exhaustion / fatigue,kiệt sức / mệt mỏi,,,"File 31, 33, 35",Cặp có sẵn
+Điều dưỡng & chăm sóc,coping,khả năng thích ứng,,,"File 31, 33, 35",Cặp có sẵn
+Điều dưỡng & chăm sóc,psychiatric consultation,hội chẩn chuyên khoa Tâm thần,,,"File 31, 33, 35",Cặp có sẵn
+Điều dưỡng & chăm sóc,holistic care,chăm sóc toàn diện,,,"File 31, 33, 35",Cặp có sẵn
+Y học cổ truyền,traditional medicine,y học cổ truyền,,VI viết tắt: YHCT,File 34,Cặp có sẵn
+Y học cổ truyền,Vietnamese traditional medicine,Y học cổ truyền Việt Nam,,,File 34,Cặp có sẵn
+Y học cổ truyền,Southern herbology,Thuốc Nam,,,File 34,Cặp có sẵn
+Y học cổ truyền,Northern herbology / traditional Chinese medicine,Thuốc Bắc / Đông y,TCM,,File 34,Cặp có sẵn
+Y học cổ truyền,filiform needle acupuncture,hào châm,,bản gốc EN ghi 'Hao acupuncture',File 34,Cặp có sẵn
+Y học cổ truyền,long-needle acupuncture,trường châm,,,File 34,Cặp có sẵn
+Y học cổ truyền,warm-needle acupuncture,ôn châm,,,File 34,Cặp có sẵn
+Y học cổ truyền,electroacupuncture,điện châm,,,File 34,Cặp có sẵn
+Y học cổ truyền,magnetic acupuncture,từ châm,,,File 34,Cặp có sẵn
+Y học cổ truyền,"moxibustion (moxa stick, ginger-insulated)","cứu (điếu ngải, cách gừng)",,bản gốc EN dịch sai thành 'Cure: eucalyptus',File 34,Cặp có sẵn
+Y học cổ truyền,mugwort compress / hot compress / salt compress,chườm ngải / chườm nóng / chườm muối,,,File 34,Cặp có sẵn
+Y học cổ truyền,hot stone / cold stone therapy,chườm đá nóng / đá lạnh,,bản gốc EN ghi 'hot ice compresses',File 34,Cặp có sẵn
+Y học cổ truyền,massage,xoa bóp,,,File 34,Cặp có sẵn
+Y học cổ truyền,acupressure,bấm huyệt,,,File 34,Cặp có sẵn
+Y học cổ truyền,herbal poultice / plaster cast,bó thuốc / bó nắn thạch cao,,,File 34,Cặp có sẵn
+Y học cổ truyền,spinal manipulation / spinal traction,nắn chỉnh cột sống / kéo giãn cột sống,,,File 34,Cặp có sẵn
+Y học cổ truyền,herbal soak / herbal steam,ngâm thuốc / xông thuốc,,,File 34,Cặp có sẵn
+Y học cổ truyền,aquapuncture (acupoint injection),thủy châm,,bản gốc EN ghi 'Water needles',File 34,Cặp có sẵn
+Y học cổ truyền,catgut embedding (acupoint thread embedding),cấy chỉ,,bản gốc EN ghi 'Thread implantation',File 34,Cặp có sẵn
+Y học cổ truyền,(chưa rõ – cần hỏi diễn giả),xẩm,,bản gốc EN để nguyên Xam,File 34,Cặp có sẵn
+Y học cổ truyền,dưỡng sinh exercises (traditional health exercises),tập dưỡng sinh,,,File 34,Cặp có sẵn
+Y học cổ truyền,dietary therapy,ăn uống trị liệu / thực dưỡng trị liệu,,bản gốc EN ghi 'Macrotherapy',File 34,Cặp có sẵn
+Y học cổ truyền,psychotherapy,tâm lý trị liệu,,,File 34,Cặp có sẵn
+Y học cổ truyền,Vietnam University of Traditional Medicine,Học viện Y Dược học cổ truyền Việt Nam,,,File 34,Cặp có sẵn
+Y học cổ truyền,"Hai Thuong Lan Ong, Tue Tinh","Hải Thượng Lãn Ông, Tuệ Tĩnh",,danh y – giữ nguyên,File 34,Cặp có sẵn
+Bệnh viêm khớp tự miễn,autoimmune disease,bệnh tự miễn,,,File 36,Cặp có sẵn
+Bệnh viêm khớp tự miễn,autoimmune arthritis,viêm khớp tự miễn,,,File 36,Cặp có sẵn
+Bệnh viêm khớp tự miễn,antigen,kháng nguyên,,,File 36,Cặp có sẵn
+Bệnh viêm khớp tự miễn,immune overreaction,phản ứng quá mức của hệ miễn dịch,,,File 36,Cặp có sẵn
+Bệnh viêm khớp tự miễn,systemic / topical corticosteroids,corticoid toàn thân / tại chỗ,,,File 36,Cặp có sẵn
+Bệnh viêm khớp tự miễn,conventional DMARDs,DMARD cổ điển / kinh điển,csDMARDs,,File 36,Cặp có sẵn
+Bệnh viêm khớp tự miễn,physiotherapy and rehabilitation,vật lý trị liệu – phục hồi chức năng,,VI viết tắt: VLTL–PHCN; bản gốc EN để nguyên 'VLTL',File 36,Cặp có sẵn
+Bệnh viêm khớp tự miễn,"Chlamydia, E. coli, influenza","Chlamydia, E. coli, cúm",,,File 36,Cặp có sẵn
+Điều trị & thuốc,T helper 17 cells,tế bào T hỗ trợ 17,Th17,,File 4,Đề xuất
+Điều trị & thuốc,plaque psoriasis,vảy nến mảng,,,File 4,Đề xuất
+Điều trị & thuốc,axial involvement,tổn thương khớp trục,,,File 4,Đề xuất
+Điều trị & thuốc,extra-articular manifestations,biểu hiện ngoài khớp,,,File 4,Đề xuất
+Điều trị & thuốc,oligoarthritis,viêm vài khớp / thể ít khớp,,,File 4,Đề xuất
+Điều trị & thuốc,benefit–risk profile,hồ sơ lợi ích – nguy cơ,,,File 4,Đề xuất
+Điều trị & thuốc,ustekinumab,ustekinumab,,tên thuốc,File 4,Đề xuất
+Điều trị & thuốc,symptomatic slow-acting drugs for osteoarthritis,thuốc chống thoái hóa tác dụng chậm,SYSADOA,đọc: 'si-sa-doa',File 7,Đề xuất
+Điều trị & thuốc,diacerein,diacerein,,bản gốc ghi 'diacerin',File 7,Đề xuất
+Điều trị & thuốc,avocado soybean unsaponifiables (Piascledine),Piascledine,ASU,tên biệt dược,File 7,Đề xuất
+Điều trị & thuốc,glucosamine sulfate (Viartril-S),Viartril-S,,tên biệt dược; bản gốc ghi 'viatril-S',File 7,Đề xuất
+Điều trị & thuốc,subchondral bone,xương dưới sụn,,,File 7,Đề xuất
+Điều trị & thuốc,articular cartilage,sụn khớp,,,File 7,Đề xuất
+Điều trị & thuốc,joint capsule,bao khớp,,,File 7,Đề xuất
+Điều trị & thuốc,joint effusion / synovial cyst,tràn dịch khớp / kén khớp,,,File 7,Đề xuất
+Điều trị & thuốc,secondary synovitis,viêm màng hoạt dịch thứ phát,,,File 7,Đề xuất
+Điều trị & thuốc,grassroots / district-level health facilities,y tế cơ sở / tuyến huyện,,,File 7,Đề xuất
+Điều trị & thuốc,satellite hospital,bệnh viện vệ tinh,,,File 7,Đề xuất
+Điều trị & thuốc,Ministry of Health guidelines,phác đồ / hướng dẫn của Bộ Y tế,MOH,,File 7,Đề xuất
+Điều trị & thuốc,window of opportunity,cửa sổ cơ hội,,,File 8,Đề xuất
+Điều trị & thuốc,2010 ACR/EULAR classification criteria,tiêu chuẩn ACR/EULAR 2010,,,File 8,Đề xuất
+Điều trị & thuốc,COX-2 selective inhibitors,thuốc kháng viêm ức chế chọn lọc COX-2,,,File 8,Đề xuất
+Điều trị & thuốc,celecoxib / meloxicam / etoricoxib,celecoxib / meloxicam / etoricoxib,,tên thuốc,File 8,Đề xuất
+Điều trị & thuốc,proton pump inhibitors,thuốc ức chế bơm proton,PPI,,File 8,Đề xuất
+Điều trị & thuốc,intravenous pulse methylprednisolone,truyền tĩnh mạch methylprednisolone liều cao (bolus),,,File 8,Đề xuất
+Điều trị & thuốc,sulfasalazine,sulfasalazin,,tên thuốc,File 8,Đề xuất
+Điều trị & thuốc,etanercept,etanercept,,tên thuốc,File 8,Đề xuất
+Điều trị & thuốc,triple therapy (MTX + SSZ + HCQ),phối hợp 3 thuốc (MTX + sulfasalazin + hydroxychloroquine),,,File 8,Đề xuất
+Điều trị & thuốc,anti-B-cell therapy,thuốc kháng lympho B,,,File 8,Đề xuất
+Điều trị & thuốc,latent tuberculosis screening,"sàng lọc lao, lao tiềm ẩn",LTBI,,File 8,Đề xuất
+Điều trị & thuốc,poor prognostic factors,yếu tố tiên lượng nặng,,,File 8,Đề xuất
+Điều trị & thuốc,liver enzymes (AST/ALT),men gan (SGOT/SGPT),,,File 8,Đề xuất
+Điều trị & thuốc,liver biopsy,sinh thiết gan,,,File 8,Đề xuất
+Điều trị & thuốc,subcutaneous / intravenous,tiêm dưới da / truyền tĩnh mạch,SC / IV,,File 8,Đề xuất
+Điều trị & thuốc,contraindication,chống chỉ định,,VI viết tắt: CCĐ,File 8,Đề xuất
+Điều trị & thuốc,HLA-DR4,HLA-DR4,,,File 8,Đề xuất
+Điều trị & thuốc,humoral / cell-mediated immunity,miễn dịch dịch thể / miễn dịch qua trung gian tế bào,,,File 8,Đề xuất
+Điều trị & thuốc,biologic therapy at primary / grassroots level,điều trị thuốc sinh học tại y tế cơ sở,,,File 9,Đề xuất
+Điều trị & thuốc,tertiary hospitals,bệnh viện tuyến cao / tuyến trên,,,File 9,Đề xuất
+Điều trị & thuốc,overcrowding / overload,quá tải,,,File 9,Đề xuất
+Điều trị & thuốc,health insurance,bảo hiểm y tế,,,File 9,Đề xuất
+Điều trị & thuốc,referral to a higher level,chuyển tuyến trên,,,File 9,Đề xuất
+Vi sinh & kháng sinh,microbiological evidence,bằng chứng vi sinh,,,"File 10, 11",Đề xuất
+Vi sinh & kháng sinh,gold standard,tiêu chuẩn vàng,,,"File 10, 11",Đề xuất
+Vi sinh & kháng sinh,Gram stain / microscopy,nhuộm soi,,,"File 10, 11",Đề xuất
+Vi sinh & kháng sinh,rapid antigen test,test nhanh phát hiện kháng nguyên,,,"File 10, 11",Đề xuất
+Vi sinh & kháng sinh,culture and antimicrobial susceptibility testing,nuôi cấy và kháng sinh đồ,AST,,"File 10, 11",Đề xuất
+Vi sinh & kháng sinh,culture positivity rate,tỷ lệ cấy dương tính,,,"File 10, 11",Đề xuất
+Vi sinh & kháng sinh,multidrug-resistant bacteria / fungi,vi khuẩn / vi nấm đa kháng,MDR,,"File 10, 11",Đề xuất
+Vi sinh & kháng sinh,empirical therapy,điều trị theo kinh nghiệm,,,"File 10, 11",Đề xuất
+Vi sinh & kháng sinh,molecular diagnostics,sinh học phân tử,,,"File 10, 11",Đề xuất
+Vi sinh & kháng sinh,digital microbiology,vi sinh số,,,"File 10, 11",Đề xuất
+Vi sinh & kháng sinh,mass spectrometry (MALDI-TOF),công nghệ khối phổ,MALDI-TOF,,"File 10, 11",Đề xuất
+Vi sinh & kháng sinh,turnaround time,thời gian trả kết quả,TAT,,"File 10, 11",Đề xuất
+Vi sinh & kháng sinh,specimen quality,chất lượng bệnh phẩm,,,"File 10, 11",Đề xuất
+Vi sinh & kháng sinh,antimicrobial resistance,kháng thuốc / đề kháng kháng sinh,AMR,,"File 10, 11",Đề xuất
+Vi sinh & kháng sinh,methicillin-resistant Staphylococcus aureus,tụ cầu vàng kháng methicillin,MRSA,,"File 10, 11",Đề xuất
+Vi sinh & kháng sinh,multidrug-resistant Gram-negative bacteria,vi khuẩn Gram âm đa kháng,,,"File 10, 11",Đề xuất
+Vi sinh & kháng sinh,pharmacokinetics / pharmacodynamics,dược động học / dược lực học,PK/PD,,"File 10, 11",Đề xuất
+Vi sinh & kháng sinh,volume of distribution / clearance,thể tích phân bố / độ thanh thải,,,"File 10, 11",Đề xuất
+Vi sinh & kháng sinh,tissue penetration,khả năng thấm vào mô,,,"File 10, 11",Đề xuất
+Vi sinh & kháng sinh,loading dose,liều nạp,,,"File 10, 11",Đề xuất
+Vi sinh & kháng sinh,therapeutic drug monitoring,theo dõi nồng độ thuốc trong máu,TDM,,"File 10, 11",Đề xuất
+Vi sinh & kháng sinh,septic arthritis,viêm khớp nhiễm khuẩn,,,"File 10, 11",Đề xuất
+Phẫu thuật & cơ chế đau,high tibial osteotomy,đục xương chỉnh trục,HTO,,"File 20, 28",Đề xuất
+Phẫu thuật & cơ chế đau,arthroscopic debridement,nội soi khớp làm sạch,,,"File 20, 28",Đề xuất
+Phẫu thuật & cơ chế đau,microfracture,tạo vi gãy (microfracture),,,"File 20, 28",Đề xuất
+Phẫu thuật & cơ chế đau,cartilage grafting / transplantation,ghép sụn khớp,,,"File 20, 28",Đề xuất
+Phẫu thuật & cơ chế đau,unicompartmental / total knee arthroplasty,thay khớp gối bán phần / toàn phần,UKA / TKA,,"File 20, 28",Đề xuất
+Phẫu thuật & cơ chế đau,meniscus,sụn chêm,,,"File 20, 28",Đề xuất
+Phẫu thuật & cơ chế đau,nociceptors,thụ cảm thể đau,,,"File 20, 28",Đề xuất
+Phẫu thuật & cơ chế đau,inflammatory mediators,chất trung gian gây viêm,,,"File 20, 28",Đề xuất
+Phẫu thuật & cơ chế đau,dorsal horn of the spinal cord,sừng sau tủy sống,,,"File 20, 28",Đề xuất
+Phẫu thuật & cơ chế đau,endogenous opioids,opioid nội sinh,,,"File 20, 28",Đề xuất
+Phẫu thuật & cơ chế đau,descending pain inhibitory pathway,con đường ức chế đau tự nhiên,,,"File 20, 28",Đề xuất
+Phẫu thuật & cơ chế đau,crystal arthropathy,bệnh khớp vi tinh thể,,,"File 20, 28",Đề xuất
+Phẫu thuật & cơ chế đau,epicondylitis (tennis elbow),viêm gân quanh khuỷu tay,,,"File 20, 28",Đề xuất
+Phẫu thuật & cơ chế đau,antidepressants / anxiolytics,thuốc chống trầm cảm / chống lo âu,,,"File 20, 28",Đề xuất
+Phẫu thuật & cơ chế đau,chiropractic,nắn chỉnh cột sống (chiropractic),,,"File 20, 28",Đề xuất
+Phẫu thuật & cơ chế đau,meditation / stretching,thiền / giãn cơ,,,"File 20, 28",Đề xuất
+Thoái hóa khớp & cơ chế,population ageing / healthy ageing,lão hóa dân số / lão hóa khỏe mạnh,,,File 1 (đợt 3),Cặp có sẵn
+Thoái hóa khớp & cơ chế,whole-joint disease,bệnh lý của toàn bộ khớp,,,File 1 (đợt 3),Cặp có sẵn
+Thoái hóa khớp & cơ chế,synovial joint tissues,mô khớp hoạt dịch,,,File 1 (đợt 3),Cặp có sẵn
+Thoái hóa khớp & cơ chế,pathogenesis,sinh bệnh học / cơ chế bệnh sinh,,,File 1 (đợt 3),Cặp có sẵn
+Thoái hóa khớp & cơ chế,signaling pathways,con đường truyền tín hiệu,,,File 1 (đợt 3),Cặp có sẵn
+Thoái hóa khớp & cơ chế,cellular senescence,lão hóa tế bào,,bản gốc EN ghi 'Senescence cellular',File 1 (đợt 3),Cặp có sẵn
+Thoái hóa khớp & cơ chế,"Wnt/β-catenin, NF-κB, HIF, TGF-β/BMP, FGF","Wnt/β-catenin, NF-κB, HIF, TGF-β/BMP, FGF",,giữ nguyên,File 1 (đợt 3),Cặp có sẵn
+Thoái hóa khớp & cơ chế,focal adhesion,độ bám dính tiêu điểm,,,File 1 (đợt 3),Cặp có sẵn
+Thoái hóa khớp & cơ chế,"AMPK, mTOR, RUNX2","AMPK, mTOR, RUNX2",,giữ nguyên,File 1 (đợt 3),Cặp có sẵn
+Thoái hóa khớp & cơ chế,matrix metalloproteinases / ADAMTS,MMP / ADAMTS,MMP,,File 1 (đợt 3),Cặp có sẵn
+Thoái hóa khớp & cơ chế,lubricin,PRG4 (lubricin),PRG4,,File 1 (đợt 3),Cặp có sẵn
+Thoái hóa khớp & cơ chế,early diagnosis and comprehensive intervention,chẩn đoán sớm và can thiệp toàn diện,,,File 1 (đợt 3),Cặp có sẵn
+Viêm khớp cột sống & thuốc sinh học,peripheral spondyloarthritis,viêm khớp cột sống thể ngoại biên,pSpA,,"File 2, 25 (đợt 3)",Cặp có sẵn
+Viêm khớp cột sống & thuốc sinh học,non-radiographic axial spondyloarthritis,viêm khớp cột sống thể trục không tổn thương trên X quang,nr-axSpA,,"File 2, 25 (đợt 3)",Cặp có sẵn
+Viêm khớp cột sống & thuốc sinh học,radiographic axial SpA,viêm khớp cột sống thể trục có tổn thương X quang,r-axSpA,,"File 2, 25 (đợt 3)",Cặp có sẵn
+Viêm khớp cột sống & thuốc sinh học,human leukocyte antigen B27,kháng nguyên bạch cầu người HLA-B27,HLA-B27,,"File 2, 25 (đợt 3)",Cặp có sẵn
+Viêm khớp cột sống & thuốc sinh học,inflammatory bowel disease,bệnh viêm ruột,IBD,,"File 2, 25 (đợt 3)",Cặp có sẵn
+Viêm khớp cột sống & thuốc sinh học,iritis / recurrent uveitis,viêm mống mắt / viêm màng bồ đào tái phát,,,"File 2, 25 (đợt 3)",Cặp có sẵn
+Viêm khớp cột sống & thuốc sinh học,anti-TNF monoclonal antibodies,kháng thể đơn dòng kháng TNF,,,"File 2, 25 (đợt 3)",Cặp có sẵn
+Viêm khớp cột sống & thuốc sinh học,IL-17 blockers,thuốc chẹn IL-17,,,"File 2, 25 (đợt 3)",Cặp có sẵn
+Viêm khớp cột sống & thuốc sinh học,certolizumab pegol,certolizumab,,tên thuốc,"File 2, 25 (đợt 3)",Cặp có sẵn
+Viêm khớp cột sống & thuốc sinh học,European Medicines Agency,Cơ quan Dược phẩm châu Âu,EMA,,"File 2, 25 (đợt 3)",Cặp có sẵn
+Viêm khớp cột sống & thuốc sinh học,US Food and Drug Administration,Cục Quản lý Thực phẩm và Dược phẩm Hoa Kỳ,FDA,,"File 2, 25 (đợt 3)",Cặp có sẵn
+Viêm khớp cột sống & thuốc sinh học,heart failure,suy tim,,,"File 2, 25 (đợt 3)",Cặp có sẵn
+Viêm khớp cột sống & thuốc sinh học,demyelinating disease,bệnh mất myelin,,,"File 2, 25 (đợt 3)",Cặp có sẵn
+Viêm khớp cột sống & thuốc sinh học,primary non-response,không đáp ứng nguyên phát,,,"File 2, 25 (đợt 3)",Cặp có sẵn
+Viêm khớp cột sống & thuốc sinh học,sacroiliitis,viêm khớp cùng chậu,,,"File 2, 25 (đợt 3)",Cặp có sẵn
+Viêm khớp cột sống & thuốc sinh học,diagnostic delay,chẩn đoán muộn / chậm trễ chẩn đoán,,,"File 2, 25 (đợt 3)",Cặp có sẵn
+Viêm khớp cột sống & thuốc sinh học,Assessment of SpondyloArthritis international Society,Hội Đánh giá Viêm khớp cột sống Quốc tế,ASAS,đọc: 'a-sát',"File 2, 25 (đợt 3)",Cặp có sẵn
+Thai kỳ & bệnh cơ xương khớp,childbearing age / reproductive age,độ tuổi sinh sản / tuổi sinh đẻ,,,File 22 (đợt 3),Cặp có sẵn
+Thai kỳ & bệnh cơ xương khớp,antiphospholipid syndrome,hội chứng kháng phospholipid,APS,bản gốc EN ghi 'the resistant syndrome phospholipid',File 22 (đợt 3),Cặp có sẵn
+Thai kỳ & bệnh cơ xương khớp,preeclampsia,tiền sản giật,,,File 22 (đợt 3),Cặp có sẵn
+Thai kỳ & bệnh cơ xương khớp,intrauterine growth restriction,thai chậm phát triển trong tử cung,IUGR,bản gốc EN: 'retardation',File 22 (đợt 3),Cặp có sẵn
+Thai kỳ & bệnh cơ xương khớp,preterm birth,sinh non,,,File 22 (đợt 3),Cặp có sẵn
+Thai kỳ & bệnh cơ xương khớp,miscarriage / stillbirth,sảy thai / thai chết lưu,,,File 22 (đợt 3),Cặp có sẵn
+Thai kỳ & bệnh cơ xương khớp,neonatal complications,biến chứng sơ sinh,,,File 22 (đợt 3),Cặp có sẵn
+Thai kỳ & bệnh cơ xương khớp,maternal and fetal complications,biến chứng ở mẹ và thai nhi,,,File 22 (đợt 3),Cặp có sẵn
+Thai kỳ & bệnh cơ xương khớp,thromboembolic disease,bệnh huyết khối tắc mạch,,,File 22 (đợt 3),Cặp có sẵn
+Thai kỳ & bệnh cơ xương khớp,history of thrombosis,tiền sử huyết khối,,,File 22 (đợt 3),Cặp có sẵn
+Thai kỳ & bệnh cơ xương khớp,preconception counseling,tư vấn trước khi mang thai,,,File 22 (đợt 3),Cặp có sẵn
+Thai kỳ & bệnh cơ xương khớp,postpartum flare,bùng phát bệnh sau sinh,,,File 22 (đợt 3),Cặp có sẵn
+Thai kỳ & bệnh cơ xương khớp,breastfeeding / lactation,cho con bú,,,File 22 (đợt 3),Cặp có sẵn
+Thai kỳ & bệnh cơ xương khớp,obstetrics / anesthesiology,sản khoa / gây mê,,,File 22 (đợt 3),Cặp có sẵn
+Lupus,high-intensity immunosuppressive therapy,liệu pháp ức chế miễn dịch mạnh,,,File 23 (đợt 3),Cặp có sẵn
+Lupus,maintenance therapy,điều trị duy trì,,,File 23 (đợt 3),Cặp có sẵn
+Lupus,organ-threatening / life-threatening,đe dọa cơ quan / đe dọa tính mạng,,,File 23 (đợt 3),Cặp có sẵn
+Lupus,relapse,tái phát,,,File 23 (đợt 3),Cặp có sẵn
+Lupus,glucocorticoid minimisation,hạn chế tối thiểu glucocorticoid,,,File 23 (đợt 3),Cặp có sẵn
+Lupus,multiorgan involvement,tổn thương đa cơ quan,,,File 23 (đợt 3),Cặp có sẵn
+Lupus,central nervous system,hệ thần kinh trung ương,CNS,,File 23 (đợt 3),Cặp có sẵn
+Lupus,morbidity / mortality,"tàn phế, bệnh tật / tỷ lệ tử vong",,,File 23 (đợt 3),Cặp có sẵn
+Viêm khớp dạng thấp,difficult-to-treat rheumatoid arthritis,viêm khớp dạng thấp khó điều trị,D2T RA,,"File 21, 24 (đợt 3)",Cặp có sẵn
+Viêm khớp dạng thấp,mechanism of action,cơ chế tác dụng,MOA,,"File 21, 24 (đợt 3)",Cặp có sẵn
+Viêm khớp dạng thấp,"clinical, structural and functional remission","lui bệnh lâm sàng, cấu trúc và chức năng",,,"File 21, 24 (đợt 3)",Cặp có sẵn
+Viêm khớp dạng thấp,multidrug resistance,kháng nhiều loại thuốc,,,"File 21, 24 (đợt 3)",Cặp có sẵn
+Viêm khớp dạng thấp,"heterogeneous, multifactorial","không đồng nhất, đa yếu tố",,,"File 21, 24 (đợt 3)",Cặp có sẵn
+Viêm khớp dạng thấp,inadequate response,đáp ứng không đầy đủ,IR,"vd. TNF-IR, MTX-IR","File 21, 24 (đợt 3)",Cặp có sẵn
+Viêm khớp dạng thấp,advanced / established RA,VKDT giai đoạn muộn,,,"File 21, 24 (đợt 3)",Cặp có sẵn
+Viêm khớp dạng thấp,aggressive / intensive treatment,điều trị tích cực,,,"File 21, 24 (đợt 3)",Cặp có sẵn
+Viêm khớp dạng thấp,individualized treatment,điều trị cá thể hóa,,,"File 21, 24 (đợt 3)",Cặp có sẵn
+Khớp vai,shoulder pain,đau khớp vai,,,File 26 (đợt 3),Cặp có sẵn
+Khớp vai,rotator cuff disease,bệnh lý mũ cơ quay / chóp xoay,,bản gốc EN ghi 'rotational cuff',File 26 (đợt 3),Cặp có sẵn
+Khớp vai,biceps tendinopathy,bệnh lý gân nhị đầu,,,File 26 (đợt 3),Cặp có sẵn
+Khớp vai,adhesive capsulitis / frozen shoulder,viêm bao khớp co thắt / đông cứng khớp vai,,,File 26 (đợt 3),Cặp có sẵn
+Khớp vai,calcific tendinitis,viêm gân canxi hóa,,bản gốc EN ghi 'calcium tendinitis',File 26 (đợt 3),Cặp có sẵn
+Khớp vai,shoulder instability,mất vững khớp vai,,,File 26 (đợt 3),Cặp có sẵn
+Khớp vai,labral tear,tổn thương sụn viền,,,File 26 (đợt 3),Cặp có sẵn
+Khớp vai,septic arthritis of the shoulder,viêm khớp vai nhiễm khuẩn,,,File 26 (đợt 3),Cặp có sẵn
+Khớp vai,Parsonage-Turner syndrome,hội chứng Parsonage-Turner,,viêm đám rối thần kinh cánh tay,File 26 (đợt 3),Cặp có sẵn
+Khớp vai,Milwaukee shoulder syndrome,hội chứng Milwaukee,,,File 26 (đợt 3),Cặp có sẵn
+Khớp vai,suprascapular nerve entrapment,chèn ép thần kinh trên vai,,bản VI ghi 'dưới vai' – cần xác nhận,File 26 (đợt 3),Cặp có sẵn
+Khớp vai,referred pain,đau đối chiếu / đau quy chiếu,,,File 26 (đợt 3),Cặp có sẵn
+Khớp vai,muscle relaxants,thuốc giãn cơ,,,File 26 (đợt 3),Cặp có sẵn
+Khớp vai,hydrodilatation (shoulder distension),tiêm nong khớp vai,,,File 26 (đợt 3),Cặp có sẵn
+Khớp vai,barbotage (calcific lavage),bơm rửa nốt canxi,,bản gốc EN: calcium nodule aspiration and lavage,File 26 (đợt 3),Cặp có sẵn
+Khớp vai,paraclinical / laboratory tests,xét nghiệm cận lâm sàng,,bản gốc EN ghi 'subclinical tests' – sai nghĩa,File 26 (đợt 3),Cặp có sẵn
+Loãng xương,height loss,giảm chiều cao,,,File 27 (đợt 3),Cặp có sẵn
+Loãng xương,history of falls,tiền sử té ngã,,,File 27 (đợt 3),Cặp có sẵn
+Loãng xương,lateral thoracic and lumbar spine X-ray,chụp X quang cột sống ngực và thắt lưng nghiêng,,bản EN gốc ghi 'AP and lateral lumbar' – không khớp bản VI,File 27 (đợt 3),Cặp có sẵn
+Loãng xương,long-term glucocorticoid use,dùng glucocorticoid kéo dài,,,File 27 (đợt 3),Cặp có sẵn
+Loãng xương,secondary osteoporosis,loãng xương thứ phát,,,File 27 (đợt 3),Cặp có sẵn
+Loãng xương,bone loss,mất xương,,,File 27 (đợt 3),Cặp có sẵn
+Loãng xương,oral bisphosphonates,bisphosphonat đường uống,,,File 27 (đợt 3),Cặp có sẵn
+Loãng xương,bone-forming agents,thuốc tăng tạo xương,,,File 27 (đợt 3),Cặp có sẵn
+Gút,gout with comorbidities,gút có bệnh đồng mắc,,tiêu đề có bản EN,File 5 (đợt 3),Đề xuất
+Gút,chronic tophaceous gout,gút mạn có hạt tophi,,,File 5 (đợt 3),Đề xuất
+Gút,lifestyle modification,thay đổi lối sống,,,File 5 (đợt 3),Đề xuất
+Gút,serum urate target < 6 mg/dL (0.36 mmol/L),"mục tiêu acid uric < 6 mg/dL (0,36 mmol/L)",,,File 5 (đợt 3),Đề xuất
+Gút,drug–drug interactions,tương tác thuốc,,,File 5 (đợt 3),Đề xuất
+Gút,patient preferences,sở thích / mong muốn của người bệnh,,,File 5 (đợt 3),Đề xuất
+Gút,health outcomes,kết cục sức khỏe,,,File 5 (đợt 3),Đề xuất
+Chẩn đoán hình ảnh,conventional radiography,X quang thường quy,,,File 12 (đợt 3),Đề xuất
+Chẩn đoán hình ảnh,full-length (long-leg / whole-spine) radiograph,chụp X quang toàn trục,,,File 12 (đợt 3),Đề xuất
+Chẩn đoán hình ảnh,stress / positional radiographs,X quang tư thế,,,File 12 (đợt 3),Đề xuất
+Chẩn đoán hình ảnh,dynamic (flexion–extension) radiographs,X quang động,,,File 12 (đợt 3),Đề xuất
+Chẩn đoán hình ảnh,first-line imaging,chẩn đoán hình ảnh đầu tay,,,File 12 (đợt 3),Đề xuất
+Chẩn đoán hình ảnh,soft tissue,phần mềm,,,File 12 (đợt 3),Đề xuất
+Tiếp cận chẩn đoán viêm khớp,joint pain,đau khớp,,,File 29 (ảnh lưu đồ) (đợt 3),Đề xuất
+Tiếp cận chẩn đoán viêm khớp,intra-articular / periarticular,trong khớp / cạnh khớp,,,File 29 (ảnh lưu đồ) (đợt 3),Đề xuất
+Tiếp cận chẩn đoán viêm khớp,acute / chronic (≥ 6 weeks),cấp tính / mạn tính (≥ 6 tuần),,,File 29 (ảnh lưu đồ) (đợt 3),Đề xuất
+Tiếp cận chẩn đoán viêm khớp,polymyalgia rheumatica,viêm đa cơ dạng thấp,PMR,,File 29 (ảnh lưu đồ) (đợt 3),Đề xuất
+Tiếp cận chẩn đoán viêm khớp,bursitis,viêm bao hoạt dịch,,,File 29 (ảnh lưu đồ) (đợt 3),Đề xuất
+Tiếp cận chẩn đoán viêm khớp,tendinitis,viêm gân,,,File 29 (ảnh lưu đồ) (đợt 3),Đề xuất
+Tiếp cận chẩn đoán viêm khớp,pseudogout,giả gút,,CPPD,File 29 (ảnh lưu đồ) (đợt 3),Đề xuất
+Tiếp cận chẩn đoán viêm khớp,morning stiffness,cứng khớp buổi sáng,,,File 29 (ảnh lưu đồ) (đợt 3),Đề xuất
+Tiếp cận chẩn đoán viêm khớp,soft tissue swelling,sưng nề mô mềm,,,File 29 (ảnh lưu đồ) (đợt 3),Đề xuất
+Tiếp cận chẩn đoán viêm khớp,systemic symptoms,triệu chứng toàn thân,,,File 29 (ảnh lưu đồ) (đợt 3),Đề xuất
+Tiếp cận chẩn đoán viêm khớp,inflammatory vs mechanical joint pain,đau khớp kiểu viêm / kiểu cơ học,,,File 29 (ảnh lưu đồ) (đợt 3),Đề xuất
+Tiếp cận chẩn đoán viêm khớp,monoarthritis / oligoarthritis / polyarthritis,viêm đơn khớp / ít khớp / đa khớp,,,File 29 (ảnh lưu đồ) (đợt 3),Đề xuất
+Tiếp cận chẩn đoán viêm khớp,symmetric,đối xứng,,,File 29 (ảnh lưu đồ) (đợt 3),Đề xuất
+Tiếp cận chẩn đoán viêm khớp,DIP / PIP / MCP / MTP / CMC1 joints,khớp liên đốt xa / liên đốt gần / bàn ngón tay / bàn ngón chân / thang–bàn I,"DIP, PIP, MCP, MTP, CMC1",,File 29 (ảnh lưu đồ) (đợt 3),Đề xuất
+Tiếp cận chẩn đoán viêm khớp,osteonecrosis,hoại tử xương,,,File 29 (ảnh lưu đồ) (đợt 3),Đề xuất
+Tiếp cận chẩn đoán viêm khớp,Charcot arthropathy,viêm khớp Charcot / bệnh khớp Charcot,,,File 29 (ảnh lưu đồ) (đợt 3),Đề xuất
+Tiếp cận chẩn đoán viêm khớp,oligoarticular juvenile idiopathic arthritis,viêm khớp tự phát thiếu niên thể ít khớp,,,File 29 (ảnh lưu đồ) (đợt 3),Đề xuất
+Tiếp cận chẩn đoán viêm khớp,early inflammatory arthritis,viêm khớp mạn tính giai đoạn sớm,,,File 29 (ảnh lưu đồ) (đợt 3),Đề xuất
+Viêm khớp cột sống,inflammatory low back pain,đau thắt lưng kiểu viêm,IBP,,File 25 (đợt 3),Đề xuất
+Viêm khớp cột sống,enthesitis (heel),viêm điểm bám tận (gót chân),,,File 25 (đợt 3),Đề xuất
+Viêm khớp cột sống,asymmetric lower-limb oligoarthritis,viêm một hoặc vài khớp chi dưới không đối xứng,,,File 25 (đợt 3),Đề xuất
+Viêm khớp cột sống,frontline physicians / spine surgeons,bác sĩ tuyến đầu / bác sĩ phẫu thuật cột sống,,,File 25 (đợt 3),Đề xuất
+Thoái hóa khớp & y học tái tạo,regenerative biologics,sinh phẩm tái tạo,,,Kỷ yếu CFR 2025,Cặp có sẵn
+Thoái hóa khớp & y học tái tạo,refractory osteoarthritis,thoái hóa khớp kháng trị,,,Kỷ yếu CFR 2025,Cặp có sẵn
+Thoái hóa khớp & y học tái tạo,pre-osteoarthritis,tiền thoái hóa khớp,pre-OA,,Kỷ yếu CFR 2025,Cặp có sẵn
+Thoái hóa khớp & y học tái tạo,stem cell secretome,chất tiết tế bào gốc,,,Kỷ yếu CFR 2025,Cặp có sẵn
+Thoái hóa khớp & y học tái tạo,extracellular vesicles / exosomes,túi ngoại bào / exosome,EVs,,Kỷ yếu CFR 2025,Cặp có sẵn
+Thoái hóa khớp & y học tái tạo,mesenchymal stem cells,tế bào gốc trung mô,MSCs,,Kỷ yếu CFR 2025,Cặp có sẵn
+Thoái hóa khớp & y học tái tạo,extracellular matrix graft,mảnh ghép chất nền ngoại bào,ECM,,Kỷ yếu CFR 2025,Cặp có sẵn
+Thoái hóa khớp & y học tái tạo,cross-linked hyaluronic acid,HA liên kết chéo,,,Kỷ yếu CFR 2025,Cặp có sẵn
+Thoái hóa khớp & y học tái tạo,molecular weight,trọng lượng phân tử,,VI viết tắt: TLPT,Kỷ yếu CFR 2025,Cặp có sẵn
+Thoái hóa khớp & y học tái tạo,"polyol (sorbitol, mannitol)","polyol (sorbitol, mannitol)",,,Kỷ yếu CFR 2025,Cặp có sẵn
+Thoái hóa khớp & y học tái tạo,free radicals,gốc tự do,,,Kỷ yếu CFR 2025,Cặp có sẵn
+Thoái hóa khớp & y học tái tạo,low-molecular-weight collagen,collagen trọng lượng phân tử thấp,,,Kỷ yếu CFR 2025,Cặp có sẵn
+Thoái hóa khớp & y học tái tạo,type I collagen,collagen týp I,,,Kỷ yếu CFR 2025,Cặp có sẵn
+Thoái hóa khớp & y học tái tạo,collagen medical device (MD Shoulder),Collagen MD Shoulder,,tên sản phẩm,Kỷ yếu CFR 2025,Cặp có sẵn
+Thoái hóa khớp & y học tái tạo,3D printing / bioprinting,in 3D / in sinh học,,,Kỷ yếu CFR 2025,Cặp có sẵn
+Thoái hóa khớp & y học tái tạo,scaffold,giàn giáo (khung nâng đỡ),,,Kỷ yếu CFR 2025,Cặp có sẵn
+Thoái hóa khớp & y học tái tạo,porous titanium acetabular component,ổ cối titanium xốp,,,Kỷ yếu CFR 2025,Cặp có sẵn
+Thoái hóa khớp & y học tái tạo,osseointegration,bám xương / tích hợp xương,,,Kỷ yếu CFR 2025,Cặp có sẵn
+Thoái hóa khớp & y học tái tạo,custom-made implant,vật liệu thay thế cá thể hóa,,,Kỷ yếu CFR 2025,Cặp có sẵn
+Thuốc & an toàn thuốc,NSAID efficacy–safety balance,cân bằng hiệu quả – an toàn của NSAIDs,,,Kỷ yếu CFR 2025,Cặp có sẵn
+Thuốc & an toàn thuốc,gastrointestinal adverse events,tác dụng phụ trên đường tiêu hóa,GI,,Kỷ yếu CFR 2025,Cặp có sẵn
+Thuốc & an toàn thuốc,prednisone-equivalent dose,liều tương đương prednisone,,,Kỷ yếu CFR 2025,Cặp có sẵn
+Thuốc & an toàn thuốc,adrenal insufficiency,suy thượng thận,,,Kỷ yếu CFR 2025,Cặp có sẵn
+Thuốc & an toàn thuốc,stress dosing,liều GC thay thế khi stress / phẫu thuật,,,Kỷ yếu CFR 2025,Cặp có sẵn
+Thuốc & an toàn thuốc,immune-mediated inflammatory diseases,bệnh viêm qua trung gian miễn dịch,IMID,,Kỷ yếu CFR 2025,Cặp có sẵn
+Thuốc & an toàn thuốc,Crohn's disease,bệnh Crohn,CD,,Kỷ yếu CFR 2025,Cặp có sẵn
+Thuốc & an toàn thuốc,atopic dermatitis,viêm da cơ địa,AD,,Kỷ yếu CFR 2025,Cặp có sẵn
+Thuốc & an toàn thuốc,alopecia areata,rụng tóc từng vùng,,,Kỷ yếu CFR 2025,Cặp có sẵn
+Thuốc & an toàn thuốc,vitiligo,bạch biến,,,Kỷ yếu CFR 2025,Cặp có sẵn
+Thuốc & an toàn thuốc,antimetabolites,nhóm chống chuyển hóa,,"azathioprine, MTX, MMF",Kỷ yếu CFR 2025,Cặp có sẵn
+Thuốc & an toàn thuốc,cytotoxic / alkylating agents,thuốc độc tế bào / alkyl hóa,,,Kỷ yếu CFR 2025,Cặp có sẵn
+Thuốc & an toàn thuốc,glucose-6-phosphate dehydrogenase deficiency,thiếu hụt G6PD,G6PD,,Kỷ yếu CFR 2025,Cặp có sẵn
+Thuốc & an toàn thuốc,hepatitis B reactivation prophylaxis,dự phòng tái hoạt viêm gan B,,entecavir / tenofovir,Kỷ yếu CFR 2025,Cặp có sẵn
+Thuốc & an toàn thuốc,hepatitis C virus,virus viêm gan C,HCV,,Kỷ yếu CFR 2025,Cặp có sẵn
+Thuốc & an toàn thuốc,direct oral anticoagulants,thuốc chống đông đường uống trực tiếp,DOACs,,Kỷ yếu CFR 2025,Cặp có sẵn
+Thuốc & an toàn thuốc,international normalized ratio,chỉ số INR,INR,,Kỷ yếu CFR 2025,Cặp có sẵn
+Thuốc & an toàn thuốc,"drugs in reproduction, pregnancy and lactation","thuốc chống thấp khớp với chức năng sinh sản, thai kỳ và cho con bú",,,Kỷ yếu CFR 2025,Cặp có sẵn
+Thuốc & an toàn thuốc,abatacept,abatacept,,tên thuốc,Kỷ yếu CFR 2025,Cặp có sẵn
+Thuốc & an toàn thuốc,azathioprine,azathioprine,AZA,tên thuốc,Kỷ yếu CFR 2025,Cặp có sẵn
+Thuốc & an toàn thuốc,mepolizumab,mepolizumab,,tên thuốc,Kỷ yếu CFR 2025,Cặp có sẵn
+Thuốc & an toàn thuốc,abrocitinib / ruxolitinib,abrocitinib / ruxolitinib,,tên thuốc,Kỷ yếu CFR 2025,Cặp có sẵn
+Thuốc & an toàn thuốc,anifrolumab (Saphnelo),anifrolumab (Saphnelo),,tên biệt dược,Kỷ yếu CFR 2025,Cặp có sẵn
+Thuốc & an toàn thuốc,alendronate / zoledronate,alendronat / zoledronat,,,Kỷ yếu CFR 2025,Cặp có sẵn
+Thuốc & an toàn thuốc,allopurinol / febuxostat,allopurinol / febuxostat,,,Kỷ yếu CFR 2025,Cặp có sẵn
+Thuốc & an toàn thuốc,colchicine,colchicin,,,Kỷ yếu CFR 2025,Cặp có sẵn
+Thuốc & an toàn thuốc,pegloticase,pegloticase,,,Kỷ yếu CFR 2025,Cặp có sẵn
+Thuốc & an toàn thuốc,methylprednisolone acetate (Depo-Medrol),methylprednisolon acetat (Depo-Medrol),,,Kỷ yếu CFR 2025,Cặp có sẵn
+Thuốc & an toàn thuốc,warfarin / heparin / aspirin,warfarin / heparin / aspirin,,,Kỷ yếu CFR 2025,Cặp có sẵn
+Thuốc & an toàn thuốc,IL-23p19 / IL-17A,IL-23p19 / IL-17A,,,Kỷ yếu CFR 2025,Cặp có sẵn
+Thuốc & an toàn thuốc,CD20,CD20,,đích của rituximab,Kỷ yếu CFR 2025,Cặp có sẵn
+Thuốc & an toàn thuốc,IFNAR1,thụ thể interferon type I,IFNAR1,đích của anifrolumab,Kỷ yếu CFR 2025,Cặp có sẵn
+Viêm mạch & bệnh tự miễn,ANCA-associated vasculitis,viêm mạch liên quan ANCA,AAV,,Kỷ yếu CFR 2025,Cặp có sẵn
+Viêm mạch & bệnh tự miễn,granulomatosis with polyangiitis,u hạt kèm viêm đa mạch,GPA,,Kỷ yếu CFR 2025,Cặp có sẵn
+Viêm mạch & bệnh tự miễn,microscopic polyangiitis,viêm đa mạch vi thể,MPA,,Kỷ yếu CFR 2025,Cặp có sẵn
+Viêm mạch & bệnh tự miễn,eosinophilic granulomatosis with polyangiitis,u hạt tăng bạch cầu ái toan kèm viêm đa mạch,EGPA,,Kỷ yếu CFR 2025,Cặp có sẵn
+Viêm mạch & bệnh tự miễn,induction / maintenance of remission,điều trị tấn công / duy trì lui bệnh,,,Kỷ yếu CFR 2025,Cặp có sẵn
+Viêm mạch & bệnh tự miễn,Takayasu arteritis,viêm động mạch Takayasu,TA,,Kỷ yếu CFR 2025,Cặp có sẵn
+Viêm mạch & bệnh tự miễn,giant cell arteritis,viêm động mạch tế bào khổng lồ / viêm động mạch thái dương,GCA,,Kỷ yếu CFR 2025,Cặp có sẵn
+Viêm mạch & bệnh tự miễn,large-vessel vasculitis,viêm mạch máu lớn,,,Kỷ yếu CFR 2025,Cặp có sẵn
+Viêm mạch & bệnh tự miễn,lupus nephritis (targeted therapy),viêm thận lupus,,VI viết tắt: VTLP,Kỷ yếu CFR 2025,Cặp có sẵn
+Viêm mạch & bệnh tự miễn,primary Sjögren's syndrome,hội chứng Sjögren nguyên phát,pSS,,Kỷ yếu CFR 2025,Cặp có sẵn
+Viêm mạch & bệnh tự miễn,"antiphospholipid syndrome (Sapporo/Sydney 2006, ACR/EULAR 2023 criteria)","hội chứng kháng phospholipid (tiêu chuẩn Sapporo/Sydney 2006, ACR/EULAR 2023)",APS,,Kỷ yếu CFR 2025,Cặp có sẵn
+Viêm mạch & bệnh tự miễn,lupus anticoagulant,kháng đông lupus,LA,,Kỷ yếu CFR 2025,Cặp có sẵn
+Viêm mạch & bệnh tự miễn,anticardiolipin antibodies,kháng thể kháng cardiolipin,aCL,,Kỷ yếu CFR 2025,Cặp có sẵn
+Viêm mạch & bệnh tự miễn,anti-β2 glycoprotein I antibodies,kháng thể kháng β2 glycoprotein I,aβ2GPI,,Kỷ yếu CFR 2025,Cặp có sẵn
+Viêm mạch & bệnh tự miễn,catastrophic APS,APS thảm họa,CAPS,,Kỷ yếu CFR 2025,Cặp có sẵn
+Viêm mạch & bệnh tự miễn,RA–spondyloarthritis overlap syndrome,hội chứng chồng lấp (VKDT và VKCS),,,Kỷ yếu CFR 2025,Cặp có sẵn
+Viêm mạch & bệnh tự miễn,RA-associated interstitial lung disease,bệnh phổi kẽ liên quan VKDT,RA-ILD,,Kỷ yếu CFR 2025,Cặp có sẵn
+Viêm mạch & bệnh tự miễn,interstitial pneumonia,viêm phổi kẽ,,VI viết tắt: VP,Kỷ yếu CFR 2025,Cặp có sẵn
+Viêm mạch & bệnh tự miễn,gastrointestinal involvement in systemic sclerosis,tổn thương đường tiêu hóa trong xơ cứng bì,,VI viết tắt: XCB,Kỷ yếu CFR 2025,Cặp có sẵn
+Zona & vaccine,herpes zoster / shingles,zona thần kinh,HZ,,Kỷ yếu CFR 2025,Cặp có sẵn
+Zona & vaccine,postherpetic neuralgia,đau dây thần kinh sau zona,PHN,,Kỷ yếu CFR 2025,Cặp có sẵn
+Zona & vaccine,recombinant zoster vaccine (Shingrix),vaccine zona tái tổ hợp,RZV,,Kỷ yếu CFR 2025,Cặp có sẵn
+Zona & vaccine,ZOE-50 / ZOE-70 trials,thử nghiệm ZOE-50 / ZOE-70,,,Kỷ yếu CFR 2025,Cặp có sẵn
+Zona & vaccine,immunocompromised,suy giảm miễn dịch,,,Kỷ yếu CFR 2025,Cặp có sẵn
+Loãng xương,treat-to-target in osteoporosis,điều trị loãng xương theo mục tiêu,T2T,,Kỷ yếu CFR 2025,Cặp có sẵn
+Loãng xương,fragility fracture,gãy xương do loãng xương / gãy xương do dễ gãy,,,Kỷ yếu CFR 2025,Cặp có sẵn
+Loãng xương,very high fracture risk,nguy cơ gãy xương rất cao,,,Kỷ yếu CFR 2025,Cặp có sẵn
+Loãng xương,parathyroid hormone,hormone tuyến cận giáp,PTH,,Kỷ yếu CFR 2025,Cặp có sẵn
+Loãng xương,insulin-like growth factor 1,yếu tố tăng trưởng giống insulin 1,IGF-1,,Kỷ yếu CFR 2025,Cặp có sẵn
+Gút,difficult-to-treat / refractory gout,gút khó điều trị / gút kháng trị,,,Kỷ yếu CFR 2025,Cặp có sẵn
+Gút,non-adherence,không tuân thủ điều trị,,,Kỷ yếu CFR 2025,Cặp có sẵn
+Gút,tophus surgery / surgical debridement,phẫu thuật cắt hạt tophi,,,Kỷ yếu CFR 2025,Cặp có sẵn
+Gút,urate transporter 1,URAT1,URAT1,,Kỷ yếu CFR 2025,Cặp có sẵn
+Gút,NLRP3 inflammasome,thể viêm NLRP3,NLRP3,,Kỷ yếu CFR 2025,Cặp có sẵn
+Gút,IL-1β / IL-18,IL-1β / IL-18,,,Kỷ yếu CFR 2025,Cặp có sẵn
+Gút,purine / low-purine diet,purin / chế độ ăn ít purin,,,Kỷ yếu CFR 2025,Cặp có sẵn
+Gút,nutritional intervention,can thiệp dinh dưỡng,,,Kỷ yếu CFR 2025,Cặp có sẵn
+Gút,acute gouty arthritis,viêm khớp do gút cấp,,,Kỷ yếu CFR 2025,Cặp có sẵn
+Gút,intra-articular corticosteroid injection,tiêm corticosteroid nội khớp,,,Kỷ yếu CFR 2025,Cặp có sẵn
+Gút,Compliance Questionnaire on Rheumatology,bộ câu hỏi CQR5,CQR5,,Kỷ yếu CFR 2025,Cặp có sẵn
+Gút,periodic hemodialysis,lọc máu chu kỳ / thận nhân tạo chu kỳ,,,Kỷ yếu CFR 2025,Cặp có sẵn
+Gút,end-stage chronic kidney disease,suy thận mạn giai đoạn cuối,ESKD,,Kỷ yếu CFR 2025,Cặp có sẵn
+"Thể thao, cột sống & can thiệp",sports knee injuries (acute and chronic),tổn thương khớp gối trong thể thao (cấp và mạn),,,Kỷ yếu CFR 2025,Cặp có sẵn
+"Thể thao, cột sống & can thiệp",meniscal tear,rách sụn chêm,,,Kỷ yếu CFR 2025,Cặp có sẵn
+"Thể thao, cột sống & can thiệp",anterior / posterior cruciate ligament,dây chằng chéo trước / sau,ACL / PCL,,Kỷ yếu CFR 2025,Cặp có sẵn
+"Thể thao, cột sống & can thiệp",medial / lateral collateral ligament,dây chằng bên trong / bên ngoài,MCL / LCL,,Kỷ yếu CFR 2025,Cặp có sẵn
+"Thể thao, cột sống & can thiệp",dashboard injury,chấn thương va đập mặt trước cẳng chân khi gối gập,,,Kỷ yếu CFR 2025,Cặp có sẵn
+"Thể thao, cột sống & can thiệp",McMurray / Lachman / pivot shift test,nghiệm pháp McMurray / Lachman / pivot shift,,,Kỷ yếu CFR 2025,Cặp có sẵn
+"Thể thao, cột sống & can thiệp",joint-line tenderness / locking,đau khe khớp / kẹt khớp,,,Kỷ yếu CFR 2025,Cặp có sẵn
+"Thể thao, cột sống & can thiệp",KOOS-12,thang điểm KOOS-12,,,Kỷ yếu CFR 2025,Cặp có sẵn
+"Thể thao, cột sống & can thiệp",interventional spine pain management,can thiệp giảm đau cột sống,,,Kỷ yếu CFR 2025,Cặp có sẵn
+"Thể thao, cột sống & can thiệp",epidural steroid injection,tiêm steroid ngoài màng cứng,ESI,,Kỷ yếu CFR 2025,Cặp có sẵn
+"Thể thao, cột sống & can thiệp",facet joint / medial branch block,khớp diện / phong bế nhánh thần kinh lưng trong,,,Kỷ yếu CFR 2025,Cặp có sẵn
+"Thể thao, cột sống & can thiệp",disc interventions,can thiệp đĩa đệm,,,Kỷ yếu CFR 2025,Cặp có sẵn
+"Thể thao, cột sống & can thiệp",basivertebral nerve ablation,đốt thần kinh nền đốt sống,BVNA,,Kỷ yếu CFR 2025,Cặp có sẵn
+"Thể thao, cột sống & can thiệp",cervical spine pain imaging,kỹ thuật hình ảnh trong đau cột sống cổ,,,Kỷ yếu CFR 2025,Cặp có sẵn
+"Thể thao, cột sống & can thiệp",cervical disc herniation,thoát vị đĩa đệm cột sống cổ,,,Kỷ yếu CFR 2025,Cặp có sẵn
+"Thể thao, cột sống & can thiệp",lumbar spinal stenosis,hẹp ống sống thắt lưng,LSS,bản EN gốc ghi 'Lambar',Kỷ yếu CFR 2025,Cặp có sẵn
+"Thể thao, cột sống & can thiệp",Douleur Neuropathique 4,thang điểm đau thần kinh DN4,DN4,,Kỷ yếu CFR 2025,Cặp có sẵn
+"Khớp vai, bàn tay & phần mềm",periarthritis of the shoulder,viêm quanh khớp vai,,bản EN gốc: Periarthritis humeroscapularis (thuật ngữ cũ),Kỷ yếu CFR 2025,Cặp có sẵn
+"Khớp vai, bàn tay & phần mềm",supraspinatus partial tear,rách bán phần gân cơ trên gai,,,Kỷ yếu CFR 2025,Cặp có sẵn
+"Khớp vai, bàn tay & phần mềm",calcium deposition disease of periarticular soft tissue,viêm phần mềm quanh khớp do lắng đọng canxi,,,Kỷ yếu CFR 2025,Cặp có sẵn
+"Khớp vai, bàn tay & phần mềm",hydroxyapatite deposition,lắng đọng hydroxyapatite,HADD,,Kỷ yếu CFR 2025,Cặp có sẵn
+"Khớp vai, bàn tay & phần mềm",calcium pyrophosphate deposition disease,bệnh lắng đọng tinh thể calci pyrophosphat,CPPD,,Kỷ yếu CFR 2025,Cặp có sẵn
+"Khớp vai, bàn tay & phần mềm",median nerve compression,chèn ép thần kinh giữa,,,Kỷ yếu CFR 2025,Cặp có sẵn
+"Khớp vai, bàn tay & phần mềm",lateral epicondylitis,viêm lồi cầu ngoài xương cánh tay,,tennis elbow,Kỷ yếu CFR 2025,Cặp có sẵn
+"Khớp vai, bàn tay & phần mềm",heel pain,đau gót chân,,,Kỷ yếu CFR 2025,Cặp có sẵn
+"Khớp vai, bàn tay & phần mềm",hip osteoarthritis,thoái hóa khớp háng,,,Kỷ yếu CFR 2025,Cặp có sẵn
+Nhiễm khuẩn khớp,periprosthetic joint infection,nhiễm khuẩn sau thay khớp / quanh khớp nhân tạo,PJI,,Kỷ yếu CFR 2025,Cặp có sẵn
+Nhiễm khuẩn khớp,sinus tract,đường rò,,,Kỷ yếu CFR 2025,Cặp có sẵn
+Nhiễm khuẩn khớp,PCR / next-generation sequencing,PCR / giải trình tự gen thế hệ mới,PCR / NGS,,Kỷ yếu CFR 2025,Cặp có sẵn
+Thang điểm & xét nghiệm,platelet-to-lymphocyte ratio,tỷ lệ tiểu cầu / lympho,PLR,,Kỷ yếu CFR 2025,Cặp có sẵn
+Thang điểm & xét nghiệm,neutrophil-to-lymphocyte ratio,tỷ lệ bạch cầu trung tính / lympho,NLR,,Kỷ yếu CFR 2025,Cặp có sẵn
+Thang điểm & xét nghiệm,Bristol RA Fatigue Multi-Dimensional Questionnaire,thang điểm mệt mỏi BRAF-MDQ,BRAF-MDQ,,Kỷ yếu CFR 2025,Cặp có sẵn
+Thang điểm & xét nghiệm,Brief Illness Perception Questionnaire,bộ câu hỏi nhận thức bệnh tật rút gọn,B-IPQ,,Kỷ yếu CFR 2025,Cặp có sẵn
+Thang điểm & xét nghiệm,Beliefs about Medicines Questionnaire,bộ câu hỏi niềm tin về thuốc,BMQ,,Kỷ yếu CFR 2025,Cặp có sẵn
+Thang điểm & xét nghiệm,fibromyalgia syndrome,hội chứng đau xơ cơ,FMS,,Kỷ yếu CFR 2025,Cặp có sẵn
+Thang điểm & xét nghiệm,fatigue,mệt mỏi,,,Kỷ yếu CFR 2025,Cặp có sẵn
+Thang điểm & xét nghiệm,SCORE2,thang điểm SCORE2,,,Kỷ yếu CFR 2025,Cặp có sẵn
+Thang điểm & xét nghiệm,Vietnam National Heart Association 2022 recommendations,khuyến cáo Hội Tim mạch Việt Nam 2022,,,Kỷ yếu CFR 2025,Cặp có sẵn
+Thang điểm & xét nghiệm,handgrip strength,lực nắm tay,,,Kỷ yếu CFR 2025,Cặp có sẵn
+Thang điểm & xét nghiệm,gut microbiota,hệ vi sinh đường ruột,,,Kỷ yếu CFR 2025,Cặp có sẵn
+Thang điểm & xét nghiệm,beta diversity / UniFrac,đa dạng beta / UniFrac,,,Kỷ yếu CFR 2025,Cặp có sẵn
+Thang điểm & xét nghiệm,biomarkers,dấu ấn sinh học,,,Kỷ yếu CFR 2025,Cặp có sẵn
+Thang điểm & xét nghiệm,cohort study,nghiên cứu đoàn hệ,,,Kỷ yếu CFR 2025,Cặp có sẵn
+Điều dưỡng & chăm sóc,nurse-led care programs,chương trình chăm sóc do điều dưỡng dẫn dắt,,,Kỷ yếu CFR 2025,Cặp có sẵn
+Điều dưỡng & chăm sóc,self-management / self-care support,hỗ trợ tự chăm sóc / tự quản lý,,,Kỷ yếu CFR 2025,Cặp có sẵn
+Điều dưỡng & chăm sóc,exercise therapy,điều trị vận động,,,Kỷ yếu CFR 2025,Cặp có sẵn
+Điều dưỡng & chăm sóc,digital transformation,chuyển đổi số,,,Kỷ yếu CFR 2025,Cặp có sẵn
+Điều dưỡng & chăm sóc,nurse–doctor collaboration,phối hợp bác sĩ – điều dưỡng,,,Kỷ yếu CFR 2025,Cặp có sẵn
+Điều dưỡng & chăm sóc,telemedicine,y tế từ xa / khám chữa bệnh từ xa,,,Kỷ yếu CFR 2025,Cặp có sẵn
+Điều dưỡng & chăm sóc,palliative care,chăm sóc giảm nhẹ,,,Kỷ yếu CFR 2025,Cặp có sẵn
+Điều dưỡng & chăm sóc,symptom management,kiểm soát triệu chứng,,,Kỷ yếu CFR 2025,Cặp có sẵn
+Điều dưỡng & chăm sóc,health education,giáo dục sức khỏe,,,Kỷ yếu CFR 2025,Cặp có sẵn
+Điều dưỡng & chăm sóc,cutaneous lesions / skin care,tổn thương da / chăm sóc da,,,Kỷ yếu CFR 2025,Cặp có sẵn
+Điều dưỡng & chăm sóc,prevention of sequelae,phòng ngừa di chứng,,,Kỷ yếu CFR 2025,Cặp có sẵn
+Điều dưỡng & chăm sóc,American Physical Therapy Association,Hiệp hội Vật lý trị liệu Hoa Kỳ,APTA,,Kỷ yếu CFR 2025,Cặp có sẵn
+Hội nghị,Centre for Rheumatology Annual Scientific Conference 2025,Hội nghị khoa học thường niên Trung tâm Cơ Xương Khớp 2025,CFR 2025,,Kỷ yếu CFR 2025,Cặp có sẵn
+Hội nghị,Hospital Director / Vice Director,Giám đốc / Phó Giám đốc Bệnh viện,,,Kỷ yếu CFR 2025,Cặp có sẵn
+Hội nghị,Central Hall / White Diamond,Hội trường khai mạc / White Diamond,,,Kỷ yếu CFR 2025,Cặp có sẵn
+Hội nghị,poster presentation,báo cáo poster,,,Kỷ yếu CFR 2025,Cặp có sẵn
+Hội nghị,real-world data,dữ liệu thực tế,RWD,,Kỷ yếu CFR 2025,Cặp có sẵn
+Diễn giả,Adj. Assoc. Prof. Elizabeth Ang,PGS. Elizabeth Ang,,National University of Singapore | Đại học Quốc gia Singapore,,
+Diễn giả,Prof. Lai-Shan Tam,GS. Lai-Shan Tam,,The Chinese University of Hong Kong | Đại học Trung văn Hồng Kông,,
+Diễn giả,Cheng Yew Kuang,Cheng Yew Kuang,,Singapore | Singapore,,
+Diễn giả,"Zhanguo Li, MD",Zhanguo Li,,Peking University People's Hospital | Bệnh viện Nhân dân Đại học Bắc Kinh,,
+Diễn giả,"Stefano Guerrasio, MD, PhD",TS.BS. Stefano Guerrasio,,"University of Milano-Bicocca, Italy | Đại học Milano-Bicocca, Ý",,
+Diễn giả,"Prof. Umberto Massafra, MD, PhD",GS. Umberto Massafra,,"San Pietro Fatebenefratelli Hospital, Rome | Bệnh viện San Pietro Fatebenefratelli, Rome",,
+Diễn giả,Assoc. Prof. Nguyen Van Hung,PGS.TS. Nguyễn Văn Hùng,,"Director, Bach Mai National Institute for Rheumatology | Viện trưởng Viện Cơ Xương Khớp Bạch Mai",,
+Diễn giả,Dr. Tran Thi To Chau,TS. Trần Thị Tô Châu,,"Deputy Director, Bach Mai National Institute for Rheumatology | Phó Viện trưởng Viện Cơ Xương Khớp Bạch Mai",,
+Diễn giả,Dr. Le Thi Lieu,TS. Lê Thị Liễu,,Bach Mai National Institute for Rheumatology | Viện Cơ Xương Khớp Bạch Mai,,
+Diễn giả,Dr. Nguyen Thi Nga,TS. Nguyễn Thị Nga,,Bach Mai National Institute for Rheumatology | Viện Cơ Xương Khớp Bạch Mai,,
+Diễn giả,Assoc. Prof. Tran Thi Minh Hoa,PGS.TS. Trần Thị Minh Hoa,,Bach Mai National Institute for Rheumatology | Viện Cơ Xương Khớp Bạch Mai,,
+Diễn giả,Assoc. Prof. Nguyen Dinh Khoa,PGS.TS. Nguyễn Đình Khoa,,Cho Ray Hospital | Bệnh viện Chợ Rẫy,,
+Diễn giả,Assoc. Prof. Cao Thanh Ngoc,PGS.TS. Cao Thanh Ngọc,,University Medical Center HCMC | Bệnh viện Đại học Y Dược TP.HCM,,
+Diễn giả,Assoc. Prof. Nguyen Thi Ngoc Lan,PGS.TS. Nguyễn Thị Ngọc Lan,,Vietnam Rheumatology Association | Hội Thấp khớp học Việt Nam,,
+Diễn giả,Dr. Nguyen Dinh Thong,BSCKII. Nguyễn Đình Thông,,Nguyen Tri Phuong Hospital | Bệnh viện Nguyễn Tri Phương,,
+Diễn giả,Dr. Ta Thi Huong Trang,TS. Tạ Thị Hương Trang,,Bach Mai National Institute for Rheumatology | Viện Cơ Xương Khớp Bạch Mai,,
+Diễn giả,Nguyen Ngoc Chau,Nguyễn Ngọc Châu,,108 Military Central Hospital | Bệnh viện Trung ương Quân đội 108,,
+Diễn giả,Dr. Duong Minh Tri,TS.BS.CKII. Dương Minh Trí,,Nhan Dan Gia Dinh Hospital | Bệnh viện Nhân dân Gia Định,,
+Diễn giả,Dr. Le Quynh Chi,TS.BS. Lê Quỳnh Chi,,Vietnam National Children's Hospital | Bệnh viện Nhi Trung ương,,
+Diễn giả,Assoc. Prof. Le Anh Thu,PGS.TS. Lê Anh Thư,,Vietnam Rheumatology Association | Hội Thấp khớp học Việt Nam,,
+Diễn giả,Dr. Tran Ngoc Huu Duc,BSCKII. Trần Ngọc Hữu Đức,,Cho Ray Hospital | Bệnh viện Chợ Rẫy,,
+Diễn giả,Assoc. Prof. Dang Hong Hoa,PGS.TS. Đặng Hồng Hoa,,"Tam Anh General Hospital, Hanoi | Bệnh viện Đa khoa Tâm Anh Hà Nội",,
+Diễn giả,Assoc. Prof. Nguyen Mai Hong,PGS.TS. Nguyễn Mai Hồng,,Phuong Dong Hospital | Bệnh viện Phương Đông,,
+Diễn giả,Assoc. Prof. Luu Thi Binh,PGS.TS. Lưu Thị Bình,,Thai Nguyen Rheumatology Association | Hội Thấp khớp học Thái Nguyên,,
+Diễn giả,Dr. Hoang Quoc Nam,BSCKII. Hoàng Quốc Nam,,Thong Nhat Hospital | Bệnh viện Thống Nhất,,
+Diễn giả,Dr. Nguyen Hoang Thanh Van,TS. Nguyễn Hoàng Thanh Vân,,Hue University of Medicine and Pharmacy | Trường Đại học Y Dược Huế,,
+Diễn giả,Dr. Truong Quang Pho,TS.BS. Trương Quang Phổ,,Can Tho University of Medicine and Pharmacy | Trường Đại học Y Dược Cần Thơ,,
+Diễn giả,Dr. Tang Ha Nam Anh,TS.BS. Tăng Hà Nam Anh,,Vietnam Arthroplasty and Arthroscopy Society | Hội Nội soi khớp & Thay khớp Việt Nam,,
+Diễn giả,Assoc. Prof. Nguyen Thi Phuong Thuy,PGS.TS. Nguyễn Thị Phương Thủy,,Bach Mai National Institute for Rheumatology | Viện Cơ Xương Khớp Bạch Mai,,
+Diễn giả,Dr. Pham Van Tu,BSCKII. Phạm Văn Tú,,Hanoi Medical University Hospital | Bệnh viện Đại học Y Hà Nội,,
+Diễn giả,Dr. Nguyen Huy Thong,TS.BS. Nguyễn Huy Thông,,Military Hospital 103 | Bệnh viện Quân y 103,,
+Diễn giả,Assoc. Prof. Pham Thi Viet Dung,PGS.TS. Phạm Thị Việt Dung,,Bach Mai Hospital | Bệnh viện Bạch Mai,,
+Diễn giả,Dr. Nguyen Van Trung,TS. Nguyễn Văn Trung,,"Department of Orthopaedics & Spine Surgery, Bach Mai Hospital | Khoa Phẫu thuật Chấn thương chỉnh hình & Cột sống, BV Bạch Mai",,
+Diễn giả,Assoc. Prof. Nguyen Vinh Ngoc,PGS.TS. Nguyễn Vĩnh Ngọc,,"Hanoi Rheumatology Association, Hanoi Medical University Hospital | Hội Thấp khớp học Hà Nội, BV Đại học Y Hà Nội",,
+Diễn giả,Assoc. Prof. Vo Thanh Toan,PGS.TS. Võ Thành Toàn,,"Thong Nhat Hospital, Ho Chi Minh City | Bệnh viện Thống Nhất TP.HCM",,
+Diễn giả,Dr. Nguyen Thai Hoa,TS. Nguyễn Thái Hòa,,Can Tho University of Medicine and Pharmacy | Trường Đại học Y Dược Cần Thơ,,
+Diễn giả,Dr. Phan Trong Hau,TS. Phan Trọng Hậu,,"Institute for Orthopedic Surgery, 108 Military Central Hospital | Viện Chấn thương chỉnh hình, BV TW Quân đội 108",,
+Diễn giả,Dr. Pham Manh Cuong,TS.BS. Phạm Mạnh Cường,,"Institute of Diagnostic and Interventional Radiology, Bach Mai Hospital | Viện Điện quang chẩn đoán và can thiệp, BV Bạch Mai",,
+Diễn giả,Dr. Nguyen Thi Thu Phuong,ThS.BSCKII. Nguyễn Thị Thu Phương,,Bach Mai Hospital | Bệnh viện Bạch Mai,,
+Diễn giả,Assoc. Prof. Bui Hai Binh,PGS.TS. Bùi Hải Bình,,Bach Mai National Institute for Rheumatology | Viện Cơ Xương Khớp Bạch Mai,,
+Diễn giả,Assoc. Prof. Pham Hoai Thu,PGS.TS. Phạm Hoài Thu,,Hanoi Medical University Hospital | Bệnh viện Đại học Y Hà Nội,,
+Diễn giả,Dr. Vu Van Minh,TS. Vũ Văn Minh,,Phenikaa University Hospital | Bệnh viện Đại học Phenikaa,,
+Diễn giả,"Le Huy Hoang, RN",CNĐD. Lê Huy Hoàng,,Bach Mai National Institute for Rheumatology | Viện Cơ Xương Khớp Bạch Mai,,
+Diễn giả,"Le Duc Canh, RN",CNĐD. Lê Đức Cảnh,,Bach Mai National Institute for Rheumatology | Viện Cơ Xương Khớp Bạch Mai,,
+Diễn giả,"Cao Ha Trang, RN",CNĐD. Cao Hà Trang,,"Vietnam–Cuba Hospital, Dong Hoi | Bệnh viện Việt Nam – Cuba Đồng Hới",,
+Diễn giả,"Hoang Thi Yen Nhi, RN",CNĐD. Hoàng Thị Yến Nhi,,Military Hospital 103 | Bệnh viện Quân y 103,,
+Diễn giả,"Nguyen Thi Thuy Nga, RN",ThSĐD. Nguyễn Thị Thúy Nga,,108 Military Central Hospital | Bệnh viện TW Quân đội 108,,
+Diễn giả,"Nguyen Thi Chinh, RN",CNĐD. Nguyễn Thị Chinh,,Duc Giang General Hospital | Bệnh viện Đa khoa Đức Giang,,
+Diễn giả,"Kieu Lan Huong, RN",ThSĐD. Kiều Lan Hương,,Bach Mai National Institute for Rheumatology | Viện Cơ Xương Khớp Bạch Mai,,
+Diễn giả,"Vu Thi Ngoc Thuy, RN",ĐDCK1. Vũ Thị Ngọc Thuỷ,,Thai Nguyen National Hospital | Bệnh viện Trung ương Thái Nguyên,,
+Diễn giả,"Pham Duc Muc, MNS, RN",ThS. Phạm Đức Mục,,"President, Vietnam Nurses Association | Chủ tịch Hội Điều dưỡng Việt Nam",,
+Diễn giả,"Tran Thi Ngoc Xuyen, MNS, RN",ThS. Trần Thị Ngọc Xuyến,,Bach Mai Hospital | Bệnh viện Bạch Mai,,
+Diễn giả,"Le Thi Kim Phuong, MSc",ThS. Lê Thị Kim Phượng,,Hai Duong Medical Technical University | Trường Đại học Kỹ thuật Y tế Hải Dương,,
+Diễn giả,"Tran Thi Ngoc, MSN",ThS. Trần Thị Ngọc,,Viet Duc University Hospital | Bệnh viện Hữu nghị Việt Đức,,
+Diễn giả,"Doan Thi Phuong Anh, BN",CNĐD. Đoàn Thị Phương Anh,,"(đồng tác giả: Nguyễn Thị Thảo, Hoàng Thị Nhung, Nguyễn Thị Bích Ngọc, Trần Nam Chung)",,
+Diễn giả,"Tran Thi Bich, MSN",ThS. Trần Thị Bích,,Vietnam University of Traditional Medicine | Học viện Y Dược học cổ truyền Việt Nam,,
+Diễn giả,"Pham Thi Thu Huong, PhD, RN",TSĐD. Phạm Thị Thu Hường,,Hanoi Medical University | Trường Đại học Y Hà Nội,,
+Diễn giả,Assoc. Prof. Nguyen Hoang Anh,PGS.TS. Nguyễn Hoàng Anh,,(không ghi đơn vị trong file),,
+Diễn giả,Dr. Pham Hong Nhung,TS. Phạm Hồng Nhung,,(không ghi đơn vị trong file),,
+Diễn giả,Assoc. Prof. Dao Xuan Thanh,PGS.TS. Đào Xuân Thành,,"Department of Surgery, Hanoi Medical University | Bộ môn Ngoại, Trường Đại học Y Hà Nội",,
+Diễn giả,Prof. Vo Tam,GS.TS. Võ Tam,,Hue University of Medicine and Pharmacy | Trường Đại học Y Dược Huế,,
+Diễn giả,Dr. Hoang Van Dung,TS. Hoàng Văn Dũng,,"(file chỉ có ảnh lưu đồ, không ghi đơn vị)",,
+Diễn giả,Assoc. Prof. Dao Xuan Co,PGS.TS. Đào Xuân Cơ,,"Director, Bach Mai Hospital | Giám đốc Bệnh viện Bạch Mai",,
+Diễn giả,Assoc. Prof. Vu Van Giap,PGS.TS. Vũ Văn Giáp,,"Vice Director, Bach Mai Hospital | Phó Giám đốc Bệnh viện Bạch Mai",,
+Diễn giả,Assoc. Prof. Nguyen Tuan Tung,PGS.TS. Nguyễn Tuấn Tùng,,"Vice Director, Bach Mai Hospital | Phó Giám đốc Bệnh viện Bạch Mai",,
+Diễn giả,Dr. Marco Maria Lizzio,BS. Marco Maria Lizzio,,"A. Gemelli University Hospital – IRCCS; Università Cattolica del Sacro Cuore, Rome | BV Đại học A. Gemelli – IRCCS; ĐH Cattolica del Sacro Cuore, Rome",,
+Diễn giả,Dr. Chan Kin Yuen,TS. Chan Kin Yuen,,"Gleneagles Hospital Kuala Lumpur, Malaysia | BV Gleneagles Kuala Lumpur, Malaysia",,
+Diễn giả,Assoc. Prof. Bui Van Giang,PGS.TS.BS. Bùi Văn Giang,,Vinmec Healthcare System | Hệ thống Y tế Vinmec,,
+Diễn giả,Dr. Nguyen Thi Hoa,TS.BS. Nguyễn Thị Hoa,,Huu Nghi Hospital | Bệnh viện Hữu Nghị,,
+Diễn giả,Dr. Nguyen Thi Bich Ngoc,TS.BS. Nguyễn Thị Bích Ngọc,,E Hospital | Bệnh viện E,,
+Diễn giả,"Nguyen Thi Thanh, MSc",ThS. Nguyễn Thị Thanh,,Bach Mai Hospital | Bệnh viện Bạch Mai,,
+Diễn giả,"Phung Van Anh Duc, MSc",ThS. Phùng Văn Anh Đức,,Bach Mai Hospital | Bệnh viện Bạch Mai,,
+Đơn vị,Hanoi Medical University,Trường Đại học Y Hà Nội,,,,
+Đơn vị,Hanoi Medical University Hospital,Bệnh viện Đại học Y Hà Nội,,,,
+Đơn vị,108 Military Central Hospital,Bệnh viện Trung ương Quân đội 108,,,,
+Đơn vị,Military Hospital 103,Bệnh viện Quân y 103,,,,
+Đơn vị,Cho Ray Hospital,Bệnh viện Chợ Rẫy,,,,
+Đơn vị,Thong Nhat Hospital,Bệnh viện Thống Nhất,,,,
+Đơn vị,Vietnam National Children's Hospital,Bệnh viện Nhi Trung ương,,,,
+Đơn vị,Huu Nghi Hospital,Bệnh viện Hữu Nghị,,,,
+Đơn vị,Thai Binh General Hospital,Bệnh viện Đa khoa Thái Bình,,,,
+Đơn vị,Nam Dinh General Hospital,Bệnh viện Đa khoa Nam Định,,,,
+Đơn vị,Vinh Phuc General Hospital,Bệnh viện Đa khoa Vĩnh Phúc,,,,
+Đơn vị,198 Hospital,Bệnh viện 198,,,,
+Đơn vị,Can Tho University of Medicine and Pharmacy,Trường Đại học Y Dược Cần Thơ,,,,
+Đơn vị,Hue University of Medicine and Pharmacy,Trường Đại học Y Dược Huế,,,,
+Đơn vị,Phenikaa University Hospital,Bệnh viện Đại học Phenikaa,,,,
+Đơn vị,Institute of Diagnostic and Interventional Radiology,Viện Điện quang chẩn đoán và can thiệp,,,,
+Đơn vị,Hanoi Rheumatology Association,Hội Thấp khớp học Hà Nội,,,,
+Đơn vị,Thai Nguyen National Hospital,Bệnh viện Trung ương Thái Nguyên,,,,
