@@ -1,6 +1,7 @@
 import { EventEmitter } from 'node:events';
 import { randomUUID } from 'node:crypto';
 import WebSocket from 'ws';
+import { ServerEventGuard } from './server-event-guard.mjs';
 
 export const REALTIME_MODEL = 'gpt-realtime-translate';
 export const TRANSCRIPTION_MODEL = 'gpt-realtime-whisper';
@@ -10,13 +11,13 @@ const MAX_PENDING_AUDIO_BYTES = 24000 * 2 * 20;
 
 export function isTranslationTarget(value) { return TRANSLATION_TARGETS.includes(value); }
 
-export function sessionUpdate({ noiseReduction = null, targetLanguage = 'vi' } = {}) {
+export function sessionUpdate({ noiseReduction = null, targetLanguage = 'vi', sourceTranscription = true } = {}) {
   if (!isTranslationTarget(targetLanguage)) throw new RangeError('Invalid translation target');
   return {
     type: 'session.update',
     session: {
       audio: {
-        input: { transcription: { model: TRANSCRIPTION_MODEL }, noise_reduction: noiseReduction },
+        input: { transcription: sourceTranscription ? { model: TRANSCRIPTION_MODEL } : null, noise_reduction: noiseReduction },
         output: { language: targetLanguage },
       },
     },
@@ -24,12 +25,13 @@ export function sessionUpdate({ noiseReduction = null, targetLanguage = 'vi' } =
 }
 
 export class RealtimeInterpreter extends EventEmitter {
-  constructor({ apiKey, noiseReduction = null, targetLanguage = 'vi', createSocket = (url, options) => new WebSocket(url, options) }) {
+  constructor({ apiKey, noiseReduction = null, targetLanguage = 'vi', sourceTranscription = true, createSocket = (url, options) => new WebSocket(url, options) }) {
     super();
     if (!isTranslationTarget(targetLanguage)) throw new RangeError('Invalid translation target');
     this.targetLanguage = targetLanguage;
     this.activeTargetLanguage = targetLanguage;
     this.noiseReduction = noiseReduction;
+    this.sourceTranscription = sourceTranscription;
     this.streamId = randomUUID();
     this.segment = 0;
     this.ready = false;
@@ -38,12 +40,13 @@ export class RealtimeInterpreter extends EventEmitter {
     this.closeSent = false;
     this.pendingAudio = Buffer.alloc(0);
     this.finishTimer = null;
+    this.serverEvents = new ServerEventGuard();
     this.socket = createSocket(`wss://api.openai.com/v1/realtime/translations?model=${REALTIME_MODEL}`, {
       handshakeTimeout: 15000,
       headers: { Authorization: `Bearer ${apiKey}`, 'OpenAI-Safety-Identifier': 'conference-translation-operator' },
     });
     this.socket.on('open', () => {
-      if (!this.closed) this.send(sessionUpdate({ noiseReduction, targetLanguage: this.targetLanguage }));
+      if (!this.closed) this.updateSession();
     });
     this.socket.on('message', data => {
       if (this.closed) return;
@@ -102,12 +105,23 @@ export class RealtimeInterpreter extends EventEmitter {
     if (this.closed || this.closing || !isTranslationTarget(targetLanguage)) return false;
     if (targetLanguage === this.targetLanguage) return true;
     this.targetLanguage = targetLanguage;
-    this.send(sessionUpdate({ noiseReduction: this.noiseReduction, targetLanguage }));
+    this.updateSession();
+    return true;
+  }
+
+  updateSession() {
+    this.send(sessionUpdate({ noiseReduction: this.noiseReduction, targetLanguage: this.targetLanguage, sourceTranscription: this.sourceTranscription }));
+  }
+
+  setSourceTranscription(enabled) {
+    if (this.closed || this.closing) return false;
+    this.sourceTranscription = Boolean(enabled);
+    this.updateSession();
     return true;
   }
 
   handleEvent(event) {
-    if (this.closed) return;
+    if (this.closed || !this.serverEvents.accept(event)) return;
     if (event.type === 'session.updated') {
       const language = event.session?.audio?.output?.language;
       if (!isTranslationTarget(language)) { this.fail('OpenAI chưa xác nhận ngôn ngữ bản dịch.'); return; }
@@ -129,9 +143,10 @@ export class RealtimeInterpreter extends EventEmitter {
     } else if (['session.input_transcript.delta', 'session.output_transcript.delta'].includes(event.type) && typeof event.delta === 'string') {
       // Independent append-only streams: no utterance IDs or final-transcript event.
       // Preserve partial words. elapsed_ms is not a unique event ID.
+      if (event.type === 'session.input_transcript.delta' && !this.sourceTranscription) return;
       this.emit(event.type === 'session.input_transcript.delta' ? 'source_delta' : 'target_delta', {
         delta: event.delta, itemId: `${this.streamId}:${this.segment}`,
-        targetLanguage: this.activeTargetLanguage, elapsedMs: event.elapsed_ms,
+        targetLanguage: this.activeTargetLanguage, elapsedMs: event.elapsed_ms, eventId: event.event_id,
       });
     } else if (event.type === 'session.closed') {
       this.markClosed(this.closeSent);
@@ -155,6 +170,7 @@ export class RealtimeInterpreter extends EventEmitter {
     this.closed = true;
     this.ready = false;
     this.pendingAudio = Buffer.alloc(0);
+    this.serverEvents.clear();
     clearTimeout(this.finishTimer);
     this.emit('closed', { drained });
   }

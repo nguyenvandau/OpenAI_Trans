@@ -4,14 +4,29 @@ import http from 'http';
 import QRCode from 'qrcode';
 import WebSocket, { WebSocketServer } from 'ws';
 import { RealtimeInterpreter, REALTIME_MODEL, TRANSCRIPTION_MODEL, isTranslationTarget } from './realtime-interpreter.mjs';
+import { LiveTranscriber, LIVE_TRANSCRIPTION_MODEL } from './live-transcriber.mjs';
+import { loadConferenceGlossary } from './conference-glossary.mjs';
+import { isCaptureMode, noiseReductionForCapture } from './public/capture-options.js';
 
 const PORT = Number(process.env.PORT || 3000);
 const DEFAULT_TARGET_LANGUAGE = 'vi';
 let targetLanguage = DEFAULT_TARGET_LANGUAGE;
-const noiseReductionType = process.env.OPENAI_NOISE_REDUCTION || 'none';
-const noiseReduction = ['near_field', 'far_field'].includes(noiseReductionType) ? { type: noiseReductionType } : null;
+const noiseReductionSetting = process.env.OPENAI_NOISE_REDUCTION || 'auto';
+let inputMode = 'microphone';
+let noiseReduction = noiseReductionForCapture(inputMode, noiseReductionSetting);
 const OPENAI_API_KEY = (process.env.OPENAI_API_KEY || '').trim();
 const PUBLIC_BASE_URL = (process.env.PUBLIC_BASE_URL || '').replace(/\/$/, '');
+const requestedTranscriptionModel = process.env.OPENAI_SOURCE_TRANSCRIPTION || LIVE_TRANSCRIPTION_MODEL;
+let glossary = null;
+let glossaryWarning = '';
+try { glossary = loadConferenceGlossary(); }
+catch (error) { glossaryWarning = `Chưa đọc được bộ thuật ngữ; phụ đề dùng Whisper. ${error.message}`; }
+if (![LIVE_TRANSCRIPTION_MODEL, TRANSCRIPTION_MODEL].includes(requestedTranscriptionModel)) {
+  glossaryWarning = 'OPENAI_SOURCE_TRANSCRIPTION không hợp lệ; phụ đề dùng Whisper.';
+}
+const defaultTranscriptionModel = glossary && requestedTranscriptionModel === LIVE_TRANSCRIPTION_MODEL
+  ? LIVE_TRANSCRIPTION_MODEL : TRANSCRIPTION_MODEL;
+let transcriptionModel = defaultTranscriptionModel;
 
 const configurationError = !OPENAI_API_KEY || /^(sk-\.\.\.|API_KEY_CUA_BAN|your[_ -]?api[_ -]?key.*)$/i.test(OPENAI_API_KEY)
   ? 'Chưa có OpenAI API key thật. Điền OPENAI_API_KEY trong file .env rồi khởi động lại server.'
@@ -23,7 +38,7 @@ app.use(express.static('public'));
 app.get('/', (_req, res) => res.redirect('/operator.html'));
 app.get('/api/config', (req, res) => {
   const base = PUBLIC_BASE_URL || `${req.protocol}://${req.get('host')}`;
-  res.json({ targetLanguage, model: REALTIME_MODEL, transcriptionModel: TRANSCRIPTION_MODEL, sessionActive: Boolean(interpreter && !interpreter.closed), listenerUrl: `${base}/listen.html`, configurationError });
+  res.json({ targetLanguage, inputMode, noiseReduction, model: REALTIME_MODEL, transcriptionModel, glossary: glossary?.metadata || null, sessionActive: sessionsActive(), listenerUrl: `${base}/listen.html`, configurationError });
 });
 app.get('/api/qr.png', async (req, res) => {
   try {
@@ -41,8 +56,14 @@ const listenerWss = new WebSocketServer({ noServer: true });
 
 let sourceClient = null;
 let interpreter = null;
+let transcriber = null;
+let sourceFinishing = false;
 let aiReady = false;
 let lastError = configurationError;
+let captionWarning = glossaryWarning;
+
+function sessionsActive() { return Boolean(interpreter && !interpreter.closed || transcriber && !transcriber.closed); }
+function sessionsDraining() { return Boolean(interpreter?.closing && !interpreter.closed || transcriber?.closing && !transcriber.closed); }
 
 function broadcastJson(obj) {
   const payload = JSON.stringify(obj);
@@ -65,7 +86,10 @@ function currentStatus(message = '') {
     aiReady,
     listeners: listenerWss.clients.size,
     targetLanguage,
-    draining: Boolean(interpreter?.closing && !interpreter.closed),
+    inputMode,
+    noiseReduction,
+    draining: sessionsDraining(),
+    captionWarning,
     error: lastError,
     message,
   };
@@ -75,14 +99,69 @@ function broadcastStatus(message = '') {
   broadcastJson(currentStatus(message));
 }
 
-function reportError(message) {
+function scrubError(message) {
   // Authentication errors can echo credentials. Never forward those to browsers or logs.
-  lastError = String(message);
-  if (OPENAI_API_KEY) lastError = lastError.split(OPENAI_API_KEY).join('[hidden]');
-  lastError = lastError.replace(/sk-[A-Za-z0-9_.*-]+/g, '[hidden]');
+  let result = String(message);
+  if (OPENAI_API_KEY) result = result.split(OPENAI_API_KEY).join('[hidden]');
+  return result.replace(/sk-[A-Za-z0-9_.*-]+/g, '[hidden]');
+}
+
+function reportError(message) {
+  lastError = scrubError(message);
   aiReady = false;
   console.error('OpenAI:', lastError);
   broadcastStatus();
+}
+
+function reportCaptionWarning(message) {
+  captionWarning = scrubError(message);
+  console.warn('Source captions:', captionWarning);
+  broadcastJson({ type: 'caption_warning', message: captionWarning });
+  broadcastStatus();
+}
+
+function finishSourceIfDrained() {
+  if (!sourceFinishing || sessionsActive() || sourceClient?.readyState !== WebSocket.OPEN) return;
+  sourceClient.send(JSON.stringify({ type: 'stopped' }));
+  sourceClient.close(1000, 'Translation complete');
+}
+
+function finishSessions() {
+  sourceFinishing = true;
+  interpreter?.finish();
+  transcriber?.finish();
+  broadcastStatus('Finishing translation');
+  finishSourceIfDrained();
+}
+
+function openSourceCaptions() {
+  if (transcriptionModel !== LIVE_TRANSCRIPTION_MODEL) return;
+  const session = new LiveTranscriber({ apiKey: OPENAI_API_KEY, noiseReduction, targetLanguage, profiles: glossary.profiles });
+  transcriber = session;
+  for (const type of ['source_turn', 'source_delta', 'source_transcript']) {
+    session.on(type, caption => {
+      if (transcriber === session) broadcastJson({ type, ...caption });
+    });
+  }
+  session.on('warning', message => {
+    if (transcriber === session) reportCaptionWarning(`Phụ đề nguồn: ${message}`);
+  });
+  session.on('fault', message => {
+    if (transcriber !== session) return;
+    reportCaptionWarning(`Phụ đề thuật ngữ tạm gián đoạn; âm thanh dịch vẫn tiếp tục. ${message}`);
+  });
+  session.on('closed', ({ drained }) => {
+    if (transcriber !== session) return;
+    transcriber = null;
+    if (!drained && !sourceFinishing && interpreter && !interpreter.closing && !interpreter.closed) {
+      // Only the caption source changes. Keep the translation socket and PCM stream running.
+      transcriptionModel = TRANSCRIPTION_MODEL;
+      interpreter.setSourceTranscription(true);
+      reportCaptionWarning('Phụ đề chuyển sang Whisper do kết nối nhận dạng thuật ngữ bị gián đoạn. Âm thanh dịch vẫn tiếp tục; hãy đối chiếu phần phụ đề bị thiếu.');
+    }
+    broadcastStatus();
+    finishSourceIfDrained();
+  });
 }
 
 function openTranslationSession() {
@@ -94,11 +173,13 @@ function openTranslationSession() {
   lastError = '';
   const session = new RealtimeInterpreter({
     apiKey: OPENAI_API_KEY, noiseReduction, targetLanguage,
+    sourceTranscription: transcriptionModel === TRANSCRIPTION_MODEL,
   });
   interpreter = session;
   session.on('configured', config => {
     if (interpreter !== session) return;
     targetLanguage = config.targetLanguage;
+    transcriber?.setTargetLanguage(targetLanguage);
     if (aiReady) broadcastStatus('Translation settings updated');
   });
   session.on('ready', () => {
@@ -123,10 +204,7 @@ function openTranslationSession() {
       lastError = 'Mất kết nối OpenAI. Bấm Dừng rồi Bắt đầu để thử lại.';
     }
     broadcastStatus('OpenAI disconnected');
-    if (session.closing && sourceClient?.readyState === WebSocket.OPEN) {
-      sourceClient.send(JSON.stringify({ type: 'stopped' }));
-      sourceClient.close(1000, 'Translation complete');
-    }
+    finishSourceIfDrained();
   });
 
   session.on('fault', (message) => {
@@ -140,22 +218,32 @@ function openTranslationSession() {
     };
     reportError(hints[status] || `Lỗi OpenAI: ${message}`);
   });
+  openSourceCaptions();
 }
 
 function closeTranslationSession() {
   const session = interpreter;
+  const captionSession = transcriber;
   interpreter = null;
+  transcriber = null;
   session?.close();
+  captionSession?.close();
   aiReady = false;
 }
 
 sourceWss.on('connection', (ws, req) => {
-  const requestedLanguage = new URL(req.url, 'http://localhost').searchParams.get('targetLanguage') ?? DEFAULT_TARGET_LANGUAGE;
+  const params = new URL(req.url, 'http://localhost').searchParams;
+  const requestedLanguage = params.get('targetLanguage') ?? DEFAULT_TARGET_LANGUAGE;
+  const requestedInputMode = params.get('inputMode') ?? 'microphone';
   if (!isTranslationTarget(requestedLanguage)) {
     ws.close(1008, 'Translation target must be vi or en.');
     return;
   }
-  if (interpreter?.closing && !interpreter.closed) {
+  if (!isCaptureMode(requestedInputMode)) {
+    ws.close(1008, 'Audio input mode must be microphone or mixer.');
+    return;
+  }
+  if (sessionsDraining()) {
     ws.close(1008, 'Wait for the final translation to finish.');
     return;
   }
@@ -165,6 +253,11 @@ sourceWss.on('connection', (ws, req) => {
   sourceClient = ws;
   targetLanguage = requestedLanguage;
   closeTranslationSession();
+  inputMode = requestedInputMode;
+  noiseReduction = noiseReductionForCapture(inputMode, noiseReductionSetting);
+  sourceFinishing = false;
+  transcriptionModel = defaultTranscriptionModel;
+  captionWarning = glossaryWarning;
   broadcastJson({ type: 'session_reset' });
   openTranslationSession();
   broadcastStatus('Operator connected');
@@ -176,23 +269,20 @@ sourceWss.on('connection', (ws, req) => {
         const msg = JSON.parse(data.toString());
         if (msg.type === 'ping') ws.send(JSON.stringify({ type: 'pong' }));
         if (msg.type === 'stop') {
-          if (interpreter && !interpreter.closed) {
-            interpreter.finish();
-            broadcastStatus('Finishing translation');
-          } else {
-            ws.send(JSON.stringify({ type: 'stopped' }));
-            ws.close(1000, 'Translation complete');
-          }
+          finishSessions();
         }
         if (msg.type === 'translation_config') {
           if (!isTranslationTarget(msg.targetLanguage)) {
             ws.send(JSON.stringify({ type: 'config_error', message: 'Chiều dịch không hợp lệ. Chọn Anh → Việt hoặc Việt → Anh.' }));
             return;
           }
-          if (interpreter) {
+          if (sourceFinishing) {
+            ws.send(JSON.stringify({ type: 'config_error', message: 'Đang hoàn tất phiên dịch; chưa thể đổi chiều.' }));
+          } else if (interpreter) {
             if (!interpreter.setTargetLanguage(msg.targetLanguage)) ws.send(JSON.stringify({ type: 'config_error', message: 'Đang hoàn tất phiên dịch; chưa thể đổi chiều.' }));
           } else {
             targetLanguage = msg.targetLanguage;
+            transcriber?.setTargetLanguage(targetLanguage);
             broadcastStatus('Translation settings updated');
           }
         }
@@ -201,13 +291,14 @@ sourceWss.on('connection', (ws, req) => {
     }
     // Buffer startup audio in the interpreter instead of dropping the first words.
     interpreter?.appendAudio(data);
+    // Independent caption hints cannot hold, gate, or alter translation input.
+    transcriber?.appendAudio(data);
   });
 
   ws.on('close', () => {
     if (sourceClient !== ws) return;
     sourceClient = null;
-    interpreter?.finish();
-    broadcastStatus('Operator disconnected');
+    finishSessions();
   });
 });
 

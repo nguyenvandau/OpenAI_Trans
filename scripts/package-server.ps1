@@ -10,7 +10,7 @@ $packageRoot = Join-Path $stagePath 'AI-Cabin'
 
 try {
   New-Item -ItemType Directory -Path $packageRoot | Out-Null
-  foreach ($name in @('server.mjs', 'realtime-interpreter.mjs', 'package.json', 'package-lock.json', 'README.md', 'SERVER-SETUP.md', 'PRODUCTION_ARCHITECTURE.md', 'start-server.cmd', 'start-server.sh', '.env.example')) {
+  foreach ($name in @('server.mjs', 'realtime-interpreter.mjs', 'live-transcriber.mjs', 'server-event-guard.mjs', 'conference-glossary.mjs', 'IFR2026_glossary_EN-VI.csv', 'IFR2026_Thuat_ngu_Anh-Viet.xlsx', 'gpt-live-transcribe_EN_session.json', 'gpt-live-transcribe_VI_session.json', 'package.json', 'package-lock.json', 'README.md', 'SERVER-SETUP.md', 'PRODUCTION_ARCHITECTURE.md', 'start-server.cmd', 'start-server.sh', '.env.example')) {
     Copy-Item -LiteralPath (Join-Path $workspaceRoot $name) -Destination $packageRoot
   }
   # The server must not inherit this machine's LAN address in a fresh deployment.

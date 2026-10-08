@@ -19,6 +19,7 @@
 .caption-text { white-space: pre-wrap; }
 .caption-empty { color: var(--muted); }
 .caption-note { margin: -4px 0 0; }
+.caption-warning { margin: 0 0 16px; color: var(--brand); }
 body.caption-mode { overflow: hidden; }
 body.caption-mode .skip-link, body.caption-mode > .site-header, body.caption-mode .page-heading,
 body.caption-mode .listener-hero, body.caption-mode .caption-toolbar, body.caption-mode .caption-note,
@@ -30,6 +31,7 @@ body.caption-mode .english-panel::before { left: -3.5vw; background: #ffffff29; 
 body.caption-mode .english-panel h2 { color: #bed6ff; }
 body.caption-mode .caption-window { font-size: min(3.4vw, 7vh); line-height: 1.5; color: #fff; font-weight: 500; }
 body.caption-mode .caption-empty { color: #98a7bc; }
+body.caption-mode .caption-warning { position: absolute; left: 4.5vw; right: 4.5vw; bottom: 2vh; margin: 0; color: #f1c186; font-size: 14px; }
 .return-button { position: absolute; top: 3vh; right: 4.5vw; padding: 8px 16px; min-height: 44px; color: #dce5f3; background: #ffffff0d; border: 1px solid #ffffff40; font-size: 15px; }
 .return-button:hover { background: #ffffff1f; }
 .history-dialog { width: min(1050px, calc(100% - 28px)); max-height: 90dvh; margin: auto; padding: 26px; border: 1px solid var(--line); border-radius: 10px; color: #16233b; background: #fff; }

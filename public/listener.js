@@ -3,6 +3,7 @@ import { CaptionModel } from './caption-model.js';
 const $=(id)=>document.getElementById(id);
 let ctx=null, gain=null, nextTime=0, enabled=false;
 let presentation = false, renderPending = false;
+let renderedHistoryOrderVersion = 0;
 const captions = new CaptionModel();
 const scheduledAudio = new Set();
 const historyRows = new Map();
@@ -15,6 +16,7 @@ function resetPlayback(){
 function resetSession(){
   resetPlayback();
   captions.reset();
+  $('captionWarning').hidden = true;
   scheduleRender();
 }
 const ws = new WebSocket(`${location.protocol==='https:'?'wss':'ws'}://${location.host}/ws/listen`);
@@ -36,7 +38,7 @@ function renderCaptions(){
     $(prefix+'Text').textContent = text || placeholder;
     $(prefix+'Text').classList.toggle('caption-empty', !text);
     const viewport = $(prefix+'Window');
-    viewport.scrollTop = viewport.scrollHeight;
+    viewport.scrollTop = 0;
   }
   if($('historyDialog').open) renderHistory();
 }
@@ -50,8 +52,9 @@ function scheduleRender(){
 function renderHistory(){
   const content = $('historyContent');
   const fragment = document.createDocumentFragment();
+  const reorder = renderedHistoryOrderVersion !== captions.historyOrderVersion;
   let hasText = false;
-  for(const turn of captions.history){
+  for(const turn of captions.history.slice().reverse()){
     let view = historyRows.get(turn);
     if(!view){
       const row = document.createElement('article');
@@ -76,6 +79,8 @@ function renderHistory(){
       fragment.append(row);
       historyRows.set(turn, view);
     }
+    // Move existing rows only when predecessor IDs changed their order.
+    if(reorder) fragment.append(view.row);
     const hasTurnText = Boolean(turn.source || turn.target);
     view.row.hidden = !hasTurnText;
     hasText ||= hasTurnText;
@@ -84,7 +89,8 @@ function renderHistory(){
       if(view[language].data !== text) view[language].data = text;
     }
   }
-  content.append(fragment);
+  content.prepend(fragment);
+  renderedHistoryOrderVersion = captions.historyOrderVersion;
   let empty = content.querySelector('.history-empty');
   if(!hasText && !empty){
     const empty = document.createElement('p');
@@ -99,6 +105,7 @@ function renderHistory(){
 $('showHistory').onclick=()=>{
   renderHistory();
   $('historyDialog').showModal();
+  $('historyContent').scrollTop = 0;
 };
 $('closeHistory').onclick=()=>$('historyDialog').close();
 $('downloadHistory').onclick=()=>{
@@ -174,11 +181,14 @@ ws.onmessage=(ev)=>{
   if(m.type==='session_reset'){
     resetSession();
   } else if(m.type==='status'){
+    $('captionWarning').hidden = !m.captionWarning;
     $('direction').textContent=m.targetLanguage === 'en' ? 'Việt → Anh' : 'Anh → Việt';
     $('status').textContent = m.error ? `Lỗi dịch: ${m.error}` : m.draining ? 'Đang phát phần dịch cuối…'
       : m.aiReady ? `Đang dịch song song • ${m.listeners||1} người nghe` : m.sourceConnected ? 'Đang khởi tạo AI…' : 'Chờ ban tổ chức bắt đầu';
-  } else if(['source_delta', 'target_delta'].includes(m.type)){
+  } else if(['source_turn', 'source_delta', 'source_transcript', 'target_delta'].includes(m.type)){
     receiveCaption(m);
+  } else if(m.type==='caption_warning'){
+    $('captionWarning').hidden = false;
   } else if(m.type==='error'){
     $('status').textContent='Lỗi dịch: '+m.message;
   }

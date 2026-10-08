@@ -1,0 +1,476 @@
+﻿category,english,vietnamese,abbreviation,note
+Bệnh & hội chứng,rheumatology,thấp khớp học / chuyên khoa cơ xương khớp,,
+Bệnh & hội chứng,rheumatic and musculoskeletal diseases,bệnh cơ xương khớp,RMDs,
+Bệnh & hội chứng,musculoskeletal disorders,rối loạn cơ xương khớp / bệnh lý cơ xương khớp,MSD,
+Bệnh & hội chứng,inflammatory arthritis,bệnh khớp viêm / viêm khớp,,
+Bệnh & hội chứng,rheumatoid arthritis,viêm khớp dạng thấp,RA,VI viết tắt: VKDT
+Bệnh & hội chứng,early rheumatoid arthritis,viêm khớp dạng thấp sớm,,
+Bệnh & hội chứng,spondyloarthritis,viêm khớp cột sống,SpA,VI viết tắt: VKCS
+Bệnh & hội chứng,axial spondyloarthritis,viêm khớp cột sống thể trục,axSpA,
+Bệnh & hội chứng,ankylosing spondylitis,viêm cột sống dính khớp,AS,VI viết tắt: VCSDK
+Bệnh & hội chứng,psoriatic arthritis,viêm khớp vảy nến,PsA,
+Bệnh & hội chứng,difficult-to-treat psoriatic arthritis,viêm khớp vảy nến khó điều trị,D2T-PsA,
+Bệnh & hội chứng,complex-to-manage PsA,PsA khó quản lý,C2M-PsA,
+Bệnh & hội chứng,treatment-refractory PsA,PsA kháng trị,TR-PsA,
+Bệnh & hội chứng,psoriasis,bệnh vảy nến,,
+Bệnh & hội chứng,osteoarthritis,thoái hóa khớp,OA,VI viết tắt: THK
+Bệnh & hội chứng,knee osteoarthritis,thoái hóa khớp gối,KOA,VI viết tắt: THKG
+Bệnh & hội chứng,primary knee osteoarthritis,thoái hóa khớp gối nguyên phát,,
+Bệnh & hội chứng,lumbar spondylosis,thoái hóa cột sống thắt lưng,,
+Bệnh & hội chứng,osteoporosis,loãng xương,,
+Bệnh & hội chứng,primary osteoporosis,loãng xương nguyên phát,,
+Bệnh & hội chứng,postmenopausal osteoporosis,loãng xương sau mãn kinh,,
+Bệnh & hội chứng,osteoporotic fracture,gãy xương do loãng xương,,
+Bệnh & hội chứng,vertebral fracture,gãy xương đốt sống / gãy đốt sống,,
+Bệnh & hội chứng,vertebral compression fracture,xẹp đốt sống,,
+Bệnh & hội chứng,gout,gút / gout,,Người Việt nói 'gút'
+Bệnh & hội chứng,primary gout,gút nguyên phát,,
+Bệnh & hội chứng,acute gout flare,cơn gút cấp,,
+Bệnh & hội chứng,tophi,hạt tophi,,số ít: tophus
+Bệnh & hội chứng,hyperuricemia,tăng acid uric máu,,
+Bệnh & hội chứng,systemic lupus erythematosus,lupus ban đỏ hệ thống,SLE,
+Bệnh & hội chứng,lupus nephritis,viêm thận lupus,LN,
+Bệnh & hội chứng,Sjögren's disease / Sjögren syndrome,bệnh Sjögren / hội chứng Sjögren,SjD,đọc: 'Sơ-gren'
+Bệnh & hội chứng,systemic sclerosis,xơ cứng bì hệ thống,SSc,
+Bệnh & hội chứng,scleroderma,xơ cứng bì,,
+Bệnh & hội chứng,Raynaud's phenomenon / syndrome,hiện tượng / hội chứng Raynaud,,
+Bệnh & hội chứng,digital ulcers,loét ngón,DUs,
+Bệnh & hội chứng,digital ischaemia,thiếu máu cục bộ ngón,,
+Bệnh & hội chứng,idiopathic inflammatory myopathies,bệnh cơ viêm tự phát,IIM,
+Bệnh & hội chứng,dermatomyositis,viêm da cơ,DM,
+Bệnh & hội chứng,polymyositis,viêm đa cơ,PM,
+Bệnh & hội chứng,inclusion body myositis,viêm cơ thể vùi,IBM,
+Bệnh & hội chứng,immune-mediated necrotizing myopathy,bệnh cơ hoại tử qua trung gian miễn dịch,IMNM,
+Bệnh & hội chứng,antisynthetase syndrome,hội chứng kháng synthetase,ASSD,
+Bệnh & hội chứng,interstitial lung disease,bệnh phổi kẽ / bệnh phổi mô kẽ,ILD,
+Bệnh & hội chứng,connective tissue disease-associated ILD,bệnh phổi kẽ liên quan bệnh mô liên kết,CTD-ILD,
+Bệnh & hội chứng,connective tissue diseases,bệnh tổ chức liên kết / bệnh mô liên kết,CTD,
+Bệnh & hội chứng,progressive pulmonary fibrosis,xơ phổi tiến triển,PPF,
+Bệnh & hội chứng,pulmonary hypertension,tăng áp lực động mạch phổi,PH,
+Bệnh & hội chứng,autoimmune diseases,bệnh tự miễn,,
+Bệnh & hội chứng,autoimmune arthropathies,bệnh khớp tự miễn,,
+Bệnh & hội chứng,autoimmune inflammatory rheumatic diseases,bệnh thấp khớp viêm tự miễn,AIIRD,
+Bệnh & hội chứng,IgA vasculitis,viêm mạch IgA,,
+Bệnh & hội chứng,vasculitis,viêm mạch,,
+Bệnh & hội chứng,juvenile idiopathic arthritis,viêm khớp tự phát thiếu niên,JIA,
+Bệnh & hội chứng,systemic JIA,viêm khớp thiếu niên thể hệ thống,sJIA,
+Bệnh & hội chứng,polyarthritis / oligoarthritis,thể đa khớp / thể ít khớp,,
+Bệnh & hội chứng,enthesitis,viêm điểm bám gân,,
+Bệnh & hội chứng,dactylitis,viêm ngón (ngón tay/chân hình khúc dồi),,
+Bệnh & hội chứng,temporomandibular joint arthritis,viêm khớp thái dương hàm,TMJ arthritis,
+Bệnh & hội chứng,chronic anterior uveitis,viêm màng bồ đào trước mạn tính,CAU,
+Bệnh & hội chứng,uveitis,viêm màng bồ đào,,
+Bệnh & hội chứng,macrophage activation syndrome,hội chứng kích hoạt đại thực bào,MAS,
+Bệnh & hội chứng,paediatric rheumatology,thấp khớp nhi khoa,,
+Bệnh & hội chứng,paediatric rheumatic disease,bệnh thấp khớp trẻ em,,
+Bệnh & hội chứng,frailty syndrome,hội chứng dễ tổn thương / hội chứng suy yếu,,VI viết tắt trong bài: HCDBTT
+Bệnh & hội chứng,sarcopenia,thiểu cơ / chứng thiểu cơ,,
+Bệnh & hội chứng,osteosarcopenia,thiểu cơ – loãng xương đồng mắc,,
+Bệnh & hội chứng,fibromyalgia,đau xơ cơ,,
+Bệnh & hội chứng,chronic low back pain,đau thắt lưng mạn tính,CLBP,VI viết tắt: ĐTLMT
+Bệnh & hội chứng,cervicobrachial syndrome,hội chứng cổ – vai – cánh tay,,
+Bệnh & hội chứng,subacromial impingement syndrome,hội chứng hẹp khoang dưới mỏm cùng vai,SIS,
+Bệnh & hội chứng,rotator cuff,chóp xoay (gân chóp xoay),,
+Bệnh & hội chứng,calcific tendinopathy,bệnh lý gân vôi hóa,,
+Bệnh & hội chứng,carpal tunnel syndrome,hội chứng đường hầm cổ tay,CTS,
+Bệnh & hội chứng,medial epicondylitis,viêm điểm bám gân lồi cầu trong xương cánh tay,,golfer's elbow
+Bệnh & hội chứng,plantar fasciitis,viêm cân gan chân,,
+Bệnh & hội chứng,chronic osteomyelitis,viêm xương tủy mạn tính,,
+Bệnh & hội chứng,vertebral osteomyelitis,viêm xương tủy cột sống,,
+Bệnh & hội chứng,fracture-related infection,nhiễm trùng liên quan gãy xương,FRI,
+Bệnh & hội chứng,infectious spondylodiscitis,viêm đốt sống đĩa đệm nhiễm khuẩn,,
+Bệnh & hội chứng,spondylitis / discitis,viêm đốt sống / viêm đĩa đệm,,
+Bệnh & hội chứng,spinal infection,nhiễm trùng cột sống,,
+Bệnh & hội chứng,soft-tissue infection,nhiễm trùng phần mềm,,
+Bệnh & hội chứng,post-infectious arthritis,viêm khớp hậu nhiễm trùng,,
+Bệnh & hội chứng,reactive arthritis,viêm khớp phản ứng,ReA,
+Bệnh & hội chứng,viral arthritis,viêm khớp do virus,,
+Bệnh & hội chứng,post-streptococcal reactive arthritis,viêm khớp phản ứng hậu liên cầu,PSRA,
+Bệnh & hội chứng,acute rheumatic fever,thấp tim cấp,ARF,
+Bệnh & hội chứng,Lyme arthritis,viêm khớp Lyme,,
+Bệnh & hội chứng,metabolic syndrome,hội chứng chuyển hóa,MetS,VI viết tắt: HCCH
+Bệnh & hội chứng,diabetes mellitus,đái tháo đường,DM,
+Bệnh & hội chứng,hypertension,tăng huyết áp,,
+Bệnh & hội chứng,chronic kidney disease,bệnh thận mạn,CKD,
+Bệnh & hội chứng,hepatitis B,viêm gan B,HBV,
+Bệnh & hội chứng,comorbidity / comorbidities,bệnh đồng mắc,,
+Bệnh & hội chứng,atherosclerotic cardiovascular disease,bệnh tim mạch do xơ vữa,ASCVD,
+Bệnh & hội chứng,major adverse cardiovascular events,biến cố tim mạch nặng / chính,MACE,
+Bệnh & hội chứng,venous thromboembolism,thuyên tắc huyết khối tĩnh mạch,VTE,
+Bệnh & hội chứng,neuropathic pain,đau thần kinh / đau do nguyên nhân thần kinh,,
+Bệnh & hội chứng,generalized pain,đau lan tỏa,,
+Bệnh & hội chứng,central sensitization,nhạy cảm hóa trung ương,,
+Bệnh & hội chứng,chronic ulcers,loét mạn tính,,
+Lâm sàng & cơ chế,remission,lui bệnh,,
+Lâm sàng & cơ chế,sustained remission,lui bệnh bền vững,,
+Lâm sàng & cơ chế,drug-free remission,lui bệnh không dùng thuốc,,
+Lâm sàng & cơ chế,clinical deep remission,lui bệnh sâu trên lâm sàng,CliDR,
+Lâm sàng & cơ chế,low disease activity,mức độ hoạt động bệnh thấp,LDA,
+Lâm sàng & cơ chế,lupus low disease activity state,trạng thái hoạt động bệnh lupus thấp,LLDAS,
+Lâm sàng & cơ chế,disease activity,mức độ hoạt động bệnh,,
+Lâm sàng & cơ chế,flare,đợt bùng phát / bùng phát,,
+Lâm sàng & cơ chế,red flags,dấu hiệu cờ đỏ / cờ đỏ,,
+Lâm sàng & cơ chế,early signs,dấu hiệu sớm,,
+Lâm sàng & cơ chế,functional disability,khuyết tật chức năng / suy giảm chức năng,,
+Lâm sàng & cơ chế,fall risk,nguy cơ ngã,,
+Lâm sàng & cơ chế,cardiovascular risk,nguy cơ tim mạch,,
+Lâm sàng & cơ chế,cardiometabolic,tim mạch – chuyển hóa,,
+Lâm sàng & cơ chế,metaflammation,viêm chuyển hóa,,
+Lâm sàng & cơ chế,imminent fracture risk,nguy cơ gãy xương cận kề,,
+Lâm sàng & cơ chế,bone erosion,bào mòn xương,,
+Lâm sàng & cơ chế,structural damage,tổn thương cấu trúc,,
+Lâm sàng & cơ chế,new bone formation,hình thành xương mới,,
+Lâm sàng & cơ chế,enthesiophyte,gai xương tại điểm bám gân/dây chằng,,
+Lâm sàng & cơ chế,joint space,khe khớp,,
+Lâm sàng & cơ chế,synovitis,viêm màng hoạt dịch,,
+Lâm sàng & cơ chế,bone marrow edema,phù tủy xương,,
+Lâm sàng & cơ chế,bone turnover,chu chuyển xương,,
+Lâm sàng & cơ chế,rebound effect,hiệu ứng dội ngược (chu chuyển xương tăng vọt),,
+Lâm sàng & cơ chế,bone mineral density,mật độ xương / mật độ khoáng xương,BMD,
+Lâm sàng & cơ chế,bone quality,chất lượng xương,,
+Lâm sàng & cơ chế,muscle strength / muscle mass,sức mạnh cơ / khối lượng cơ,,
+Lâm sàng & cơ chế,physical performance,chức năng vận động / hiệu suất thể chất,,
+Lâm sàng & cơ chế,phenotype,kiểu hình,,
+Lâm sàng & cơ chế,inflammatory / metabolic / mechanical phenotype,kiểu hình viêm / chuyển hóa / cơ học,,
+Lâm sàng & cơ chế,pain mechanisms,cơ chế đau,,
+Lâm sàng & cơ chế,immune balance / immune homeostasis,cân bằng miễn dịch,,
+Lâm sàng & cơ chế,regulatory T cells,tế bào T điều hòa,Treg,
+Lâm sàng & cơ chế,effector T cells,tế bào T hiệu ứng,Teff,
+Lâm sàng & cơ chế,B cells,tế bào B,,
+Lâm sàng & cơ chế,type I interferon,interferon type I / interferon týp I,IFN-I,
+Lâm sàng & cơ chế,autoantibodies,tự kháng thể,,
+Lâm sàng & cơ chế,myositis-specific autoantibodies,tự kháng thể đặc hiệu viêm cơ,MSA,
+Lâm sàng & cơ chế,retinal toxicity / ocular toxicity,tổn thương võng mạc / độc tính trên mắt,,
+Lâm sàng & cơ chế,biofilm,màng sinh học,,bài VI ghi 'màng giả'
+Lâm sàng & cơ chế,skin lesions,tổn thương da,,
+Lâm sàng & cơ chế,wound,vết thương,,
+Lâm sàng & cơ chế,ulceration,loét,,
+Lâm sàng & cơ chế,postmenopausal women,phụ nữ sau mãn kinh,,
+Lâm sàng & cơ chế,older adults / elderly,người cao tuổi,,
+Lâm sàng & cơ chế,inpatients / outpatients,bệnh nhân nội trú / ngoại trú,,
+Lâm sàng & cơ chế,prolonged hospitalization,nằm viện kéo dài,,
+Lâm sàng & cơ chế,disease patterns,mô hình bệnh tật,,
+Lâm sàng & cơ chế,quality of life,chất lượng cuộc sống,QoL,
+Lâm sàng & cơ chế,medication adherence,tuân thủ điều trị / tuân thủ dùng thuốc,,
+Chẩn đoán & hình ảnh,blood tests,xét nghiệm máu,,
+Chẩn đoán & hình ảnh,imaging,chẩn đoán hình ảnh / thăm dò hình ảnh,,
+Chẩn đoán & hình ảnh,investigations,thăm dò / xét nghiệm,,
+Chẩn đoán & hình ảnh,over-investigation,chỉ định quá nhiều xét nghiệm,,
+Chẩn đoán & hình ảnh,ultrasound / ultrasonography,siêu âm,US,
+Chẩn đoán & hình ảnh,Doppler ultrasound,siêu âm Doppler,,
+Chẩn đoán & hình ảnh,ultrasound-guided injection,tiêm dưới hướng dẫn siêu âm,,
+Chẩn đoán & hình ảnh,blind injection,tiêm mù (không có hướng dẫn hình ảnh),,
+Chẩn đoán & hình ảnh,echocardiography,siêu âm tim,,
+Chẩn đoán & hình ảnh,pulmonary artery systolic pressure,áp lực động mạch phổi tâm thu,PASP,
+Chẩn đoán & hình ảnh,magnetic resonance imaging,cộng hưởng từ,MRI,
+Chẩn đoán & hình ảnh,computed tomography,chụp cắt lớp vi tính,CT,
+Chẩn đoán & hình ảnh,high-resolution CT,CT độ phân giải cao,HRCT,
+Chẩn đoán & hình ảnh,photon-counting computed tomography,chụp cắt lớp vi tính đếm photon / CT lượng tử,PCCT,
+Chẩn đoán & hình ảnh,high-resolution peripheral quantitative CT,CT định lượng ngoại vi độ phân giải cao,HR-pQCT,
+Chẩn đoán & hình ảnh,dual-energy X-ray absorptiometry,đo hấp thụ tia X năng lượng kép,DXA,
+Chẩn đoán & hình ảnh,DXA pitfalls,cạm bẫy DXA,,
+Chẩn đoán & hình ảnh,vertebral fracture assessment,đánh giá gãy đốt sống,VFA,
+Chẩn đoán & hình ảnh,trabecular bone score,điểm bè xương,TBS,
+Chẩn đoán & hình ảnh,bone turnover markers,dấu ấn chu chuyển xương,BTMs,"CTX, P1NP"
+Chẩn đoán & hình ảnh,T-score,chỉ số T-score,,
+Chẩn đoán & hình ảnh,radiography / X-ray,X-quang,,
+Chẩn đoán & hình ảnh,bioelectrical impedance analysis,phân tích trở kháng điện sinh học,BIA,
+Chẩn đoán & hình ảnh,antinuclear antibody,kháng thể kháng nhân,ANA,
+Chẩn đoán & hình ảnh,extractable nuclear antigens,kháng nguyên nhân hòa tan / chiết xuất được,ENA,
+Chẩn đoán & hình ảnh,anti-cyclic citrullinated peptide antibody,kháng thể kháng peptide citrullin hóa vòng,anti-CCP / ACPA,
+Chẩn đoán & hình ảnh,rheumatoid factor,yếu tố dạng thấp,RF,
+Chẩn đoán & hình ảnh,C-reactive protein,protein phản ứng C,CRP,
+Chẩn đoán & hình ảnh,erythrocyte sedimentation rate,tốc độ máu lắng,ESR,
+Chẩn đoán & hình ảnh,serum uric acid / serum urate,acid uric huyết thanh,SUA,
+Chẩn đoán & hình ảnh,monosodium urate crystals,tinh thể urat monosodium,MSU,
+Chẩn đoán & hình ảnh,25-hydroxyvitamin D,25-hydroxyvitamin D,25(OH)D,
+Chẩn đoán & hình ảnh,HLA-B27,HLA-B27,,
+Chẩn đoán & hình ảnh,ANCA,kháng thể kháng bào tương bạch cầu đa nhân trung tính,ANCA,
+Chẩn đoán & hình ảnh,estimated glomerular filtration rate,mức lọc cầu thận ước tính,eGFR,
+Chẩn đoán & hình ảnh,hepatitis B screening,sàng lọc virus viêm gan B,,"HBsAg, anti-HBc"
+Chẩn đoán & hình ảnh,optical coherence tomography,chụp cắt lớp quang học,OCT,
+Chẩn đoán & hình ảnh,automated visual field,đo thị trường tự động,,Humphrey 24-2
+Chẩn đoán & hình ảnh,slit-lamp examination,khám bằng đèn khe,,
+Chẩn đoán & hình ảnh,diffusing capacity for carbon monoxide,khả năng khuếch tán CO,DLCO,
+Chẩn đoán & hình ảnh,forced vital capacity,dung tích sống gắng sức,FVC,
+Chẩn đoán & hình ảnh,single nucleotide polymorphism,đa hình đơn nucleotide,SNP,
+Chẩn đoán & hình ảnh,candidate-gene study,nghiên cứu gen ứng viên,,
+Chẩn đoán & hình ảnh,pan-immune-inflammation value,chỉ số viêm – miễn dịch toàn thể,PIV,
+Chẩn đoán & hình ảnh,screening,sàng lọc,,
+Chẩn đoán & hình ảnh,risk stratification,phân tầng nguy cơ,,
+Chẩn đoán & hình ảnh,early diagnosis,chẩn đoán sớm,,
+Chẩn đoán & hình ảnh,differential diagnosis,chẩn đoán phân biệt,,
+Chẩn đoán & hình ảnh,classification criteria,tiêu chuẩn phân loại,,
+Điều trị & nhóm thuốc,treat-to-target,điều trị theo mục tiêu / điều trị hướng đích,T2T,
+Điều trị & nhóm thuốc,disease-modifying antirheumatic drugs,thuốc chống thấp khớp làm thay đổi diễn tiến bệnh,DMARDs,
+Điều trị & nhóm thuốc,conventional synthetic DMARDs,DMARD tổng hợp cổ điển,csDMARDs,
+Điều trị & nhóm thuốc,biologic DMARDs,DMARD sinh học / thuốc sinh học,bDMARDs,
+Điều trị & nhóm thuốc,targeted synthetic DMARDs,DMARD tổng hợp nhắm đích / thuốc phân tử nhỏ,tsDMARDs,
+Điều trị & nhóm thuốc,biologic therapy / biologic agents,điều trị sinh học / thuốc sinh học,,
+Điều trị & nhóm thuốc,JAK inhibitors,thuốc ức chế JAK,JAKi,
+Điều trị & nhóm thuốc,TNF inhibitors,thuốc kháng TNF / ức chế TNF,TNFi,
+Điều trị & nhóm thuốc,IL-17 inhibitors,thuốc kháng IL-17,,
+Điều trị & nhóm thuốc,IL-23 inhibitors,thuốc kháng IL-23,,
+Điều trị & nhóm thuốc,IL-6 inhibitors / IL-1 inhibitors,thuốc ức chế IL-6 / IL-1,IL-6i / IL-1i,
+Điều trị & nhóm thuốc,TYK2 inhibitor,thuốc ức chế TYK2,,
+Điều trị & nhóm thuốc,PDE4 inhibitor,thuốc ức chế PDE4,,
+Điều trị & nhóm thuốc,calcineurin inhibitors,thuốc ức chế calcineurin,CNI,
+Điều trị & nhóm thuốc,low-dose interleukin-2,IL-2 liều thấp,LD-IL-2,
+Điều trị & nhóm thuốc,glucocorticoids,glucocorticoid / corticoid,GC,
+Điều trị & nhóm thuốc,glucocorticoid-sparing,giảm / tiết kiệm glucocorticoid,,
+Điều trị & nhóm thuốc,bridging corticosteroids,corticoid bắc cầu,,
+Điều trị & nhóm thuốc,intra-articular injection,tiêm nội khớp,IA,
+Điều trị & nhóm thuốc,intra-articular glucocorticoids,tiêm glucocorticoid nội khớp,IAGC,
+Điều trị & nhóm thuốc,hyaluronic acid,acid hyaluronic,HA,
+Điều trị & nhóm thuốc,hybrid hyaluronic acid,acid hyaluronic dạng lai,H-HA,
+Điều trị & nhóm thuốc,high / low molecular weight HA,HA khối lượng phân tử cao / thấp,HMW-HA / LMW-HA,
+Điều trị & nhóm thuốc,antioxidant,chất chống oxy hóa,,
+Điều trị & nhóm thuốc,platelet-rich plasma,huyết tương giàu tiểu cầu,PRP,
+Điều trị & nhóm thuốc,regenerative medicine,y học tái tạo,,
+Điều trị & nhóm thuốc,collagen therapy,liệu pháp collagen,,
+Điều trị & nhóm thuốc,nonsteroidal anti-inflammatory drugs,thuốc chống viêm không steroid,NSAIDs,
+Điều trị & nhóm thuốc,topical NSAIDs,NSAIDs tại chỗ / dùng ngoài,,
+Điều trị & nhóm thuốc,transdermal patch,miếng dán qua da,,
+Điều trị & nhóm thuốc,urate-lowering therapy,điều trị hạ acid uric máu,ULT,
+Điều trị & nhóm thuốc,bone anabolic agents,thuốc tạo xương / thuốc đồng hóa xương,,
+Điều trị & nhóm thuốc,antiresorptive agents,thuốc chống hủy xương,,
+Điều trị & nhóm thuốc,bisphosphonates,bisphosphonat,,
+Điều trị & nhóm thuốc,denosumab discontinuation,ngừng / chuyển tiếp denosumab,,
+Điều trị & nhóm thuốc,calcium and vitamin D supplementation,bổ sung canxi và vitamin D,,
+Điều trị & nhóm thuốc,synthetic antimalarial drugs,thuốc kháng sốt rét tổng hợp,,VI viết tắt: KSRTH
+Điều trị & nhóm thuốc,dose tapering,giảm liều / giãn liều,,
+Điều trị & nhóm thuốc,intravenous immunoglobulin,globulin miễn dịch truyền tĩnh mạch,IVIG,
+Điều trị & nhóm thuốc,plasma exchange,thay huyết tương,PLEX,
+Điều trị & nhóm thuốc,antifibrotic therapy,thuốc chống xơ hóa,,
+Điều trị & nhóm thuốc,vaccination,tiêm chủng / vaccine,,
+Điều trị & nhóm thuốc,antibiotics,kháng sinh,,
+Điều trị & nhóm thuốc,radiofrequency ablation,đốt sóng cao tần,RFA,
+Điều trị & nhóm thuốc,nerve block,phong bế thần kinh,,
+Điều trị & nhóm thuốc,perineural hydrodissection,tiêm nong quanh thần kinh,,với dextrose 5%
+Điều trị & nhóm thuốc,extracorporeal shock wave therapy,sóng xung kích ngoài cơ thể,ESWT,
+Điều trị & nhóm thuốc,subacromial decompression,phẫu thuật giải ép dưới mỏm cùng vai,,
+Điều trị & nhóm thuốc,negative pressure wound therapy / vacuum-assisted closure,hút áp lực âm liên tục,NPWT / VAC,
+Điều trị & nhóm thuốc,therapeutic exercise,tập luyện trị liệu,,
+Điều trị & nhóm thuốc,rehabilitation,phục hồi chức năng,,
+Điều trị & nhóm thuốc,patient education,giáo dục người bệnh,,
+Điều trị & nhóm thuốc,load management,điều chỉnh tải,,
+Điều trị & nhóm thuốc,multimodal analgesia / pain management,giảm đau đa mô thức,,
+Điều trị & nhóm thuốc,personalized treatment,điều trị cá thể hóa,,
+Điều trị & nhóm thuốc,comprehensive management,điều trị toàn diện,,
+Điều trị & nhóm thuốc,"plastic, reconstructive and aesthetic surgery","phẫu thuật tạo hình, tái tạo và thẩm mỹ",,
+Điều trị & nhóm thuốc,spine surgery,phẫu thuật cột sống,,
+Điều trị & nhóm thuốc,vertebroplasty / kyphoplasty,bơm cement tạo hình thân đốt sống,,
+Điều trị & nhóm thuốc,cardiac surgery,phẫu thuật tim,,
+Điều trị & nhóm thuốc,CAR-T cell therapy,liệu pháp tế bào CAR-T,CAR-T,
+Tên thuốc,abaloparatide,abaloparatide,,Giữ nguyên tên quốc tế
+Tên thuốc,adalimumab,adalimumab,,Giữ nguyên tên quốc tế
+Tên thuốc,amitriptyline,amitriptyline,,Giữ nguyên tên quốc tế
+Tên thuốc,anifrolumab,anifrolumab,,Giữ nguyên tên quốc tế
+Tên thuốc,apremilast,apremilast,,Giữ nguyên tên quốc tế
+Tên thuốc,baricitinib,baricitinib,,Giữ nguyên tên quốc tế
+Tên thuốc,belimumab,belimumab,,Giữ nguyên tên quốc tế
+Tên thuốc,brepocitinib,brepocitinib,,Giữ nguyên tên quốc tế
+Tên thuốc,chloroquine,chloroquine,,Giữ nguyên tên quốc tế
+Tên thuốc,chondroitin,chondroitin,,Giữ nguyên tên quốc tế
+Tên thuốc,cyclophosphamide,cyclophosphamide,,Giữ nguyên tên quốc tế
+Tên thuốc,cyclosporin,ciclosporin / cyclosporin A,,Giữ nguyên tên quốc tế
+Tên thuốc,denosumab,denosumab,,Giữ nguyên tên quốc tế
+Tên thuốc,deucravacitinib,deucravacitinib,,Giữ nguyên tên quốc tế
+Tên thuốc,diclofenac,diclofenac,,Giữ nguyên tên quốc tế
+Tên thuốc,duloxetine,duloxetine,,Giữ nguyên tên quốc tế
+Tên thuốc,esflurbiprofen,esflurbiprofen,,Giữ nguyên tên quốc tế
+Tên thuốc,etoposide,etoposide,,Giữ nguyên tên quốc tế
+Tên thuốc,filgotinib,filgotinib,,Giữ nguyên tên quốc tế
+Tên thuốc,flurbiprofen,flurbiprofen,,Giữ nguyên tên quốc tế
+Tên thuốc,gabapentin,gabapentin,,Giữ nguyên tên quốc tế
+Tên thuốc,glucosamine,glucosamine,,Giữ nguyên tên quốc tế
+Tên thuốc,golimumab,golimumab,,Giữ nguyên tên quốc tế
+Tên thuốc,guselkumab,guselkumab,,Giữ nguyên tên quốc tế
+Tên thuốc,hydroxychloroquine,hydroxychloroquine,,Giữ nguyên tên quốc tế
+Tên thuốc,infliximab,infliximab,,Giữ nguyên tên quốc tế
+Tên thuốc,ixekizumab,ixekizumab,,Giữ nguyên tên quốc tế
+Tên thuốc,methotrexate,methotrexate,,Giữ nguyên tên quốc tế
+Tên thuốc,methylprednisolone,methylprednisolone,,Giữ nguyên tên quốc tế
+Tên thuốc,mycophenolate mofetil (MMF),mycophenolate mofetil (MMF),,Giữ nguyên tên quốc tế
+Tên thuốc,nintedanib,nintedanib,,Giữ nguyên tên quốc tế
+Tên thuốc,obinutuzumab,obinutuzumab,,Giữ nguyên tên quốc tế
+Tên thuốc,prednisolone,prednisolone,,Giữ nguyên tên quốc tế
+Tên thuốc,pregabalin,pregabalin,,Giữ nguyên tên quốc tế
+Tên thuốc,risankizumab,risankizumab,,Giữ nguyên tên quốc tế
+Tên thuốc,rituximab,rituximab,,Giữ nguyên tên quốc tế
+Tên thuốc,romosozumab,romosozumab,,Giữ nguyên tên quốc tế
+Tên thuốc,secukinumab,secukinumab,,Giữ nguyên tên quốc tế
+Tên thuốc,tacrolimus,tacrolimus,,Giữ nguyên tên quốc tế
+Tên thuốc,teriparatide,teriparatide,,Giữ nguyên tên quốc tế
+Tên thuốc,tocilizumab,tocilizumab,,Giữ nguyên tên quốc tế
+Tên thuốc,tofacitinib,tofacitinib,,Giữ nguyên tên quốc tế
+Tên thuốc,upadacitinib,upadacitinib,,Giữ nguyên tên quốc tế
+Tên thuốc,vancomycin,vancomycin,,Giữ nguyên tên quốc tế
+Tên thuốc,voclosporin,voclosporin,,Giữ nguyên tên quốc tế
+Tên thuốc,zoledronic acid,acid zoledronic,,Giữ nguyên tên quốc tế
+Thang điểm & chỉ số,Disease Activity Score 28,DAS28 (CRP / ESR),DAS28,
+Thang điểm & chỉ số,Simplified Disease Activity Index,SDAI,SDAI,
+Thang điểm & chỉ số,Disease Activity in Psoriatic Arthritis,DAPSA,DAPSA,
+Thang điểm & chỉ số,ASDAS-CRP,ASDAS-CRP,,
+Thang điểm & chỉ số,BASDAI / BASFI,BASDAI / BASFI,,
+Thang điểm & chỉ số,Health Assessment Questionnaire Disability Index,HAQ-DI,HAQ-DI,
+Thang điểm & chỉ số,ACR20 / ACR50 response,đáp ứng ACR20 / ACR50,,
+Thang điểm & chỉ số,DORIS remission,lui bệnh theo DORIS,DORIS,
+Thang điểm & chỉ số,Visual Analog Scale,thang điểm VAS / thang đánh giá đau dạng nhìn,VAS,
+Thang điểm & chỉ số,Foot Function Index,chỉ số chức năng bàn chân,FFI,
+Thang điểm & chỉ số,WOMAC index,chỉ số WOMAC,WOMAC,
+Thang điểm & chỉ số,DN4 questionnaire,thang điểm / bộ câu hỏi DN4,DN4,
+Thang điểm & chỉ số,Generalized Pain Questionnaire,bộ câu hỏi đau lan tỏa,GPQ,
+Thang điểm & chỉ số,Widespread Pain Index,chỉ số đau lan tỏa,WPI,
+Thang điểm & chỉ số,Morse Fall Scale,thang điểm Morse (nguy cơ ngã),MFS,
+Thang điểm & chỉ số,Medication Adherence Report Scale,thang tuân thủ dùng thuốc MARS-5,MARS-5,
+Thang điểm & chỉ số,EQ-5D-5L,bộ công cụ chất lượng cuộc sống EQ-5D-5L,,
+Thang điểm & chỉ số,SARC-F / SARC-CalF,công cụ sàng lọc thiểu cơ SARC-F / SARC-CalF,,
+Thang điểm & chỉ số,FRAX,công cụ FRAX (ước tính nguy cơ gãy xương),,
+Thang điểm & chỉ số,SCORE-VN,thang điểm nguy cơ tim mạch SCORE-VN,,
+Thang điểm & chỉ số,PREVENT-ASCVD risk estimate,thang điểm PREVENT-ASCVD,PREVENT,
+Thang điểm & chỉ số,Genant classification,phân loại Genant,,
+Thang điểm & chỉ số,Pfirrmann classification,phân loại Pfirrmann,,
+Thang điểm & chỉ số,body mass index,chỉ số khối cơ thể,BMI,
+Thang điểm & chỉ số,HbA1c,HbA1c,,
+Thang điểm & chỉ số,EWGSOP2 / AWGS criteria,tiêu chuẩn EWGSOP2 / AWGS (thiểu cơ),,
+"Tổ chức, khuyến cáo & thử nghiệm",European Alliance of Associations for Rheumatology,Liên minh các Hội Thấp khớp học châu Âu,EULAR,đọc: 'Iu-la'
+"Tổ chức, khuyến cáo & thử nghiệm",American College of Rheumatology,Hội Thấp khớp học Hoa Kỳ,ACR,
+"Tổ chức, khuyến cáo & thử nghiệm",Asia-Pacific League of Associations for Rheumatology,Liên đoàn các Hội Thấp khớp học châu Á – Thái Bình Dương,APLAR,đọc: 'A-pờ-la'
+"Tổ chức, khuyến cáo & thử nghiệm",Vietnam Rheumatology Association,Hội Thấp khớp học Việt Nam,VRA,
+"Tổ chức, khuyến cáo & thử nghiệm",Osteoarthritis Research Society International,Hiệp hội Nghiên cứu Thoái hóa khớp Quốc tế,OARSI,
+"Tổ chức, khuyến cáo & thử nghiệm",ESCEO,"Hiệp hội châu Âu về khía cạnh lâm sàng và kinh tế của loãng xương, thoái hóa khớp và bệnh cơ xương",ESCEO,
+"Tổ chức, khuyến cáo & thử nghiệm",KDIGO,Tổ chức Cải thiện Kết cục Toàn cầu về Bệnh thận,KDIGO,
+"Tổ chức, khuyến cáo & thử nghiệm",GRAPPA,Nhóm Nghiên cứu và Đánh giá Vảy nến và Viêm khớp vảy nến,GRAPPA,
+"Tổ chức, khuyến cáo & thử nghiệm",British Society for Rheumatology,Hội Thấp khớp học Anh,BSR,
+"Tổ chức, khuyến cáo & thử nghiệm",NICE,Viện Quốc gia về Sức khỏe và Chất lượng Chăm sóc (Anh),NICE,
+"Tổ chức, khuyến cáo & thử nghiệm",World Health Organization,Tổ chức Y tế Thế giới,WHO,
+"Tổ chức, khuyến cáo & thử nghiệm",American Association of Clinical Endocrinology,Hội Nội tiết Lâm sàng Hoa Kỳ,AACE,
+"Tổ chức, khuyến cáo & thử nghiệm",Fracture Liaison Service,dịch vụ liên kết gãy xương / mô hình liên kết đa chuyên khoa,FLS,
+"Tổ chức, khuyến cáo & thử nghiệm",clinical practice guidelines,hướng dẫn thực hành lâm sàng,,
+"Tổ chức, khuyến cáo & thử nghiệm",recommendations,khuyến cáo,,
+"Tổ chức, khuyến cáo & thử nghiệm",2025 EULAR/ACR risk stratification criteria,tiêu chuẩn phân tầng nguy cơ EULAR/ACR 2025,,
+"Tổ chức, khuyến cáo & thử nghiệm",2026 EULAR treatment recommendations,khuyến cáo điều trị EULAR 2026,,
+"Tổ chức, khuyến cáo & thử nghiệm",randomized controlled trials,thử nghiệm lâm sàng ngẫu nhiên có đối chứng,RCTs,
+"Tổ chức, khuyến cáo & thử nghiệm",sham surgery,phẫu thuật giả (đối chứng),,
+"Tổ chức, khuyến cáo & thử nghiệm",real-world evidence / real-world treatment,bằng chứng / thực tế điều trị,,
+"Tổ chức, khuyến cáo & thử nghiệm",systematic review,tổng quan tài liệu hệ thống,,
+"Tổ chức, khuyến cáo & thử nghiệm",cross-sectional descriptive study,nghiên cứu mô tả cắt ngang,,
+"Tổ chức, khuyến cáo & thử nghiệm",prospective study,nghiên cứu tiến cứu,,
+"Tổ chức, khuyến cáo & thử nghiệm",associated factors / related factors,yếu tố liên quan,,
+"Tổ chức, khuyến cáo & thử nghiệm",statistically significant,có ý nghĩa thống kê,,
+"Tổ chức, khuyến cáo & thử nghiệm",odds ratio / confidence interval,tỷ suất chênh / khoảng tin cậy,OR / CI,
+"Tổ chức, khuyến cáo & thử nghiệm","RA-BEAM, ProDERM, VALOR, GO-REVEAL, GO-VIBRANT",tên thử nghiệm lâm sàng (giữ nguyên),,
+Điều dưỡng & chăm sóc,rheumatology nursing,điều dưỡng chuyên khoa cơ xương khớp,,
+Điều dưỡng & chăm sóc,musculoskeletal nursing,điều dưỡng cơ xương khớp,,
+Điều dưỡng & chăm sóc,nursing practice,thực hành điều dưỡng,,
+Điều dưỡng & chăm sóc,nursing process (five-step),quy trình điều dưỡng (năm bước),,
+Điều dưỡng & chăm sóc,nursing diagnosis,chẩn đoán điều dưỡng,,NANDA
+Điều dưỡng & chăm sóc,nursing interventions,can thiệp điều dưỡng,,
+Điều dưỡng & chăm sóc,person-centred / patient-centred care,chăm sóc lấy người bệnh làm trung tâm,,
+Điều dưỡng & chăm sóc,self-management support,hỗ trợ tự quản lý,,
+Điều dưỡng & chăm sóc,evidence-based care,chăm sóc dựa trên bằng chứng,,
+Điều dưỡng & chăm sóc,electronic medical records,bệnh án điện tử / hồ sơ bệnh án điện tử,EMR,
+Điều dưỡng & chăm sóc,predictive models,mô hình dự báo,,
+Điều dưỡng & chăm sóc,multidisciplinary team,nhóm đa chuyên khoa,MDT,
+Điều dưỡng & chăm sóc,interdisciplinary care,phối hợp liên chuyên khoa,,
+Điều dưỡng & chăm sóc,primary care physicians,bác sĩ tuyến y tế ban đầu,,
+Điều dưỡng & chăm sóc,post-fracture care,chăm sóc sau gãy xương,,
+Điều dưỡng & chăm sóc,wound care,chăm sóc vết thương,,
+Điều dưỡng & chăm sóc,smoking cessation,cai thuốc lá,,
+Điều dưỡng & chăm sóc,follow-up,theo dõi / tái khám,,
+Điều dưỡng & chăm sóc,care model,mô hình chăm sóc,,
+Điều dưỡng & chăm sóc,roles and responsibilities,vai trò và trách nhiệm,,
+Hội nghị,Annual Scientific Conference,Hội nghị khoa học thường niên,,
+Hội nghị,Bach Mai National Institute for Rheumatology,Viện Cơ Xương Khớp Bạch Mai,IFR,tiền thân: Trung tâm Cơ Xương Khớp
+Hội nghị,Bach Mai Hospital,Bệnh viện Bạch Mai,,
+Hội nghị,VRA Midterm Meeting,Hội nghị giữa kỳ VRA,,
+Hội nghị,APLAR Patronage,Hội nghị chuyên đề APLAR,,
+Hội nghị,World Arthritis Day,Ngày Thế giới phòng chống bệnh thấp khớp (12/10),,
+Hội nghị,World Osteoporosis Day,Ngày Loãng xương Thế giới (20/10),,
+Hội nghị,Scientific Committee,Hội đồng khoa học,,
+Hội nghị,Organizing Committee,Ban tổ chức,,
+Hội nghị,plenary session / hall,phiên toàn thể / hội trường,,
+Hội nghị,chairperson / moderator,chủ tọa,,
+Hội nghị,Almaz Convention Center,Trung tâm Hội nghị Almaz,,
+Hội nghị,abstract / keywords,tóm tắt / từ khóa,,
+Hội nghị,Q&A session,phần hỏi đáp / thảo luận,,
+"Học hàm, học vị",Professor (Prof.),Giáo sư (GS.),,
+"Học hàm, học vị",Associate Professor (Assoc. Prof.),Phó Giáo sư (PGS.),,
+"Học hàm, học vị",Doctor of Philosophy (PhD),Tiến sĩ (TS.),,
+"Học hàm, học vị",Master (MSc),Thạc sĩ (ThS.),,
+"Học hàm, học vị",Specialist Level I / II (Spec. I / II),Bác sĩ chuyên khoa I / II (BSCKI / BSCKII),,
+"Học hàm, học vị","Bachelor of Nursing, RN",Cử nhân điều dưỡng (CNĐD),,
+"Học hàm, học vị","Master of Nursing, RN",Thạc sĩ điều dưỡng (ThSĐD),,
+"Học hàm, học vị",Specialist Nurse Level I,Điều dưỡng chuyên khoa I (ĐDCK1),,
+"Học hàm, học vị",Director of the Institute,Viện trưởng,,
+"Học hàm, học vị",Deputy Director,Phó Viện trưởng,,
+"Học hàm, học vị",Head of Department,Trưởng khoa,,
+Diễn giả,Adj. Assoc. Prof. Elizabeth Ang,PGS. Elizabeth Ang,,National University of Singapore | Đại học Quốc gia Singapore
+Diễn giả,Prof. Lai-Shan Tam,GS. Lai-Shan Tam,,The Chinese University of Hong Kong | Đại học Trung văn Hồng Kông
+Diễn giả,Cheng Yew Kuang,Cheng Yew Kuang,,Singapore | Singapore
+Diễn giả,"Zhanguo Li, MD",Zhanguo Li,,Peking University People's Hospital | Bệnh viện Nhân dân Đại học Bắc Kinh
+Diễn giả,"Stefano Guerrasio, MD, PhD",TS.BS. Stefano Guerrasio,,"University of Milano-Bicocca, Italy | Đại học Milano-Bicocca, Ý"
+Diễn giả,"Prof. Umberto Massafra, MD, PhD",GS. Umberto Massafra,,"San Pietro Fatebenefratelli Hospital, Rome | Bệnh viện San Pietro Fatebenefratelli, Rome"
+Diễn giả,Assoc. Prof. Nguyen Van Hung,PGS.TS. Nguyễn Văn Hùng,,"Director, Bach Mai National Institute for Rheumatology | Viện trưởng Viện Cơ Xương Khớp Bạch Mai"
+Diễn giả,Dr. Tran Thi To Chau,TS. Trần Thị Tô Châu,,"Deputy Director, Bach Mai National Institute for Rheumatology | Phó Viện trưởng Viện Cơ Xương Khớp Bạch Mai"
+Diễn giả,Dr. Le Thi Lieu,TS. Lê Thị Liễu,,Bach Mai National Institute for Rheumatology | Viện Cơ Xương Khớp Bạch Mai
+Diễn giả,Dr. Nguyen Thi Nga,TS. Nguyễn Thị Nga,,Bach Mai National Institute for Rheumatology | Viện Cơ Xương Khớp Bạch Mai
+Diễn giả,Assoc. Prof. Tran Thi Minh Hoa,PGS.TS. Trần Thị Minh Hoa,,Bach Mai National Institute for Rheumatology | Viện Cơ Xương Khớp Bạch Mai
+Diễn giả,Assoc. Prof. Nguyen Dinh Khoa,PGS.TS. Nguyễn Đình Khoa,,Cho Ray Hospital | Bệnh viện Chợ Rẫy
+Diễn giả,Assoc. Prof. Cao Thanh Ngoc,PGS.TS. Cao Thanh Ngọc,,University Medical Center HCMC | Bệnh viện Đại học Y Dược TP.HCM
+Diễn giả,Assoc. Prof. Nguyen Thi Ngoc Lan,PGS.TS. Nguyễn Thị Ngọc Lan,,Vietnam Rheumatology Association | Hội Thấp khớp học Việt Nam
+Diễn giả,Dr. Nguyen Dinh Thong,BSCKII. Nguyễn Đình Thông,,Nguyen Tri Phuong Hospital | Bệnh viện Nguyễn Tri Phương
+Diễn giả,Dr. Ta Thi Huong Trang,TS. Tạ Thị Hương Trang,,Bach Mai National Institute for Rheumatology | Viện Cơ Xương Khớp Bạch Mai
+Diễn giả,Nguyen Ngoc Chau,Nguyễn Ngọc Châu,,108 Military Central Hospital | Bệnh viện Trung ương Quân đội 108
+Diễn giả,Dr. Duong Minh Tri,TS.BS.CKII. Dương Minh Trí,,Nhan Dan Gia Dinh Hospital | Bệnh viện Nhân dân Gia Định
+Diễn giả,Dr. Le Quynh Chi,TS.BS. Lê Quỳnh Chi,,Vietnam National Children's Hospital | Bệnh viện Nhi Trung ương
+Diễn giả,Assoc. Prof. Le Anh Thu,PGS.TS. Lê Anh Thư,,Vietnam Rheumatology Association | Hội Thấp khớp học Việt Nam
+Diễn giả,Dr. Tran Ngoc Huu Duc,BSCKII. Trần Ngọc Hữu Đức,,Cho Ray Hospital | Bệnh viện Chợ Rẫy
+Diễn giả,Assoc. Prof. Dang Hong Hoa,PGS.TS. Đặng Hồng Hoa,,"Tam Anh General Hospital, Hanoi | Bệnh viện Đa khoa Tâm Anh Hà Nội"
+Diễn giả,Assoc. Prof. Nguyen Mai Hong,PGS.TS. Nguyễn Mai Hồng,,Phuong Dong Hospital | Bệnh viện Phương Đông
+Diễn giả,Assoc. Prof. Luu Thi Binh,PGS.TS. Lưu Thị Bình,,Thai Nguyen Rheumatology Association | Hội Thấp khớp học Thái Nguyên
+Diễn giả,Dr. Hoang Quoc Nam,BSCKII. Hoàng Quốc Nam,,Thong Nhat Hospital | Bệnh viện Thống Nhất
+Diễn giả,Dr. Nguyen Hoang Thanh Van,TS. Nguyễn Hoàng Thanh Vân,,Hue University of Medicine and Pharmacy | Trường Đại học Y Dược Huế
+Diễn giả,Dr. Truong Quang Pho,TS.BS. Trương Quang Phổ,,Can Tho University of Medicine and Pharmacy | Trường Đại học Y Dược Cần Thơ
+Diễn giả,Dr. Tang Ha Nam Anh,TS.BS. Tăng Hà Nam Anh,,Vietnam Arthroplasty and Arthroscopy Society | Hội Nội soi khớp & Thay khớp Việt Nam
+Diễn giả,Assoc. Prof. Nguyen Thi Phuong Thuy,PGS.TS. Nguyễn Thị Phương Thủy,,Bach Mai National Institute for Rheumatology | Viện Cơ Xương Khớp Bạch Mai
+Diễn giả,Dr. Pham Van Tu,BSCKII. Phạm Văn Tú,,Hanoi Medical University Hospital | Bệnh viện Đại học Y Hà Nội
+Diễn giả,Dr. Nguyen Huy Thong,TS.BS. Nguyễn Huy Thông,,Military Hospital 103 | Bệnh viện Quân y 103
+Diễn giả,Assoc. Prof. Pham Thi Viet Dung,PGS.TS. Phạm Thị Việt Dung,,Bach Mai Hospital | Bệnh viện Bạch Mai
+Diễn giả,Dr. Nguyen Van Trung,TS. Nguyễn Văn Trung,,"Department of Orthopaedics & Spine Surgery, Bach Mai Hospital | Khoa Phẫu thuật Chấn thương chỉnh hình & Cột sống, BV Bạch Mai"
+Diễn giả,Assoc. Prof. Nguyen Vinh Ngoc,PGS.TS. Nguyễn Vĩnh Ngọc,,"Hanoi Rheumatology Association, Hanoi Medical University Hospital | Hội Thấp khớp học Hà Nội, BV Đại học Y Hà Nội"
+Diễn giả,Assoc. Prof. Vo Thanh Toan,PGS.TS. Võ Thành Toàn,,"Thong Nhat Hospital, Ho Chi Minh City | Bệnh viện Thống Nhất TP.HCM"
+Diễn giả,Dr. Nguyen Thai Hoa,TS. Nguyễn Thái Hòa,,Can Tho University of Medicine and Pharmacy | Trường Đại học Y Dược Cần Thơ
+Diễn giả,Dr. Phan Trong Hau,TS. Phan Trọng Hậu,,"Institute for Orthopedic Surgery, 108 Military Central Hospital | Viện Chấn thương chỉnh hình, BV TW Quân đội 108"
+Diễn giả,Dr. Pham Manh Cuong,TS.BS. Phạm Mạnh Cường,,"Institute of Diagnostic and Interventional Radiology, Bach Mai Hospital | Viện Điện quang chẩn đoán và can thiệp, BV Bạch Mai"
+Diễn giả,Dr. Nguyen Thi Thu Phuong,ThS.BSCKII. Nguyễn Thị Thu Phương,,Bach Mai Hospital | Bệnh viện Bạch Mai
+Diễn giả,Assoc. Prof. Bui Hai Binh,PGS.TS. Bùi Hải Bình,,Bach Mai National Institute for Rheumatology | Viện Cơ Xương Khớp Bạch Mai
+Diễn giả,Assoc. Prof. Pham Hoai Thu,PGS.TS. Phạm Hoài Thu,,Hanoi Medical University Hospital | Bệnh viện Đại học Y Hà Nội
+Diễn giả,Dr. Vu Van Minh,TS. Vũ Văn Minh,,Phenikaa University Hospital | Bệnh viện Đại học Phenikaa
+Diễn giả,"Le Huy Hoang, RN",CNĐD. Lê Huy Hoàng,,Bach Mai National Institute for Rheumatology | Viện Cơ Xương Khớp Bạch Mai
+Diễn giả,"Le Duc Canh, RN",CNĐD. Lê Đức Cảnh,,Bach Mai National Institute for Rheumatology | Viện Cơ Xương Khớp Bạch Mai
+Diễn giả,"Cao Ha Trang, RN",CNĐD. Cao Hà Trang,,"Vietnam–Cuba Hospital, Dong Hoi | Bệnh viện Việt Nam – Cuba Đồng Hới"
+Diễn giả,"Hoang Thi Yen Nhi, RN",CNĐD. Hoàng Thị Yến Nhi,,Military Hospital 103 | Bệnh viện Quân y 103
+Diễn giả,"Nguyen Thi Thuy Nga, RN",ThSĐD. Nguyễn Thị Thúy Nga,,108 Military Central Hospital | Bệnh viện TW Quân đội 108
+Diễn giả,"Nguyen Thi Chinh, RN",CNĐD. Nguyễn Thị Chinh,,Duc Giang General Hospital | Bệnh viện Đa khoa Đức Giang
+Diễn giả,"Kieu Lan Huong, RN",ThSĐD. Kiều Lan Hương,,Bach Mai National Institute for Rheumatology | Viện Cơ Xương Khớp Bạch Mai
+Diễn giả,"Vu Thi Ngoc Thuy, RN",ĐDCK1. Vũ Thị Ngọc Thuỷ,,Thai Nguyen National Hospital | Bệnh viện Trung ương Thái Nguyên
+Đơn vị,Hanoi Medical University,Trường Đại học Y Hà Nội,,
+Đơn vị,Hanoi Medical University Hospital,Bệnh viện Đại học Y Hà Nội,,
+Đơn vị,108 Military Central Hospital,Bệnh viện Trung ương Quân đội 108,,
+Đơn vị,Military Hospital 103,Bệnh viện Quân y 103,,
+Đơn vị,Cho Ray Hospital,Bệnh viện Chợ Rẫy,,
+Đơn vị,Thong Nhat Hospital,Bệnh viện Thống Nhất,,
+Đơn vị,Vietnam National Children's Hospital,Bệnh viện Nhi Trung ương,,
+Đơn vị,Huu Nghi Hospital,Bệnh viện Hữu Nghị,,
+Đơn vị,Thai Binh General Hospital,Bệnh viện Đa khoa Thái Bình,,
+Đơn vị,Nam Dinh General Hospital,Bệnh viện Đa khoa Nam Định,,
+Đơn vị,Vinh Phuc General Hospital,Bệnh viện Đa khoa Vĩnh Phúc,,
+Đơn vị,198 Hospital,Bệnh viện 198,,
+Đơn vị,Can Tho University of Medicine and Pharmacy,Trường Đại học Y Dược Cần Thơ,,
+Đơn vị,Hue University of Medicine and Pharmacy,Trường Đại học Y Dược Huế,,
+Đơn vị,Phenikaa University Hospital,Bệnh viện Đại học Phenikaa,,
+Đơn vị,Institute of Diagnostic and Interventional Radiology,Viện Điện quang chẩn đoán và can thiệp,,
+Đơn vị,Hanoi Rheumatology Association,Hội Thấp khớp học Hà Nội,,
+Đơn vị,Thai Nguyen National Hospital,Bệnh viện Trung ương Thái Nguyên,,

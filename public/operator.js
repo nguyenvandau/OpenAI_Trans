@@ -1,7 +1,9 @@
+import { captureAudioConstraints } from './capture-options.js';
+
 const $ = id => document.getElementById(id);
 let stream, ctx, source, processor, ws;
 let running = false, stopping = false, stopTask = null;
-let lastReportedError = '', selectionEdited = false;
+let lastReportedError = '', lastCaptionWarning = '', selectionEdited = false;
 let pendingAudio = [], pendingBytes = 0, flushCapture = null;
 const MAX_BUFFERED_BYTES = 24000 * 2 * 20;
 
@@ -9,6 +11,9 @@ function log(s) { $('log').textContent = `[${new Date().toLocaleTimeString()}] $
 function wsUrl(path) { return `${location.protocol === 'https:' ? 'wss' : 'ws'}://${location.host}${path}`; }
 function selectedTargetLanguage() { return $('manualDirection').value; }
 function translationLabel(language) { return language === 'en' ? 'Việt → Anh' : 'Anh → Việt'; }
+function setCaptureControls(disabled) {
+  for (const id of ['device', 'inputMode', 'refresh']) $(id).disabled = disabled;
+}
 function updateTranslationControls() {
   $('translationHint').textContent = `Dịch liên tục ${translationLabel(selectedTargetLanguage())} khi diễn giả đang nói. Đổi chiều dịch khi diễn giả đổi ngôn ngữ.`;
 }
@@ -36,12 +41,17 @@ async function loadConfig() {
 }
 
 async function refreshDevices() {
+  if (running || stopping) return;
+  const selectedDeviceId = $('device').value;
   try {
     const temp = await navigator.mediaDevices.getUserMedia({ audio: true });
     temp.getTracks().forEach(t => t.stop());
   } catch (error) { log('Chưa có quyền thu âm: ' + error.message); }
   const devices = (await navigator.mediaDevices.enumerateDevices()).filter(d => d.kind === 'audioinput');
+  // A permission request can finish after capture has already started.
+  if (running || stopping) return;
   $('device').replaceChildren(...devices.map((device, index) => new Option(device.label || 'Audio input ' + (index + 1), device.deviceId)));
+  if (devices.some(device => device.deviceId === selectedDeviceId)) $('device').value = selectedDeviceId;
 }
 
 function sendAudio(audio) {
@@ -74,14 +84,17 @@ async function start() {
   if (running || stopping) return;
   running = true;
   lastReportedError = '';
+  lastCaptionWarning = '';
   pendingAudio = [];
   pendingBytes = 0;
   $('start').disabled = true;
+  setCaptureControls(true);
   $('detail').textContent = '';
   $('status').textContent = 'Đang mở nguồn âm thanh';
   const deviceId = $('device').value;
+  const inputMode = $('inputMode').value;
   stream = await navigator.mediaDevices.getUserMedia({
-    audio: { deviceId: deviceId ? { exact: deviceId } : undefined, echoCancellation: false, noiseSuppression: false, autoGainControl: false },
+    audio: captureAudioConstraints(deviceId, inputMode),
     video: false,
   });
   ctx = new AudioContext({ sampleRate: 24000 });
@@ -99,7 +112,7 @@ async function start() {
   zeroGain.connect(ctx.destination);
 
   const initialLanguage = selectedTargetLanguage();
-  const socket = ws = new WebSocket(wsUrl(`/ws/source?targetLanguage=${initialLanguage}`));
+  const socket = ws = new WebSocket(wsUrl(`/ws/source?targetLanguage=${initialLanguage}&inputMode=${inputMode}`));
   socket.binaryType = 'arraybuffer';
   socket.onopen = () => {
     for (const audio of pendingAudio) socket.send(audio);
@@ -125,6 +138,12 @@ async function start() {
     let message;
     try { message = JSON.parse(event.data); } catch { return; }
     if (message.type === 'config_error') { log(message.message); $('detail').textContent = message.message; return; }
+    if (message.type === 'caption_warning') {
+      if (lastCaptionWarning !== message.message) log(message.message);
+      lastCaptionWarning = message.message;
+      $('detail').textContent = message.message;
+      return;
+    }
     if (message.type !== 'status') return;
     if (message.error) {
       $('status').textContent = 'Lỗi dịch';
@@ -133,7 +152,9 @@ async function start() {
       lastReportedError = message.error;
     } else {
       lastReportedError = '';
-      $('detail').textContent = '';
+      $('detail').textContent = message.captionWarning || '';
+      if (message.captionWarning && lastCaptionWarning !== message.captionWarning) log(message.captionWarning);
+      lastCaptionWarning = message.captionWarning || '';
       $('status').textContent = message.draining || stopping ? 'Đang hoàn tất phần dịch cuối…'
         : message.aiReady ? `Đang dịch song song ${translationLabel(message.targetLanguage)}` : 'Đang kết nối OpenAI';
     }
@@ -157,6 +178,7 @@ function stop() {
   $('start').disabled = true;
   $('stop').disabled = true;
   $('manualDirection').disabled = true;
+  setCaptureControls(true);
   $('status').textContent = 'Đang hoàn tất phần dịch cuối…';
   stopTask = (async () => {
     if (processor && ctx?.state === 'running') {
@@ -202,6 +224,7 @@ function stop() {
     $('start').disabled = false;
     $('stop').disabled = true;
     $('manualDirection').disabled = false;
+    setCaptureControls(false);
   });
   return stopTask;
 }
