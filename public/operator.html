@@ -42,19 +42,14 @@
       </section>
       <section class="card session-card" aria-labelledby="sessionTitle">
         <div class="card-heading"><span class="step" aria-hidden="true">02</span><h2 id="sessionTitle">ĐIỀU KHIỂN PHIÊN DỊCH</h2></div>
-        <fieldset class="translation-modes" aria-describedby="translationHint">
-          <legend class="field-label">Chế độ dịch</legend>
-          <label class="mode-option" for="automaticMode"><input id="automaticMode" name="translationMode" type="radio" value="auto" checked /><span>Automatic Recognition and Switch</span></label>
-          <label class="mode-option" for="manualMode"><input id="manualMode" name="translationMode" type="radio" value="manual" /><span>Manual Translater Switch</span></label>
-        </fieldset>
-        <div class="direction-row manual-direction" id="manualDirectionField" hidden>
+        <div class="direction-row">
           <label class="field-label" for="manualDirection">Chiều dịch</label>
           <select id="manualDirection" aria-describedby="translationHint">
             <option value="vi">Tiếng Anh → Tiếng Việt</option>
             <option value="en">Tiếng Việt → Tiếng Anh</option>
           </select>
         </div>
-        <p class="hint" id="translationHint">Tự nhận diện từng lượt nói: tiếng Anh dịch sang tiếng Việt, tiếng Việt dịch sang tiếng Anh. Ngắt nhẹ giữa các câu để bản dịch được phát kịp thời.</p>
+        <p class="hint" id="translationHint">Dịch liên tục Anh → Việt khi diễn giả đang nói. Đổi chiều dịch khi diễn giả đổi ngôn ngữ.</p>
         <div class="session-actions">
           <button id="start" class="primary start" type="button">Bắt đầu phiên dịch</button>
           <button id="stop" class="secondary stop" type="button" disabled>Dừng</button>

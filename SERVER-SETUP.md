@@ -53,7 +53,7 @@ Muốn chạy liên tục sau khi đóng Terminal hoặc khi server khởi độ
 
 ## 4. Kiểm tra trước khi dùng
 
-Mở trang điều khiển, chọn thiết bị thu từ mixer và chế độ Automatic hoặc Manual rồi bắt đầu phiên dịch. Mở trang Listen, bấm Bắt đầu nghe, kiểm tra cả âm thanh và phụ đề. Dùng Full Screen để trình chiếu; dùng Xem lại toàn bộ và tải `.txt` để lưu lời thoại.
+Mở trang điều khiển, chọn thiết bị thu từ mixer và chiều Anh → Việt hoặc Việt → Anh rồi bắt đầu phiên dịch. Mở trang Listen, bấm Bắt đầu nghe, kiểm tra cả âm thanh và phụ đề. Hệ thống dùng `gpt-realtime-translate` để dịch song song và `gpt-realtime-whisper` cho phụ đề nguyên văn; API key cần có quyền truy cập cả hai. Khi bấm Dừng, chờ phần dịch cuối hoàn tất trước khi bắt đầu phiên mới. Dùng Full Screen để trình chiếu; dùng Xem lại toàn bộ và tải `.txt` để lưu lời thoại.
 
 Nếu server ở xa phòng hội nghị, máy tính trong phòng vẫn cần trình duyệt để thu âm và phát bản dịch vào hệ thống tai nghe cabin. Chọn thiết bị phát âm thanh trên máy tính đó đúng với đường Line In của bộ phát cabin.
 

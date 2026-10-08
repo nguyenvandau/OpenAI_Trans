@@ -3,15 +3,13 @@ import express from 'express';
 import http from 'http';
 import QRCode from 'qrcode';
 import WebSocket, { WebSocketServer } from 'ws';
-import { RealtimeInterpreter, REALTIME_MODEL, isTranslationTarget } from './realtime-interpreter.mjs';
+import { RealtimeInterpreter, REALTIME_MODEL, TRANSCRIPTION_MODEL, isTranslationTarget } from './realtime-interpreter.mjs';
 
 const PORT = Number(process.env.PORT || 3000);
-const DEFAULT_TARGET_LANGUAGE = 'auto';
+const DEFAULT_TARGET_LANGUAGE = 'vi';
 let targetLanguage = DEFAULT_TARGET_LANGUAGE;
 const noiseReductionType = process.env.OPENAI_NOISE_REDUCTION || 'none';
 const noiseReduction = ['near_field', 'far_field'].includes(noiseReductionType) ? { type: noiseReductionType } : null;
-const requestedSilenceMs = Number(process.env.VAD_SILENCE_MS || 650);
-const silenceDurationMs = Number.isFinite(requestedSilenceMs) && requestedSilenceMs >= 200 && requestedSilenceMs <= 2000 ? requestedSilenceMs : 650;
 const OPENAI_API_KEY = (process.env.OPENAI_API_KEY || '').trim();
 const PUBLIC_BASE_URL = (process.env.PUBLIC_BASE_URL || '').replace(/\/$/, '');
 
@@ -25,7 +23,7 @@ app.use(express.static('public'));
 app.get('/', (_req, res) => res.redirect('/operator.html'));
 app.get('/api/config', (req, res) => {
   const base = PUBLIC_BASE_URL || `${req.protocol}://${req.get('host')}`;
-  res.json({ targetLanguage, listenerUrl: `${base}/listen.html`, configurationError });
+  res.json({ targetLanguage, model: REALTIME_MODEL, transcriptionModel: TRANSCRIPTION_MODEL, sessionActive: Boolean(interpreter && !interpreter.closed), listenerUrl: `${base}/listen.html`, configurationError });
 });
 app.get('/api/qr.png', async (req, res) => {
   try {
@@ -67,6 +65,7 @@ function currentStatus(message = '') {
     aiReady,
     listeners: listenerWss.clients.size,
     targetLanguage,
+    draining: Boolean(interpreter?.closing && !interpreter.closed),
     error: lastError,
     message,
   };
@@ -94,9 +93,14 @@ function openTranslationSession() {
   if (interpreter && !interpreter.closed) return;
   lastError = '';
   const session = new RealtimeInterpreter({
-    apiKey: OPENAI_API_KEY, noiseReduction, silenceDurationMs, targetLanguage,
+    apiKey: OPENAI_API_KEY, noiseReduction, targetLanguage,
   });
   interpreter = session;
+  session.on('configured', config => {
+    if (interpreter !== session) return;
+    targetLanguage = config.targetLanguage;
+    if (aiReady) broadcastStatus('Translation settings updated');
+  });
   session.on('ready', () => {
     if (interpreter !== session) return;
     aiReady = true;
@@ -108,24 +112,21 @@ function openTranslationSession() {
   session.on('target_delta', delta => {
     if (interpreter === session) broadcastJson({ type: 'target_delta', ...delta });
   });
-  session.on('source_transcript', transcript => {
-    if (interpreter === session) broadcastJson({ type: 'source_transcript', ...transcript });
+  session.on('source_delta', caption => {
+    if (interpreter === session) broadcastJson({ type: 'source_delta', ...caption });
   });
-  for (const type of ['source_turn', 'source_delta']) {
-    session.on(type, caption => {
-      if (interpreter === session) broadcastJson({ type, ...caption });
-    });
-  }
-  session.on('caption_warning', message => {
-    if (interpreter === session) broadcastJson({ type: 'caption_warning', message: String(message).replace(/sk-[A-Za-z0-9_.*-]+/g, '[hidden]') });
-  });
-  session.on('closed', () => {
+  session.on('closed', ({ drained }) => {
     if (interpreter !== session) return;
+    interpreter = null;
     aiReady = false;
-    if (sourceClient?.readyState === WebSocket.OPEN && !lastError) {
+    if (!drained && sourceClient?.readyState === WebSocket.OPEN && !lastError) {
       lastError = 'Mất kết nối OpenAI. Bấm Dừng rồi Bắt đầu để thử lại.';
     }
     broadcastStatus('OpenAI disconnected');
+    if (session.closing && sourceClient?.readyState === WebSocket.OPEN) {
+      sourceClient.send(JSON.stringify({ type: 'stopped' }));
+      sourceClient.close(1000, 'Translation complete');
+    }
   });
 
   session.on('fault', (message) => {
@@ -151,7 +152,11 @@ function closeTranslationSession() {
 sourceWss.on('connection', (ws, req) => {
   const requestedLanguage = new URL(req.url, 'http://localhost').searchParams.get('targetLanguage') ?? DEFAULT_TARGET_LANGUAGE;
   if (!isTranslationTarget(requestedLanguage)) {
-    ws.close(1008, 'Translation target must be auto, vi or en.');
+    ws.close(1008, 'Translation target must be vi or en.');
+    return;
+  }
+  if (interpreter?.closing && !interpreter.closed) {
+    ws.close(1008, 'Wait for the final translation to finish.');
     return;
   }
   if (sourceClient && sourceClient.readyState === WebSocket.OPEN) {
@@ -170,26 +175,38 @@ sourceWss.on('connection', (ws, req) => {
       try {
         const msg = JSON.parse(data.toString());
         if (msg.type === 'ping') ws.send(JSON.stringify({ type: 'pong' }));
+        if (msg.type === 'stop') {
+          if (interpreter && !interpreter.closed) {
+            interpreter.finish();
+            broadcastStatus('Finishing translation');
+          } else {
+            ws.send(JSON.stringify({ type: 'stopped' }));
+            ws.close(1000, 'Translation complete');
+          }
+        }
         if (msg.type === 'translation_config') {
           if (!isTranslationTarget(msg.targetLanguage)) {
-            ws.send(JSON.stringify({ type: 'config_error', message: 'Chiều dịch không hợp lệ. Chọn tự động, Anh → Việt hoặc Việt → Anh.' }));
+            ws.send(JSON.stringify({ type: 'config_error', message: 'Chiều dịch không hợp lệ. Chọn Anh → Việt hoặc Việt → Anh.' }));
             return;
           }
-          targetLanguage = msg.targetLanguage;
-          interpreter?.setTargetLanguage(targetLanguage);
-          broadcastStatus('Translation settings updated');
+          if (interpreter) {
+            if (!interpreter.setTargetLanguage(msg.targetLanguage)) ws.send(JSON.stringify({ type: 'config_error', message: 'Đang hoàn tất phiên dịch; chưa thể đổi chiều.' }));
+          } else {
+            targetLanguage = msg.targetLanguage;
+            broadcastStatus('Translation settings updated');
+          }
         }
       } catch {}
       return;
     }
-    if (!aiReady) return;
+    // Buffer startup audio in the interpreter instead of dropping the first words.
     interpreter?.appendAudio(data);
   });
 
   ws.on('close', () => {
     if (sourceClient !== ws) return;
     sourceClient = null;
-    closeTranslationSession();
+    interpreter?.finish();
     broadcastStatus('Operator disconnected');
   });
 });
@@ -212,6 +229,6 @@ server.on('upgrade', (req, socket, head) => {
 
 server.listen(PORT, '0.0.0.0', () => {
   console.log(`AI Cabin running on http://localhost:${server.address().port}`);
-  console.log(`Translation: automatic or manual English ↔ Vietnamese (${REALTIME_MODEL})`);
+  console.log(`Continuous translation: English ↔ Vietnamese (${REALTIME_MODEL})`);
   if (PUBLIC_BASE_URL) console.log(`Listener URL: ${PUBLIC_BASE_URL}/listen.html`);
 });

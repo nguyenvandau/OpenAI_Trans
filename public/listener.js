@@ -20,6 +20,7 @@ function resetSession(){
 const ws = new WebSocket(`${location.protocol==='https:'?'wss':'ws'}://${location.host}/ws/listen`);
 ws.binaryType='arraybuffer';
 
+
 $('listen').onclick=async()=>{
   if(!ctx){ ctx=new AudioContext(); gain=ctx.createGain(); gain.connect(ctx.destination); }
   await ctx.resume(); enabled=true; nextTime=Math.max(ctx.currentTime+0.12,nextTime); $('listen').textContent='Đang nghe ✓';
@@ -156,27 +157,28 @@ function playPcm16(buf){
   const ab=ctx.createBuffer(1,f.length,24000); ab.copyToChannel(f,0);
   const src=ctx.createBufferSource(); src.buffer=ab; src.connect(gain);
   if(nextTime < ctx.currentTime+0.05) nextTime=ctx.currentTime+0.10;
-  // Realtime generates audio faster than playback; preserve its order without overlapping chunks.
+  // Chunk sizes vary. Preserve every chunk in order, including the tail after Stop.
   scheduledAudio.add(src);
   src.onended=()=>scheduledAudio.delete(src);
   src.start(nextTime); nextTime += ab.duration;
 }
 
 ws.onopen=()=>{$('status').textContent='Đã vào phòng. Chờ ban tổ chức bắt đầu.';};
-ws.onclose=()=>{resetPlayback(); $('status').textContent='Mất kết nối. Hãy tải lại trang.';};
+ws.onclose=()=>{
+  resetPlayback();
+  $('status').textContent='Mất kết nối. Hãy tải lại trang.';
+};
 ws.onmessage=(ev)=>{
   if(typeof ev.data!=='string'){ playPcm16(ev.data); return; }
   let m; try{m=JSON.parse(ev.data);}catch{return;}
   if(m.type==='session_reset'){
     resetSession();
   } else if(m.type==='status'){
-    $('direction').textContent=m.targetLanguage === 'vi' ? 'Thủ công Anh → Việt' : m.targetLanguage === 'en' ? 'Thủ công Việt → Anh' : 'Tự động Anh ↔ Việt';
-    if(!m.sourceConnected) resetPlayback();
-    $('status').textContent = m.error ? `Lỗi dịch: ${m.error}` : (m.aiReady ? `Đang dịch trực tiếp • ${m.listeners||1} người nghe` : (m.sourceConnected?'Đang khởi tạo AI…':'Chờ ban tổ chức bắt đầu'));
-  } else if(['source_turn', 'source_delta', 'source_transcript', 'target_delta'].includes(m.type)){
+    $('direction').textContent=m.targetLanguage === 'en' ? 'Việt → Anh' : 'Anh → Việt';
+    $('status').textContent = m.error ? `Lỗi dịch: ${m.error}` : m.draining ? 'Đang phát phần dịch cuối…'
+      : m.aiReady ? `Đang dịch song song • ${m.listeners||1} người nghe` : m.sourceConnected ? 'Đang khởi tạo AI…' : 'Chờ ban tổ chức bắt đầu';
+  } else if(['source_delta', 'target_delta'].includes(m.type)){
     receiveCaption(m);
-  } else if(m.type==='caption_warning'){
-    $('status').textContent='Lưu ý phiên dịch: '+m.message;
   } else if(m.type==='error'){
     $('status').textContent='Lỗi dịch: '+m.message;
   }

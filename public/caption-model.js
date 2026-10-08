@@ -1,4 +1,4 @@
-// Language detection is for column placement only; the interpreter selects translation direction.
+// Language detection places source captions in a column; it never controls audio translation.
 const VI_WORDS = new Set('và là của có cho với trong một những các tôi chúng ta này đó không được đã sẽ khi thì để bệnh nhân nghiên cứu điều trị kết quả thuốc sử dụng xin cảm ơn bác sĩ chào mừng hôm nay'.split(' '));
 const EN_WORDS = new Set('the a an and is are was were of to in for with this that these those we our you your i they their not have has had will can may should study patient patients treatment results thank welcome today'.split(' '));
 const VI_ACCENTS = /[ăâđêôơưàáảãạằắẳẵặầấẩẫậèéẻẽẹềếểễệìíỉĩịòóỏõọồốổỗộờớởỡợùúủũụừứửữựỳýỷỹỵ]/u;
@@ -28,7 +28,7 @@ export class CaptionModel {
   turn(itemId) {
     const id = itemId || `caption-${++this.fallbackId}`;
     if (!this.byId.has(id)) {
-      const turn = { id, source: '', target: '', sourceLanguage: 'en', language: null, targetLanguage: null, time: new Date() };
+      const turn = { id, source: '', target: '', sourceLanguage: 'en', targetLanguage: null, time: new Date() };
       this.byId.set(id, turn);
       this.turns.push(turn);
       this.history.push(turn);
@@ -40,13 +40,10 @@ export class CaptionModel {
     const turn = this.turn(event.itemId);
     if (['vi', 'en'].includes(event.targetLanguage)) turn.targetLanguage = event.targetLanguage;
     if (event.type === 'source_delta') turn.source += event.delta || '';
-    if (event.type === 'source_transcript') {
-      // The final result replaces partial recognition; never duplicate it.
-      turn.source = event.text || '';
-      turn.language = ['vi', 'en'].includes(event.language) ? event.language : null;
-    }
     if (event.type === 'target_delta') turn.target += event.delta || '';
-    turn.sourceLanguage = turn.language || detectCaptionLanguage(turn.source)
+    // Source and translation append independently within a session/language segment.
+    // Do not pair deltas by timestamps or insert spaces between partial words.
+    turn.sourceLanguage = detectCaptionLanguage(turn.source.slice(-1000))
       || (turn.targetLanguage ? (turn.targetLanguage === 'vi' ? 'en' : 'vi')
         : detectCaptionLanguage(turn.target) === 'vi' ? 'en' : detectCaptionLanguage(turn.target) === 'en' ? 'vi' : turn.sourceLanguage);
   }

@@ -1,162 +1,221 @@
-const $ = (id) => document.getElementById(id);
+const $ = id => document.getElementById(id);
 let stream, ctx, source, processor, ws;
-let running = false;
-let lastReportedError = '';
-let selectionEdited = false;
+let running = false, stopping = false, stopTask = null;
+let lastReportedError = '', selectionEdited = false;
+let pendingAudio = [], pendingBytes = 0, flushCapture = null;
+const MAX_BUFFERED_BYTES = 24000 * 2 * 20;
 
-function log(s){ $('log').textContent = `[${new Date().toLocaleTimeString()}] ${s}\n` + $('log').textContent; }
-function wsUrl(path){ return `${location.protocol === 'https:' ? 'wss' : 'ws'}://${location.host}${path}`; }
-function selectedTargetLanguage(){ return $('automaticMode').checked ? 'auto' : $('manualDirection').value; }
-function translationLabel(targetLanguage){
-  return targetLanguage === 'vi' ? 'thủ công Anh → Việt' : targetLanguage === 'en' ? 'thủ công Việt → Anh' : 'tự động Anh ↔ Việt';
+function log(s) { $('log').textContent = `[${new Date().toLocaleTimeString()}] ${s}\n` + $('log').textContent; }
+function wsUrl(path) { return `${location.protocol === 'https:' ? 'wss' : 'ws'}://${location.host}${path}`; }
+function selectedTargetLanguage() { return $('manualDirection').value; }
+function translationLabel(language) { return language === 'en' ? 'Việt → Anh' : 'Anh → Việt'; }
+function updateTranslationControls() {
+  $('translationHint').textContent = `Dịch liên tục ${translationLabel(selectedTargetLanguage())} khi diễn giả đang nói. Đổi chiều dịch khi diễn giả đổi ngôn ngữ.`;
 }
-function updateTranslationControls(){
-  const manual = $('manualMode').checked;
-  $('manualDirectionField').hidden = !manual;
-  $('translationHint').textContent = manual
-    ? `Cố định chiều dịch ${$('manualDirection').value === 'vi' ? 'Anh → Việt' : 'Việt → Anh'}. Có thể đổi chiều khi diễn giả đổi ngôn ngữ. Thay đổi áp dụng từ lượt nói mới; các lượt đã thu tiếp tục theo chiều cũ.`
-    : 'Tự nhận diện từng lượt nói: tiếng Anh dịch sang tiếng Việt, tiếng Việt dịch sang tiếng Anh. Thay đổi chế độ áp dụng từ lượt nói mới. Ngắt nhẹ giữa các câu để bản dịch được phát kịp thời.';
-}
-function changeTranslationSettings(){
+function changeTranslationSettings() {
   selectionEdited = true;
   updateTranslationControls();
-  if(ws?.readyState === WebSocket.OPEN){
-    ws.send(JSON.stringify({type:'translation_config', targetLanguage:selectedTargetLanguage()}));
+  if (ws?.readyState === WebSocket.OPEN && !stopping) {
+    ws.send(JSON.stringify({ type: 'translation_config', targetLanguage: selectedTargetLanguage() }));
   }
 }
 
-async function loadConfig(){
-  const cfg = await fetch('/api/config').then(r=>r.json());
+async function loadConfig() {
+  const cfg = await fetch('/api/config').then(r => r.json());
   $('listenerUrl').textContent = cfg.listenerUrl;
   $('listenerUrl').href = cfg.listenerUrl;
   $('qr').src = `/api/qr.png?t=${Date.now()}`;
-  if(!selectionEdited && !running && ['auto','vi','en'].includes(cfg.targetLanguage)){
-    $('automaticMode').checked = cfg.targetLanguage === 'auto';
-    $('manualMode').checked = cfg.targetLanguage !== 'auto';
-    if(cfg.targetLanguage !== 'auto') $('manualDirection').value = cfg.targetLanguage;
+  if (!selectionEdited && !running && ['vi', 'en'].includes(cfg.targetLanguage)) {
+    $('manualDirection').value = cfg.targetLanguage;
     updateTranslationControls();
   }
-  if(cfg.configurationError){
-    $('status').textContent='Chưa cấu hình API key';
-    $('detail').textContent=cfg.configurationError;
+  if (cfg.configurationError) {
+    $('status').textContent = 'Chưa cấu hình API key';
+    $('detail').textContent = cfg.configurationError;
   }
 }
 
-async function refreshDevices(){
+async function refreshDevices() {
   try {
-    const temp = await navigator.mediaDevices.getUserMedia({audio:true});
-    temp.getTracks().forEach(t=>t.stop());
-  } catch(e){ log('Quyen microphone/audio input chua duoc cap: ' + e.message); }
-  const devices = (await navigator.mediaDevices.enumerateDevices()).filter(d=>d.kind==='audioinput');
-  $('device').innerHTML = devices.map((d,i)=>`<option value="${d.deviceId}">${d.label || 'Audio input '+(i+1)}</option>`).join('');
+    const temp = await navigator.mediaDevices.getUserMedia({ audio: true });
+    temp.getTracks().forEach(t => t.stop());
+  } catch (error) { log('Chưa có quyền thu âm: ' + error.message); }
+  const devices = (await navigator.mediaDevices.enumerateDevices()).filter(d => d.kind === 'audioinput');
+  $('device').replaceChildren(...devices.map((device, index) => new Option(device.label || 'Audio input ' + (index + 1), device.deviceId)));
 }
 
-function downsample(float32, inRate, outRate=24000){
-  if (inRate === outRate) return float32;
-  const ratio = inRate / outRate;
-  const outLen = Math.round(float32.length / ratio);
-  const out = new Float32Array(outLen);
-  let offset = 0;
-  for(let i=0;i<outLen;i++){
-    const next = Math.round((i+1)*ratio);
-    let sum=0, count=0;
-    for(let j=offset;j<next && j<float32.length;j++){ sum += float32[j]; count++; }
-    out[i] = count ? sum/count : 0;
-    offset = next;
+function sendAudio(audio) {
+  if (!running) return;
+  const socket = ws;
+  if (socket?.readyState === WebSocket.OPEN) {
+    if (socket.bufferedAmount > MAX_BUFFERED_BYTES) {
+      lastReportedError = 'Kết nối nguồn âm thanh quá chậm. Hãy kiểm tra mạng rồi bắt đầu lại.';
+      $('detail').textContent = lastReportedError;
+      stop();
+      return;
+    }
+    socket.send(audio);
+  } else if (socket?.readyState === WebSocket.CONNECTING) {
+    pendingAudio.push(audio);
+    pendingBytes += audio.byteLength;
+    if (pendingBytes > MAX_BUFFERED_BYTES) {
+      lastReportedError = 'Chưa nối được tới server sau 20 giây thu âm.';
+      $('detail').textContent = lastReportedError;
+      stop();
+    }
   }
-  return out;
-}
-function floatTo16(float32){
-  const out = new Int16Array(float32.length);
-  for(let i=0;i<float32.length;i++){
-    const s = Math.max(-1, Math.min(1, float32[i]));
-    out[i] = s < 0 ? s*0x8000 : s*0x7fff;
-  }
-  return out.buffer;
+  const pcm = new DataView(audio);
+  let sum = 0;
+  for (let offset = 0; offset < audio.byteLength; offset += 2) sum += (pcm.getInt16(offset, true) / 32768) ** 2;
+  $('meterFill').style.width = `${Math.min(100, Math.sqrt(sum / (audio.byteLength / 2)) * 350)}%`;
 }
 
-async function start(){
-  if(running) return;
-  running=true;
-  lastReportedError='';
-  $('start').disabled=true;
-  $('detail').textContent='';
+async function start() {
+  if (running || stopping) return;
+  running = true;
+  lastReportedError = '';
+  pendingAudio = [];
+  pendingBytes = 0;
+  $('start').disabled = true;
+  $('detail').textContent = '';
+  $('status').textContent = 'Đang mở nguồn âm thanh';
   const deviceId = $('device').value;
   stream = await navigator.mediaDevices.getUserMedia({
-    audio:{deviceId:deviceId?{exact:deviceId}:undefined, echoCancellation:false, noiseSuppression:false, autoGainControl:false}, video:false
+    audio: { deviceId: deviceId ? { exact: deviceId } : undefined, echoCancellation: false, noiseSuppression: false, autoGainControl: false },
+    video: false,
   });
-  ctx = new AudioContext();
+  ctx = new AudioContext({ sampleRate: 24000 });
   await ctx.resume();
+  await ctx.audioWorklet.addModule('/audio-capture-worklet.js');
   source = ctx.createMediaStreamSource(stream);
-  // MVP: ScriptProcessor is broadly compatible but deprecated; replace with AudioWorklet for production.
-  processor = ctx.createScriptProcessor(4096,1,1);
-  const zeroGain = ctx.createGain(); zeroGain.gain.value = 0;
-  source.connect(processor); processor.connect(zeroGain); zeroGain.connect(ctx.destination);
-
-  const initialTargetLanguage = selectedTargetLanguage();
-  ws = new WebSocket(wsUrl(`/ws/source?targetLanguage=${initialTargetLanguage}`));
-  ws.binaryType='arraybuffer';
-  ws.onopen=()=>{
-    running=true;
-    $('status').textContent='Đang kết nối OpenAI';
-    $('start').disabled=true;
-    $('stop').disabled=false;
-    log('Nguồn âm thanh đã nối tới server.');
-    // Capture changes made while microphone permission or the socket was still connecting.
-    if(selectedTargetLanguage() !== initialTargetLanguage) changeTranslationSettings();
+  processor = new AudioWorkletNode(ctx, 'cabin-audio-capture', { channelCount: 1, channelCountMode: 'explicit' });
+  processor.port.onmessage = event => {
+    if (event.data.type === 'audio') sendAudio(event.data.audio);
+    if (event.data.type === 'flushed') flushCapture?.();
   };
-  ws.onclose=()=>{ stop().catch(e=>log(e.message)); $('status').textContent='Đã ngắt'; log('WebSocket nguồn âm thanh đã đóng.'); };
-  ws.onerror=()=>log('Lỗi WebSocket nguồn âm thanh.');
-  ws.onmessage=(ev)=>{
-    let m; try{ m=JSON.parse(ev.data); }catch{ return; }
-    if(m.type==='caption_warning'){ log('Lưu ý phiên dịch: ' + m.message); $('detail').textContent=m.message; return; }
-    if(m.type==='config_error'){ log(m.message); $('detail').textContent=m.message; return; }
-    if(m.type!=='status') return;
-    if(m.error){
-      $('status').textContent='Lỗi dịch';
-      $('detail').textContent=m.error;
-      if(lastReportedError!==m.error) log(m.error);
-      lastReportedError=m.error;
-    } else {
-      lastReportedError='';
-      $('detail').textContent='';
-      $('status').textContent=m.aiReady?`Đang dịch ${translationLabel(m.targetLanguage)}`:'Đang kết nối OpenAI';
+  const zeroGain = ctx.createGain();
+  zeroGain.gain.value = 0;
+  processor.connect(zeroGain);
+  zeroGain.connect(ctx.destination);
+
+  const initialLanguage = selectedTargetLanguage();
+  const socket = ws = new WebSocket(wsUrl(`/ws/source?targetLanguage=${initialLanguage}`));
+  socket.binaryType = 'arraybuffer';
+  socket.onopen = () => {
+    for (const audio of pendingAudio) socket.send(audio);
+    pendingAudio = [];
+    pendingBytes = 0;
+    if (!stopping) {
+      $('status').textContent = 'Đang kết nối OpenAI';
+      $('stop').disabled = false;
+      if (selectedTargetLanguage() !== initialLanguage) changeTranslationSettings();
     }
-    if(m.message === 'Translation settings updated') log(`Đã chọn dịch ${translationLabel(m.targetLanguage)}; áp dụng từ lượt nói mới.`);
+    log('Nguồn âm thanh đã nối tới server.');
   };
-
-  processor.onaudioprocess=(ev)=>{
-    const input = ev.inputBuffer.getChannelData(0);
-    let rms=0; for(let i=0;i<input.length;i++) rms += input[i]*input[i];
-    rms=Math.sqrt(rms/input.length);
-    $('meterFill').style.width = `${Math.min(100, rms*350)}%`;
-    if(!running || ws?.readyState!==WebSocket.OPEN) return;
-    const ds=downsample(input, ctx.sampleRate, 24000);
-    ws.send(floatTo16(ds));
+  socket.onclose = event => {
+    log('WebSocket nguồn âm thanh đã đóng.');
+    if (!stopping) {
+      lastReportedError ||= event.code === 1008 ? 'Máy chủ chưa nhận nguồn âm thanh. Chờ phiên dịch trước hoàn tất rồi bắt đầu lại.'
+        : event.code === 1012 ? 'Một màn hình điều khiển khác đã tiếp quản nguồn âm thanh.' : 'Mất kết nối nguồn âm thanh. Kiểm tra mạng rồi bắt đầu lại.';
+      stop().catch(error => log(error.message));
+    }
   };
+  socket.onerror = () => log('Lỗi WebSocket nguồn âm thanh.');
+  socket.onmessage = event => {
+    let message;
+    try { message = JSON.parse(event.data); } catch { return; }
+    if (message.type === 'config_error') { log(message.message); $('detail').textContent = message.message; return; }
+    if (message.type !== 'status') return;
+    if (message.error) {
+      $('status').textContent = 'Lỗi dịch';
+      $('detail').textContent = message.error;
+      if (lastReportedError !== message.error) log(message.error);
+      lastReportedError = message.error;
+    } else {
+      lastReportedError = '';
+      $('detail').textContent = '';
+      $('status').textContent = message.draining || stopping ? 'Đang hoàn tất phần dịch cuối…'
+        : message.aiReady ? `Đang dịch song song ${translationLabel(message.targetLanguage)}` : 'Đang kết nối OpenAI';
+    }
+    if (message.message === 'Translation settings updated') log(`Đã đổi chiều dịch sang ${translationLabel(message.targetLanguage)}.`);
+  };
+  source.connect(processor);
 }
 
-async function stop(){
-  running=false;
-  if(ws) ws.onclose=null;
-  try{ ws?.close(); }catch{}
-  try{ processor?.disconnect(); source?.disconnect(); }catch{}
-  try{ stream?.getTracks().forEach(t=>t.stop()); }catch{}
-  try{ await ctx?.close(); }catch{}
-  $('meterFill').style.width='0%'; $('status').textContent='Đã dừng'; $('start').disabled=false; $('stop').disabled=true;
+function waitForSocket(socket, eventName, timeoutMs) {
+  return new Promise(resolve => {
+    const timer = setTimeout(() => finish(false), timeoutMs);
+    function finish(result) { clearTimeout(timer); socket.removeEventListener(eventName, onEvent); resolve(result); }
+    function onEvent() { finish(true); }
+    socket.addEventListener(eventName, onEvent, { once: true });
+  });
 }
 
-$('toggleQr').onclick=()=>{
+function stop() {
+  if (stopTask) return stopTask;
+  stopping = true;
+  $('start').disabled = true;
+  $('stop').disabled = true;
+  $('manualDirection').disabled = true;
+  $('status').textContent = 'Đang hoàn tất phần dịch cuối…';
+  stopTask = (async () => {
+    if (processor && ctx?.state === 'running') {
+      await new Promise(resolve => {
+        const timer = setTimeout(done, 1000);
+        function done() { clearTimeout(timer); flushCapture = null; resolve(); }
+        flushCapture = done;
+        processor.port.postMessage({ type: 'flush' });
+      });
+    }
+    running = false;
+    try { processor?.disconnect(); source?.disconnect(); } catch {}
+    stream?.getTracks().forEach(track => track.stop());
+    try { await ctx?.close(); } catch {}
+    processor = source = ctx = stream = null;
+    const socket = ws;
+    if (socket?.readyState === WebSocket.CONNECTING) await waitForSocket(socket, 'open', 8000);
+    if (socket?.readyState === WebSocket.OPEN) {
+      const closed = waitForSocket(socket, 'close', 35000);
+      socket.send(JSON.stringify({ type: 'stop' }));
+      if (!await closed) {
+        lastReportedError ||= 'Chưa nhận được xác nhận hoàn tất phiên dịch. Hãy kiểm tra kết nối.';
+        socket.close();
+      }
+    } else { try { socket?.close(); } catch {} }
+    // An unexpected source disconnect still leaves OpenAI finishing its last audio.
+    const deadline = Date.now() + 35000;
+    while (Date.now() < deadline) {
+      let config;
+      try { config = await fetch('/api/config', { signal: AbortSignal.timeout(3000) }).then(response => response.json()); } catch { break; }
+      if (!config.sessionActive) break;
+      await new Promise(resolve => setTimeout(resolve, 300));
+    }
+    ws = null;
+    pendingAudio = [];
+    pendingBytes = 0;
+    $('meterFill').style.width = '0%';
+    $('status').textContent = lastReportedError ? 'Lỗi dịch' : 'Đã dừng';
+    $('detail').textContent = lastReportedError;
+  })().finally(() => {
+    stopping = false;
+    stopTask = null;
+    $('start').disabled = false;
+    $('stop').disabled = true;
+    $('manualDirection').disabled = false;
+  });
+  return stopTask;
+}
+
+$('toggleQr').onclick = () => {
   const show = $('qrPanel').hidden;
   $('qrPanel').hidden = !show;
   $('operatorGrid').classList.toggle('qr-visible', show);
   $('toggleQr').setAttribute('aria-expanded', String(show));
   $('toggleQr').textContent = show ? 'Ẩn QR nghe' : 'Hiện QR nghe';
 };
-$('refresh').onclick=refreshDevices;
-$('start').onclick=()=>start().catch(async e=>{await stop(); log(e.message); $('status').textContent='Lỗi';});
-$('stop').onclick=stop;
-$('automaticMode').onchange=changeTranslationSettings;
-$('manualMode').onchange=changeTranslationSettings;
-$('manualDirection').onchange=changeTranslationSettings;
-loadConfig(); refreshDevices();
+$('refresh').onclick = () => refreshDevices().catch(error => log(error.message));
+$('start').onclick = () => start().catch(async error => { lastReportedError = error.message; await stop(); log(error.message); });
+$('stop').onclick = () => stop().catch(error => log(error.message));
+$('manualDirection').onchange = changeTranslationSettings;
+loadConfig().catch(error => log(error.message));
+refreshDevices().catch(error => log(error.message));

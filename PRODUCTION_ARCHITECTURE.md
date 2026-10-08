@@ -4,8 +4,8 @@
 
 1. Mixer tao mot AUX bus sach chi chua micro san khau.
 2. USB audio interface vao may Ingest/Operator.
-3. Ingest Worker chuyen audio thanh PCM16 24 kHz va gui lien tuc qua WebSocket toi `/v1/realtime?model=gpt-realtime-2`.
-4. VAD tach luot noi; `gpt-4o-transcribe` nhan dang Anh/Viet. Server xep hang doi ban chu dung thu tu, gui tung ban chu cho `gpt-realtime-2` dich sang ngon ngu con lai. OpenAI tra ve PCM + transcript deltas cho tung luot.
+3. AudioWorklet thu PCM16 mono 24 kHz theo khung 200 ms, gui lien tuc ca khoang lang qua WebSocket toi `/v1/realtime/translations?model=gpt-realtime-translate`.
+4. Model dich truc tiep am thanh sang ngon ngu dau ra da chon (vi/en), tra PCM va transcript deltas ngay khi co du ngu canh. `gpt-realtime-whisper` tao phu de nguyen van song song; khong cho VAD/ngat cau hay nhan dang xong moi dich. Khi dung, gui `session.close` va nhan het phan dich cuoi truoc `session.closed`.
 5. Media Gateway encode audio sang Opus 24–48 kbps.
 6. WebRTC SFU phat 1 track `en-vi-translation` toi tat ca listener.
 7. Caption service phat target/source transcript qua data channel hoac WebSocket.
