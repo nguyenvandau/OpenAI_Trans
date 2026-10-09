@@ -3,6 +3,8 @@ let stream, ctx, source, processor, ws;
 let running = false, stopping = false, stopTask = null;
 let lastReportedError = '', lastCaptionWarning = '', selectionEdited = false;
 let presentationEdited = false, presentationRevision = 0, presentationSaveTask = null;
+let speakerPhotoUrl = '', pendingSpeakerPhoto, speakerPhotoTask = null, speakerPhotoRevision = 0;
+let speakerPhotoVisibilityRevision = 0;
 let pendingAudio = [], pendingBytes = 0, flushCapture = null;
 const MAX_BUFFERED_BYTES = 24000 * 2 * 20;
 
@@ -25,7 +27,108 @@ function applyPresentation(info, expectedRevision = presentationRevision) {
   if (!info || presentationEdited || presentationSaveTask || expectedRevision !== presentationRevision) return;
   $('speakerName').value = typeof info.speakerName === 'string' ? info.speakerName : '';
   $('talkTitle').value = typeof info.talkTitle === 'string' ? info.talkTitle : '';
+  speakerPhotoUrl = typeof info.speakerPhotoUrl === 'string' ? info.speakerPhotoUrl : '';
+  pendingSpeakerPhoto = undefined;
+  $('showSpeakerPhoto').checked = info.showSpeakerPhoto === true;
+  $('showListenerQr').checked = info.showListenerQr === true;
+  renderSpeakerPhoto(speakerPhotoUrl);
   presentationRevision++;
+}
+
+function renderSpeakerPhoto(photo) {
+  $('speakerPhotoPreview').hidden = !photo;
+  $('speakerPhotoEmpty').hidden = Boolean(photo);
+  if (photo) $('speakerPhotoPreview').src = photo;
+  else $('speakerPhotoPreview').removeAttribute('src');
+  $('removeSpeakerPhoto').disabled = !photo;
+  $('showSpeakerPhoto').disabled = !photo;
+}
+
+function currentPhotoPreview() {
+  return pendingSpeakerPhoto === null ? '' : pendingSpeakerPhoto || speakerPhotoUrl;
+}
+
+function updatePresentationButton() {
+  $('updatePresentation').disabled = Boolean(presentationSaveTask || speakerPhotoTask);
+}
+
+async function resizeSpeakerPhoto(objectUrl) {
+  const image = new Image();
+  await new Promise((resolve, reject) => {
+    image.onload = resolve;
+    image.onerror = () => reject(new Error('Không đọc được ảnh. Hãy chọn một ảnh JPG, PNG hoặc WebP khác.'));
+    image.src = objectUrl;
+  });
+  if (!image.naturalWidth || !image.naturalHeight) throw new Error('Ảnh không có kích thước hợp lệ.');
+  const canvas = document.createElement('canvas');
+  for (const longestSide of [512, 384, 288]) {
+    const scale = Math.min(1, longestSide / Math.max(image.naturalWidth, image.naturalHeight));
+    canvas.width = Math.max(1, Math.round(image.naturalWidth * scale));
+    canvas.height = Math.max(1, Math.round(image.naturalHeight * scale));
+    const context = canvas.getContext('2d');
+    context.fillStyle = '#fff';
+    context.fillRect(0, 0, canvas.width, canvas.height);
+    context.drawImage(image, 0, 0, canvas.width, canvas.height);
+    for (const quality of [0.9, 0.8, 0.65, 0.5, 0.35]) {
+      const photo = canvas.toDataURL('image/jpeg', quality);
+      const base64 = photo.slice(photo.indexOf(',') + 1);
+      const bytes = base64.length * 3 / 4 - (base64.endsWith('==') ? 2 : base64.endsWith('=') ? 1 : 0);
+      if (bytes <= 128 * 1024) return photo;
+    }
+  }
+  throw new Error('Không thu nhỏ được ảnh. Hãy chọn một ảnh khác.');
+}
+
+async function chooseSpeakerPhoto() {
+  const file = $('speakerPhoto').files[0];
+  if (!file) return;
+  if (!['image/jpeg', 'image/png', 'image/webp'].includes(file.type) || file.size > 20 * 1024 * 1024) {
+    $('speakerPhoto').value = '';
+    throw new Error('Chọn ảnh JPG, PNG hoặc WebP, dung lượng tối đa 20 MB.');
+  }
+  const revision = ++speakerPhotoRevision;
+  const previousShowPhoto = $('showSpeakerPhoto').checked;
+  const visibilityRevision = speakerPhotoVisibilityRevision;
+  editPresentation();
+  $('showSpeakerPhoto').checked = true;
+  const objectUrl = URL.createObjectURL(file);
+  renderSpeakerPhoto(objectUrl);
+  $('presentationStatus').textContent = 'Đang chuẩn bị ảnh báo cáo viên…';
+  const task = (async () => {
+    try {
+      const photo = await resizeSpeakerPhoto(objectUrl);
+      if (speakerPhotoRevision !== revision) return;
+      pendingSpeakerPhoto = photo;
+      renderSpeakerPhoto(photo);
+      $('presentationStatus').textContent = 'Ảnh đã sẵn sàng. Bấm Cập nhật thông tin để hiển thị cho người nghe.';
+    } catch (error) {
+      if (speakerPhotoRevision !== revision) return;
+      renderSpeakerPhoto(currentPhotoPreview());
+      if (speakerPhotoVisibilityRevision === visibilityRevision) $('showSpeakerPhoto').checked = previousShowPhoto;
+      if (!currentPhotoPreview()) $('showSpeakerPhoto').checked = false;
+      throw error;
+    } finally {
+      URL.revokeObjectURL(objectUrl);
+      if (speakerPhotoTask === task) {
+        speakerPhotoTask = null;
+        updatePresentationButton();
+      }
+    }
+  })();
+  speakerPhotoTask = task;
+  updatePresentationButton();
+  return task;
+}
+
+function removeSpeakerPhoto() {
+  speakerPhotoRevision++;
+  speakerPhotoTask = null;
+  pendingSpeakerPhoto = null;
+  $('speakerPhoto').value = '';
+  $('showSpeakerPhoto').checked = false;
+  renderSpeakerPhoto('');
+  editPresentation();
+  updatePresentationButton();
 }
 
 function editPresentation() {
@@ -35,12 +138,15 @@ function editPresentation() {
 }
 
 async function savePresentation() {
+  while (speakerPhotoTask) await speakerPhotoTask;
   if (presentationSaveTask) {
     await presentationSaveTask;
     if (!presentationEdited) return;
   }
+  while (speakerPhotoTask) await speakerPhotoTask;
   const revision = ++presentationRevision;
-  const info = { speakerName: $('speakerName').value, talkTitle: $('talkTitle').value };
+  const info = { speakerName: $('speakerName').value, talkTitle: $('talkTitle').value, showSpeakerPhoto: $('showSpeakerPhoto').checked, showListenerQr: $('showListenerQr').checked };
+  if (pendingSpeakerPhoto !== undefined) info.speakerPhoto = pendingSpeakerPhoto;
   $('updatePresentation').disabled = true;
   $('presentationStatus').textContent = 'Đang cập nhật thông tin…';
   const task = presentationSaveTask = (async () => {
@@ -51,9 +157,14 @@ async function savePresentation() {
     });
     const saved = await response.json();
     if (!response.ok) throw new Error(saved.message || saved.error || 'Không cập nhật được thông tin bài trình bày.');
+    speakerPhotoUrl = typeof saved.speakerPhotoUrl === 'string' ? saved.speakerPhotoUrl : '';
     if (presentationRevision === revision) {
       $('speakerName').value = saved.speakerName;
       $('talkTitle').value = saved.talkTitle;
+      pendingSpeakerPhoto = undefined;
+      $('showSpeakerPhoto').checked = saved.showSpeakerPhoto === true;
+      $('showListenerQr').checked = saved.showListenerQr === true;
+      renderSpeakerPhoto(speakerPhotoUrl);
       presentationEdited = false;
     }
     $('presentationStatus').textContent = presentationEdited
@@ -68,7 +179,7 @@ async function savePresentation() {
   } finally {
     if (presentationSaveTask === task) {
       presentationSaveTask = null;
-      $('updatePresentation').disabled = false;
+      updatePresentationButton();
     }
   }
 }
@@ -135,7 +246,7 @@ async function start() {
   $('start').disabled = true;
   $('detail').textContent = '';
   $('status').textContent = 'Đang mở nguồn âm thanh';
-  if (presentationEdited || presentationSaveTask) await savePresentation();
+  if (presentationEdited || presentationSaveTask || speakerPhotoTask) await savePresentation();
   const deviceId = $('device').value;
   stream = await navigator.mediaDevices.getUserMedia({
     audio: { deviceId: deviceId ? { exact: deviceId } : undefined, echoCancellation: false, noiseSuppression: false, autoGainControl: false },
@@ -286,6 +397,13 @@ $('stop').onclick = () => stop().catch(error => log(error.message));
 $('manualDirection').onchange = changeTranslationSettings;
 $('speakerName').oninput = editPresentation;
 $('talkTitle').oninput = editPresentation;
+$('showSpeakerPhoto').onchange = () => { speakerPhotoVisibilityRevision++; editPresentation(); };
+$('showListenerQr').onchange = editPresentation;
+$('speakerPhoto').onchange = () => chooseSpeakerPhoto().catch(error => {
+  $('presentationStatus').textContent = error.message;
+  log(error.message);
+});
+$('removeSpeakerPhoto').onclick = removeSpeakerPhoto;
 $('updatePresentation').onclick = () => savePresentation().catch(error => log(error.message));
 loadConfig().catch(error => log(error.message));
 refreshDevices().catch(error => log(error.message));

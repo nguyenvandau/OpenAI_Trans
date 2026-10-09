@@ -140,7 +140,7 @@ export class CaptionModel {
   }
 
   downloadText() {
-    return ['LỜI THOẠI HỘI NGHỊ — ANH / VIỆT', ...this.history.filter(turn => turn.source || turn.target).map(turn =>
-      `[${turn.time.toLocaleTimeString('vi-VN')}]\nBÁO CÁO VIÊN (VI): ${this.textFor(turn, 'vi')}\nSPEAKER (EN): ${this.textFor(turn, 'en')}`)].join('\n\n');
+    return ['LỜI THOẠI HỘI NGHỊ / CONFERENCE TRANSCRIPT — ANH / ENGLISH ↔ VIỆT / VIETNAMESE', ...this.history.filter(turn => turn.source || turn.target).map(turn =>
+      `[${turn.time.toLocaleTimeString('vi-VN')}]\nBÁO CÁO VIÊN / SPEAKER (VI): ${this.textFor(turn, 'vi')}\nSPEAKER / BÁO CÁO VIÊN (EN): ${this.textFor(turn, 'en')}`)].join('\n\n');
   }
 }

@@ -53,6 +53,20 @@
               <input id="talkTitle" type="text" maxlength="300" autocomplete="off" placeholder="Nhập tên bài đang trình bày" />
             </div>
           </div>
+          <div class="speaker-photo-controls">
+            <div class="speaker-photo-preview">
+              <img id="speakerPhotoPreview" alt="Ảnh báo cáo viên đã chọn" hidden />
+              <span id="speakerPhotoEmpty">Chưa có ảnh</span>
+            </div>
+            <div class="speaker-photo-options">
+              <label class="field-label" for="speakerPhoto">Ảnh báo cáo viên</label>
+              <input id="speakerPhoto" type="file" accept="image/jpeg,image/png,image/webp" aria-describedby="speakerPhotoHint" />
+              <p id="speakerPhotoHint" class="hint">Chọn JPG, PNG hoặc WebP, tối đa 20 MB. Ảnh được thu nhỏ trước khi gửi.</p>
+              <label class="checkbox-label" for="showSpeakerPhoto"><input id="showSpeakerPhoto" type="checkbox" disabled />Hiển thị ảnh báo cáo viên</label>
+              <button id="removeSpeakerPhoto" class="secondary photo-remove" type="button" disabled>Xóa ảnh</button>
+            </div>
+          </div>
+          <label class="checkbox-label listener-qr-option" for="showListenerQr"><input id="showListenerQr" type="checkbox" />Hiển thị QR trên màn hình nghe</label>
           <div class="presentation-actions">
             <button id="updatePresentation" class="secondary" type="button">Cập nhật thông tin</button>
             <p id="presentationStatus" class="hint" role="status" aria-live="polite">Hiển thị trên cửa sổ phụ đề. Để trống để ẩn; có thể cập nhật khi đang dịch.</p>

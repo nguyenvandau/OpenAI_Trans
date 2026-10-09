@@ -9,21 +9,35 @@ const captions = new CaptionModel();
 const scheduledAudio = new Set();
 const historyRows = new Map();
 
+function interpretationError(detail){
+  return `Lỗi dịch / Interpretation error: ${detail} • Vui lòng báo ban tổ chức. / Please ask the organizers to check the interpretation service.`;
+}
+
 function showPresentation(info){
   if(!info) return;
   presentationRevision++;
   const speakerName = typeof info.speakerName === 'string' ? info.speakerName : '';
   const talkTitle = typeof info.talkTitle === 'string' ? info.talkTitle : '';
+  const photoUrl = typeof info.speakerPhotoUrl === 'string' ? info.speakerPhotoUrl : '';
+  const showPhoto = info.showSpeakerPhoto === true && Boolean(photoUrl);
+  if(photoUrl && $('currentSpeakerPhoto').getAttribute('src') !== photoUrl) $('currentSpeakerPhoto').src = photoUrl;
+  if(!photoUrl) $('currentSpeakerPhoto').removeAttribute('src');
+  $('currentSpeakerPhoto').alt = speakerName ? `Ảnh ${speakerName} / Photo of ${speakerName}` : 'Ảnh báo cáo viên / Speaker photo';
+  $('speakerPortrait').hidden = !showPhoto;
+  $('presentationBanner').classList.toggle('has-speaker-photo', showPhoto);
   if($('currentSpeaker').textContent !== speakerName) $('currentSpeaker').textContent = speakerName;
   if($('currentTalk').textContent !== talkTitle) $('currentTalk').textContent = talkTitle;
   $('speakerLine').hidden = !speakerName;
   $('talkLine').hidden = !talkTitle;
-  $('presentationBanner').hidden = !speakerName && !talkTitle;
+  $('presentationBanner').hidden = !speakerName && !talkTitle && !showPhoto;
+  $('listenerQr').hidden = info.showListenerQr !== true;
+  if(info.showListenerQr === true && !$('listenerQrImage').getAttribute('src')) $('listenerQrImage').src = '/api/qr.png';
 }
 
 // A late initial fetch must not replace a newer WebSocket update.
 const initialPresentationRevision = presentationRevision;
 fetch('/api/config').then(response=>response.json()).then(config=>{
+  if(typeof config.listenerUrl === 'string') $('listenerQr').href = config.listenerUrl;
   if(presentationRevision === initialPresentationRevision) showPresentation(config.presentation);
 }).catch(()=>{ /* The room status also supplies the current presentation. */ });
 
@@ -44,7 +58,7 @@ ws.binaryType='arraybuffer';
 
 $('listen').onclick=async()=>{
   if(!ctx){ ctx=new AudioContext(); gain=ctx.createGain(); gain.connect(ctx.destination); }
-  await ctx.resume(); enabled=true; nextTime=Math.max(ctx.currentTime+0.12,nextTime); $('listen').textContent='Đang nghe ✓';
+  await ctx.resume(); enabled=true; nextTime=Math.max(ctx.currentTime+0.12,nextTime); $('listen').textContent='Đang nghe / Listening ✓';
 };
 
 function renderCaptions(){
@@ -84,7 +98,7 @@ function renderHistory(){
       const pair = document.createElement('div');
       pair.className = 'history-pair';
       view = {row};
-      for(const [language, label] of [['vi', 'BÁO CÁO VIÊN'], ['en', 'SPEAKER']]){
+      for(const [language, label] of [['vi', 'BÁO CÁO VIÊN / SPEAKER'], ['en', 'SPEAKER / BÁO CÁO VIÊN']]){
         const paragraph = document.createElement('p');
         paragraph.lang = language;
         const heading = document.createElement('strong');
@@ -114,7 +128,7 @@ function renderHistory(){
   if(!hasText && !empty){
     const empty = document.createElement('p');
     empty.className = 'hint history-empty';
-    empty.textContent = 'Chưa có lời thoại được ghi nhận.';
+    empty.textContent = 'Chưa có lời thoại được ghi nhận. / No transcript has been received yet.';
     content.append(empty);
   }
   if(hasText) empty?.remove();
@@ -189,10 +203,10 @@ function playPcm16(buf){
   src.start(nextTime); nextTime += ab.duration;
 }
 
-ws.onopen=()=>{$('status').textContent='Đã vào phòng. Chờ ban tổ chức bắt đầu.';};
+ws.onopen=()=>{$('status').textContent='Đã vào phòng. Chờ ban tổ chức bắt đầu. / Connected. Waiting for the organizers to start.';};
 ws.onclose=()=>{
   resetPlayback();
-  $('status').textContent='Mất kết nối. Hãy tải lại trang.';
+  $('status').textContent='Mất kết nối. Hãy tải lại trang. / Connection lost. Please reload the page.';
 };
 ws.onmessage=(ev)=>{
   if(typeof ev.data!=='string'){ playPcm16(ev.data); return; }
@@ -202,9 +216,10 @@ ws.onmessage=(ev)=>{
   } else if(m.type==='status'){
     showPresentation(m.presentation);
     $('captionWarning').hidden = !m.captionWarning;
-    $('direction').textContent=m.targetLanguage === 'en' ? 'Việt → Anh' : 'Anh → Việt';
-    $('status').textContent = m.error ? `Lỗi dịch: ${m.error}` : m.draining ? 'Đang phát phần dịch cuối…'
-      : m.aiReady ? `Đang dịch song song • ${m.listeners||1} người nghe` : m.sourceConnected ? 'Đang khởi tạo AI…' : 'Chờ ban tổ chức bắt đầu';
+    $('direction').textContent=m.targetLanguage === 'en' ? 'Việt / Vietnamese → Anh / English' : 'Anh / English → Việt / Vietnamese';
+    $('status').textContent = m.error ? interpretationError(m.error) : m.draining ? 'Đang phát phần dịch cuối… / Playing the remaining interpretation…'
+      : m.aiReady ? `Đang dịch song song / Simultaneous interpretation • ${m.listeners||1} người nghe / listeners`
+        : m.sourceConnected ? 'Đang khởi tạo AI… / Starting interpretation…' : 'Chờ ban tổ chức bắt đầu / Waiting for the organizers to start';
   } else if(m.type==='presentation_update'){
     showPresentation(m.presentation);
   } else if(['source_turn', 'source_delta', 'source_transcript', 'target_delta'].includes(m.type)){
@@ -212,6 +227,6 @@ ws.onmessage=(ev)=>{
   } else if(m.type==='caption_warning'){
     $('captionWarning').hidden = false;
   } else if(m.type==='error'){
-    $('status').textContent='Lỗi dịch: '+m.message;
+    $('status').textContent=interpretationError(m.message);
   }
 };

@@ -4,54 +4,62 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <meta name="theme-color" content="#970000" />
-  <title>Nghe phiên dịch | Viện Cơ Xương Khớp Bạch Mai</title>
+  <title>Nghe phiên dịch / Listen to interpretation | Viện Cơ Xương Khớp Bạch Mai</title>
   <link rel="icon" type="image/png" href="/assets/ifr-logo.png" />
   <link rel="stylesheet" href="/conference.css" />
   <link rel="stylesheet" href="/captions.css" />
 </head>
 <body>
-  <a class="skip-link" href="#main">Đến nội dung chính</a>
+  <a class="skip-link" href="#main">Đến nội dung chính / Skip to main content</a>
   <header class="site-header">
     <div class="header-brand">
-      <img class="header-logo" src="/assets/ifr-logo.png" alt="Logo Viện Cơ Xương Khớp Bạch Mai" width="64" height="64" />
-      <b>HỆ THỐNG PHIÊN DỊCH HỘI NGHỊ</b>
+      <img class="header-logo" src="/assets/ifr-logo.png" alt="Logo Viện Cơ Xương Khớp Bạch Mai / Bach Mai Musculoskeletal Institute logo" width="64" height="64" />
+      <b>HỆ THỐNG PHIÊN DỊCH HỘI NGHỊ / CONFERENCE INTERPRETATION SYSTEM</b>
     </div>
     <div class="conference-heading">
-      <small>VIỆN CƠ XƯƠNG KHỚP BẠCH MAI</small>
-      <strong>Phiên dịch trực tiếp Anh ↔ Việt</strong>
+      <small>VIỆN CƠ XƯƠNG KHỚP BẠCH MAI / BACH MAI MUSCULOSKELETAL INSTITUTE</small>
+      <strong>Phiên dịch trực tiếp Anh ↔ Việt / Live English ↔ Vietnamese interpretation</strong>
     </div>
-    <span class="header-role">Dành cho đại biểu</span>
+    <span class="header-role">Dành cho đại biểu / For attendees</span>
   </header>
   <main id="main" class="work listener-work" tabindex="-1">
     <div class="page-heading">
-      <h1>NGHE PHIÊN DỊCH TRỰC TIẾP</h1>
-      <p>Theo dõi nội dung hội nghị qua âm thanh phiên dịch và phụ đề.</p>
+      <h1>NGHE PHIÊN DỊCH TRỰC TIẾP / LISTEN TO SIMULTANEOUS INTERPRETATION</h1>
+      <p>Theo dõi nội dung hội nghị qua âm thanh phiên dịch và phụ đề. / Follow the conference through interpretation audio and captions.</p>
     </div>
     <div class="listen-layout">
       <section class="card listener-hero" aria-labelledby="listenTitle">
         <div class="headphone-icon" aria-hidden="true">
           <svg width="38" height="38" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 14v-3a8 8 0 0 1 16 0v3" /><rect x="3" y="12" width="5" height="9" rx="2" /><rect x="16" y="12" width="5" height="9" rx="2" /></svg>
         </div>
-        <h2 id="listenTitle">ÂM THANH PHIÊN DỊCH</h2>
-        <p class="hint">Cắm tai nghe và bấm nút bên dưới để bắt đầu.</p>
-        <span class="pill" id="direction">Anh → Việt</span>
+        <h2 id="listenTitle">ÂM THANH PHIÊN DỊCH / INTERPRETATION VOICE</h2>
+        <p class="hint">Cắm tai nghe và bấm Bắt đầu nghe. / Plug in your headphones and press Start to listen.</p>
+        <span class="pill" id="direction">Anh / English → Việt / Vietnamese</span>
         <div class="listen-actions">
-          <button id="listen" class="primary listen-button" type="button">Bắt đầu nghe</button>
-          <button id="fullScreen" class="secondary fullscreen-button" type="button" aria-controls="captionStage">⛶ Full Screen</button>
+          <button id="listen" class="primary listen-button" type="button">Bắt đầu nghe / Start to listen</button>
+          <button id="fullScreen" class="secondary fullscreen-button" type="button" aria-controls="captionStage">⛶ Toàn màn hình / Full Screen</button>
         </div>
-        <p class="listener-status" id="status" role="status" aria-live="polite">Đang kết nối…</p>
-        <p class="headphone-hint">Vui lòng sử dụng tai nghe để không ảnh hưởng đến người xung quanh.</p>
+        <p class="listener-status" id="status" role="status" aria-live="polite">Đang kết nối… / Connecting…</p>
+        <p class="headphone-hint">Vui lòng dùng tai nghe để không ảnh hưởng đến người xung quanh. / Please use headphones to avoid disturbing others.</p>
       </section>
       <div class="caption-toolbar">
-        <h2>PHỤ ĐỀ TRỰC TIẾP</h2>
-        <button id="showHistory" class="secondary" type="button" aria-haspopup="dialog">Xem lại toàn bộ</button>
+        <h2>PHỤ ĐỀ TRỰC TIẾP / LIVE CAPTIONS</h2>
+        <button id="showHistory" class="secondary" type="button" aria-haspopup="dialog">Xem lại toàn bộ / View full transcript</button>
       </div>
-      <section id="captionStage" class="caption-stage" aria-label="Phụ đề song ngữ trực tiếp">
-        <button id="returnFromFullScreen" class="return-button" type="button" hidden>← Quay lại</button>
-        <p id="captionWarning" class="hint caption-warning" role="status" hidden>Phụ đề nguồn có cảnh báo. Vui lòng báo ban tổ chức để kiểm tra.</p>
-        <div id="presentationBanner" class="presentation-banner" aria-live="polite" hidden>
-          <p id="speakerLine" class="presentation-speaker" hidden><span>Diễn giả / Speaker</span><strong id="currentSpeaker"></strong></p>
-          <p id="talkLine" class="presentation-talk" hidden><span>Bài trình bày / Presentation</span><strong id="currentTalk"></strong></p>
+      <section id="captionStage" class="caption-stage" aria-label="Phụ đề song ngữ trực tiếp / Live bilingual captions">
+        <button id="returnFromFullScreen" class="return-button" type="button" hidden>← Quay lại / Back</button>
+        <div id="captionHeader" class="caption-header">
+          <a id="listenerQr" class="listener-qr" href="/listen.html" hidden>
+            <img id="listenerQrImage" width="256" height="256" alt="Mã QR mở trang nghe phiên dịch / QR code for the interpretation page" />
+            <span>Quét QR để nghe / Scan QR to start listening</span>
+          </a>
+          <div id="presentationBanner" class="presentation-banner" aria-live="polite" hidden>
+            <div id="speakerPortrait" class="speaker-portrait" hidden><img id="currentSpeakerPhoto" alt="Ảnh báo cáo viên / Speaker photo" /></div>
+            <div class="presentation-details">
+              <p id="speakerLine" class="presentation-speaker" hidden><span>Diễn giả / Speaker</span><strong id="currentSpeaker"></strong></p>
+              <p id="talkLine" class="presentation-talk" hidden><span>Bài trình bày / Presentation</span><strong id="currentTalk"></strong></p>
+            </div>
+          </div>
         </div>
         <div class="caption-columns">
           <section class="language-panel vietnamese-panel" aria-labelledby="vietnameseTitle">
@@ -60,19 +68,22 @@
           </section>
           <section class="language-panel english-panel" aria-labelledby="englishTitle">
             <h2 id="englishTitle">SPEAKER</h2>
-            <div class="caption-window" id="englishWindow" role="log" aria-label="Lời thoại tiếng Anh" aria-live="off" lang="en"><div id="englishText" class="caption-text caption-empty">Waiting for English captions…</div></div>
+            <div class="caption-window" id="englishWindow" role="log" aria-label="English captions" aria-live="off" lang="en"><div id="englishText" class="caption-text caption-empty">Waiting for English captions…</div></div>
           </section>
         </div>
+        <div id="captionFooter" class="caption-footer">
+          <p id="captionWarning" class="hint caption-warning" role="status" hidden>Phụ đề nguồn có cảnh báo; báo ban tổ chức. / Source captions warning; please inform the organizers.</p>
+        </div>
       </section>
-      <p class="hint caption-note">Câu, đoạn mới nhất hiển thị trên cùng ở mỗi bên. Bấm Bắt đầu nghe trước khi mở Full Screen nếu cần phát âm thanh.</p>
+      <p class="hint caption-note">Câu, đoạn mới nhất hiển thị trên cùng. Bấm Bắt đầu nghe trước khi mở Toàn màn hình để phát âm thanh. / The latest sentences appear at the top. Press Start to listen before opening Full Screen for audio.</p>
     </div>
   </main>
-  <footer class="site-footer">Viện Cơ Xương Khớp Bạch Mai · Phiên dịch hội nghị</footer>
+  <footer class="site-footer">Viện Cơ Xương Khớp Bạch Mai · Phiên dịch hội nghị / Bach Mai Musculoskeletal Institute · Conference interpretation</footer>
   <dialog id="historyDialog" class="history-dialog" aria-labelledby="historyTitle" aria-describedby="historyHint">
-    <div class="history-heading"><h2 id="historyTitle">Toàn bộ lời thoại</h2><button id="closeHistory" class="secondary" type="button" autofocus>Đóng</button></div>
-    <p id="historyHint" class="hint">Nội dung nhận được từ khi mở trang này. Tải bản lời thoại trước khi tải lại hoặc đóng trang để xem lại sau.</p>
+    <div class="history-heading"><h2 id="historyTitle">Toàn bộ lời thoại / Full transcript</h2><button id="closeHistory" class="secondary" type="button" autofocus>Đóng / Close</button></div>
+    <p id="historyHint" class="hint">Nội dung từ khi mở trang này. Tải lời thoại trước khi tải lại hoặc đóng trang để xem lại sau. / This transcript starts when you open the page. Download it before reloading or closing the page to keep a copy.</p>
     <div id="historyContent" class="history-content"></div>
-    <div class="history-actions"><button id="downloadHistory" class="primary" type="button" disabled>Tải lời thoại (.txt)</button></div>
+    <div class="history-actions"><button id="downloadHistory" class="primary" type="button" disabled>Tải lời thoại (.txt) / Download transcript (.txt)</button></div>
   </dialog>
   <script type="module" src="/listener.js"></script>
 </body>
