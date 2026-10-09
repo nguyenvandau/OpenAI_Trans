@@ -10,6 +10,7 @@ import { loadConferenceGlossary } from './conference-glossary.mjs';
 const PORT = Number(process.env.PORT || 3000);
 const DEFAULT_TARGET_LANGUAGE = 'vi';
 let targetLanguage = DEFAULT_TARGET_LANGUAGE;
+let presentation = { speakerName: '', talkTitle: '' };
 const noiseReductionType = process.env.OPENAI_NOISE_REDUCTION || 'none';
 const noiseReduction = ['near_field', 'far_field'].includes(noiseReductionType) ? { type: noiseReductionType } : null;
 const OPENAI_API_KEY = (process.env.OPENAI_API_KEY || '').trim();
@@ -36,7 +37,32 @@ app.use(express.static('public'));
 app.get('/', (_req, res) => res.redirect('/operator.html'));
 app.get('/api/config', (req, res) => {
   const base = PUBLIC_BASE_URL || `${req.protocol}://${req.get('host')}`;
-  res.json({ targetLanguage, model: REALTIME_MODEL, transcriptionModel, glossary: glossary?.metadata || null, sessionActive: sessionsActive(), listenerUrl: `${base}/listen.html`, configurationError });
+  res.json({ targetLanguage, model: REALTIME_MODEL, transcriptionModel, glossary: glossary?.metadata || null, presentation, sessionActive: sessionsActive(), listenerUrl: `${base}/listen.html`, configurationError });
+});
+app.post('/api/presentation', express.json({ limit: '8kb' }), (req, res) => {
+  const fields = { speakerName: 160, talkTitle: 300 };
+  const nextPresentation = {};
+  for (const [field, maxLength] of Object.entries(fields)) {
+    if (typeof req.body?.[field] !== 'string') {
+      return res.status(400).json({ message: 'Điền tên diễn giả và tên bài trình bày bằng văn bản; có thể để trống để ẩn.' });
+    }
+    nextPresentation[field] = req.body[field].trim().replace(/\s+/gu, ' ');
+    if (nextPresentation[field].length > maxLength) {
+      return res.status(400).json({ message: 'Tên diễn giả tối đa 160 ký tự; tên bài trình bày tối đa 300 ký tự.' });
+    }
+  }
+  presentation = nextPresentation;
+  broadcastJson({ type: 'presentation_update', presentation });
+  res.json(presentation);
+});
+app.use((error, _req, res, next) => {
+  if (error.type === 'entity.parse.failed') {
+    return res.status(400).json({ message: 'Thông tin diễn giả và bài trình bày không đúng định dạng.' });
+  }
+  if (error.type === 'entity.too.large') {
+    return res.status(413).json({ message: 'Thông tin diễn giả và bài trình bày quá dài.' });
+  }
+  next(error);
 });
 app.get('/api/qr.png', async (req, res) => {
   try {
@@ -84,6 +110,7 @@ function currentStatus(message = '') {
     aiReady,
     listeners: listenerWss.clients.size,
     targetLanguage,
+    presentation,
     draining: sessionsDraining(),
     captionWarning,
     error: lastError,

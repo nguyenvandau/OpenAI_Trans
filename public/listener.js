@@ -4,9 +4,28 @@ const $=(id)=>document.getElementById(id);
 let ctx=null, gain=null, nextTime=0, enabled=false;
 let presentation = false, renderPending = false;
 let renderedHistoryOrderVersion = 0;
+let presentationRevision = 0;
 const captions = new CaptionModel();
 const scheduledAudio = new Set();
 const historyRows = new Map();
+
+function showPresentation(info){
+  if(!info) return;
+  presentationRevision++;
+  const speakerName = typeof info.speakerName === 'string' ? info.speakerName : '';
+  const talkTitle = typeof info.talkTitle === 'string' ? info.talkTitle : '';
+  if($('currentSpeaker').textContent !== speakerName) $('currentSpeaker').textContent = speakerName;
+  if($('currentTalk').textContent !== talkTitle) $('currentTalk').textContent = talkTitle;
+  $('speakerLine').hidden = !speakerName;
+  $('talkLine').hidden = !talkTitle;
+  $('presentationBanner').hidden = !speakerName && !talkTitle;
+}
+
+// A late initial fetch must not replace a newer WebSocket update.
+const initialPresentationRevision = presentationRevision;
+fetch('/api/config').then(response=>response.json()).then(config=>{
+  if(presentationRevision === initialPresentationRevision) showPresentation(config.presentation);
+}).catch(()=>{ /* The room status also supplies the current presentation. */ });
 
 function resetPlayback(){
   for(const audio of scheduledAudio){ try{audio.stop();}catch{} }
@@ -181,10 +200,13 @@ ws.onmessage=(ev)=>{
   if(m.type==='session_reset'){
     resetSession();
   } else if(m.type==='status'){
+    showPresentation(m.presentation);
     $('captionWarning').hidden = !m.captionWarning;
     $('direction').textContent=m.targetLanguage === 'en' ? 'Việt → Anh' : 'Anh → Việt';
     $('status').textContent = m.error ? `Lỗi dịch: ${m.error}` : m.draining ? 'Đang phát phần dịch cuối…'
       : m.aiReady ? `Đang dịch song song • ${m.listeners||1} người nghe` : m.sourceConnected ? 'Đang khởi tạo AI…' : 'Chờ ban tổ chức bắt đầu';
+  } else if(m.type==='presentation_update'){
+    showPresentation(m.presentation);
   } else if(['source_turn', 'source_delta', 'source_transcript', 'target_delta'].includes(m.type)){
     receiveCaption(m);
   } else if(m.type==='caption_warning'){

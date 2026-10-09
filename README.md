@@ -38,6 +38,8 @@ Cho phép Windows Firewall TCP cổng 3000 trên mạng Private. Operator nên m
 
 ## Dịch song song và cài đặt
 
+Điền **Tên diễn giả (Speaker)** và **Tên bài trình bày** trên trang điều khiển, rồi bấm **Cập nhật thông tin**. Trang phụ đề và chế độ Full Screen cập nhật ngay cho mọi người nghe, kể cả khi phiên dịch đang chạy. Bấm Bắt đầu cũng lưu các ô vừa sửa. Để trống một ô để ẩn dòng đó; để trống cả hai rồi cập nhật để ẩn toàn bộ thông tin. Thông tin được giữ qua các phiên dịch và cần nhập lại sau khi khởi động lại server.
+
 Trang điều khiển có mục **Chiều dịch**: **Tiếng Anh → Tiếng Việt** (mặc định) hoặc **Tiếng Việt → Tiếng Anh**. Model tự nhận ngôn ngữ đầu vào nhưng cần một ngôn ngữ đầu ra cố định; ứng dụng không tự đổi sang ngôn ngữ còn lại. Đổi chiều bằng mục chọn khi diễn giả đổi ngôn ngữ. Có thể đổi trong cùng kết nối; nhãn trên trang nghe cập nhật khi OpenAI xác nhận cấu hình mới. Phụ đề và lịch sử trước đó được giữ lại.
 
 Ứng dụng kết nối `/v1/realtime/translations?model=gpt-realtime-translate`. AudioContext resample mic về PCM16 mono 24 kHz; AudioWorklet thu các khung 200 ms, gồm cả khoảng lặng. Server giữ âm thanh trong lúc khởi tạo phiên rồi gửi liên tục, không chờ người nói ngừng, không đợi phụ đề hoàn chỉnh, không chia lượt bằng VAD và không dùng hàng đợi bản chữ để tạo bản dịch. Model quyết định lúc đã có đủ ngữ cảnh để phát cụm dịch; ứng dụng phát âm thanh nhận được ngay theo thứ tự. Độ trễ vẫn phụ thuộc model, tốc độ nói, độ dài bản dịch, mạng và bộ đệm phát âm thanh. Xem [hướng dẫn Realtime translation](https://developers.openai.com/api/docs/guides/realtime-translation).

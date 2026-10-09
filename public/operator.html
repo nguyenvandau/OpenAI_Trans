@@ -42,6 +42,22 @@
       </section>
       <section class="card session-card" aria-labelledby="sessionTitle">
         <div class="card-heading"><span class="step" aria-hidden="true">02</span><h2 id="sessionTitle">ĐIỀU KHIỂN PHIÊN DỊCH</h2></div>
+        <div class="presentation-controls" aria-label="Thông tin bài trình bày">
+          <div class="presentation-fields">
+            <div>
+              <label class="field-label" for="speakerName">Tên diễn giả (Speaker)</label>
+              <input id="speakerName" type="text" maxlength="160" autocomplete="off" placeholder="Ví dụ: PGS.TS. Nguyễn Văn An" />
+            </div>
+            <div>
+              <label class="field-label" for="talkTitle">Tên bài trình bày</label>
+              <input id="talkTitle" type="text" maxlength="300" autocomplete="off" placeholder="Nhập tên bài đang trình bày" />
+            </div>
+          </div>
+          <div class="presentation-actions">
+            <button id="updatePresentation" class="secondary" type="button">Cập nhật thông tin</button>
+            <p id="presentationStatus" class="hint" role="status" aria-live="polite">Hiển thị trên cửa sổ phụ đề. Để trống để ẩn; có thể cập nhật khi đang dịch.</p>
+          </div>
+        </div>
         <div class="direction-row">
           <label class="field-label" for="manualDirection">Chiều dịch</label>
           <select id="manualDirection" aria-describedby="translationHint">

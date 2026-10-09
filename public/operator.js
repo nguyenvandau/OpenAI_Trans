@@ -2,6 +2,7 @@ const $ = id => document.getElementById(id);
 let stream, ctx, source, processor, ws;
 let running = false, stopping = false, stopTask = null;
 let lastReportedError = '', lastCaptionWarning = '', selectionEdited = false;
+let presentationEdited = false, presentationRevision = 0, presentationSaveTask = null;
 let pendingAudio = [], pendingBytes = 0, flushCapture = null;
 const MAX_BUFFERED_BYTES = 24000 * 2 * 20;
 
@@ -20,11 +21,65 @@ function changeTranslationSettings() {
   }
 }
 
+function applyPresentation(info, expectedRevision = presentationRevision) {
+  if (!info || presentationEdited || presentationSaveTask || expectedRevision !== presentationRevision) return;
+  $('speakerName').value = typeof info.speakerName === 'string' ? info.speakerName : '';
+  $('talkTitle').value = typeof info.talkTitle === 'string' ? info.talkTitle : '';
+  presentationRevision++;
+}
+
+function editPresentation() {
+  presentationEdited = true;
+  presentationRevision++;
+  $('presentationStatus').textContent = 'Có thay đổi chưa cập nhật. Bấm Cập nhật thông tin hoặc Bắt đầu phiên dịch để lưu.';
+}
+
+async function savePresentation() {
+  if (presentationSaveTask) {
+    await presentationSaveTask;
+    if (!presentationEdited) return;
+  }
+  const revision = ++presentationRevision;
+  const info = { speakerName: $('speakerName').value, talkTitle: $('talkTitle').value };
+  $('updatePresentation').disabled = true;
+  $('presentationStatus').textContent = 'Đang cập nhật thông tin…';
+  const task = presentationSaveTask = (async () => {
+    const response = await fetch('/api/presentation', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(info),
+    });
+    const saved = await response.json();
+    if (!response.ok) throw new Error(saved.message || saved.error || 'Không cập nhật được thông tin bài trình bày.');
+    if (presentationRevision === revision) {
+      $('speakerName').value = saved.speakerName;
+      $('talkTitle').value = saved.talkTitle;
+      presentationEdited = false;
+    }
+    $('presentationStatus').textContent = presentationEdited
+      ? 'Đã cập nhật. Có thay đổi mới chưa lưu.'
+      : 'Đã cập nhật thông tin trên cửa sổ phụ đề.';
+    return saved;
+  })();
+  try { return await task; }
+  catch (error) {
+    $('presentationStatus').textContent = `Không cập nhật được thông tin: ${error.message}`;
+    throw error;
+  } finally {
+    if (presentationSaveTask === task) {
+      presentationSaveTask = null;
+      $('updatePresentation').disabled = false;
+    }
+  }
+}
+
 async function loadConfig() {
+  const revision = presentationRevision;
   const cfg = await fetch('/api/config').then(r => r.json());
   $('listenerUrl').textContent = cfg.listenerUrl;
   $('listenerUrl').href = cfg.listenerUrl;
   $('qr').src = `/api/qr.png?t=${Date.now()}`;
+  applyPresentation(cfg.presentation, revision);
   if (!selectionEdited && !running && ['vi', 'en'].includes(cfg.targetLanguage)) {
     $('manualDirection').value = cfg.targetLanguage;
     updateTranslationControls();
@@ -80,6 +135,7 @@ async function start() {
   $('start').disabled = true;
   $('detail').textContent = '';
   $('status').textContent = 'Đang mở nguồn âm thanh';
+  if (presentationEdited || presentationSaveTask) await savePresentation();
   const deviceId = $('device').value;
   stream = await navigator.mediaDevices.getUserMedia({
     audio: { deviceId: deviceId ? { exact: deviceId } : undefined, echoCancellation: false, noiseSuppression: false, autoGainControl: false },
@@ -125,6 +181,7 @@ async function start() {
   socket.onmessage = event => {
     let message;
     try { message = JSON.parse(event.data); } catch { return; }
+    if (message.type === 'presentation_update') { applyPresentation(message.presentation); return; }
     if (message.type === 'config_error') { log(message.message); $('detail').textContent = message.message; return; }
     if (message.type === 'caption_warning') {
       if (lastCaptionWarning !== message.message) log(message.message);
@@ -133,6 +190,7 @@ async function start() {
       return;
     }
     if (message.type !== 'status') return;
+    applyPresentation(message.presentation);
     if (message.error) {
       $('status').textContent = 'Lỗi dịch';
       $('detail').textContent = message.error;
@@ -226,5 +284,8 @@ $('refresh').onclick = () => refreshDevices().catch(error => log(error.message))
 $('start').onclick = () => start().catch(async error => { lastReportedError = error.message; await stop(); log(error.message); });
 $('stop').onclick = () => stop().catch(error => log(error.message));
 $('manualDirection').onchange = changeTranslationSettings;
+$('speakerName').oninput = editPresentation;
+$('talkTitle').oninput = editPresentation;
+$('updatePresentation').onclick = () => savePresentation().catch(error => log(error.message));
 loadConfig().catch(error => log(error.message));
 refreshDevices().catch(error => log(error.message));

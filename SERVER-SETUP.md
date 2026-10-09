@@ -73,6 +73,8 @@ Muốn chạy liên tục sau khi đóng Terminal hoặc khi server khởi độ
 
 ## 4. Kiểm tra trước khi dùng
 
+Điền **Tên diễn giả (Speaker)** và **Tên bài trình bày**, rồi bấm **Cập nhật thông tin** để hiện phía trên phụ đề ở cả trang nghe và Full Screen. Có thể đổi thông tin trong khi dịch mà không ngắt âm thanh; người nghe vào sau cũng thấy thông tin hiện tại. Bắt đầu phiên dịch tự lưu các ô vừa sửa. Để trống và cập nhật để ẩn; khởi động lại server sẽ xóa thông tin này.
+
 Mở trang điều khiển, chọn thiết bị thu từ mixer và chiều Anh → Việt hoặc Việt → Anh rồi bắt đầu phiên dịch. Ứng dụng giữ ngôn ngữ đầu ra đã chọn, không tự đổi chiều khi người nói đổi ngôn ngữ. Mở trang Listen, bấm Bắt đầu nghe, kiểm tra cả âm thanh và phụ đề. Âm thanh dịch dùng `gpt-realtime-translate`; phụ đề nguồn mặc định dùng kết nối `gpt-live-transcribe` riêng với từ khóa tương ứng. Dịch âm thanh không chờ phụ đề.
 
 Khi Live Transcribe hoạt động, Whisper trong phiên dịch được tắt. Nếu Live gặp lỗi, ứng dụng báo trạng thái và chuyển phụ đề nguồn sang `gpt-realtime-whisper` trong phiên dịch đang chạy; không mở lại hoặc ngắt âm thanh dịch. Phụ đề nguồn cuối thay phụ đề tạm của đúng lượt nhận dạng. Hai cột chữ không được căn chỉnh từng từ hoặc từng câu.
