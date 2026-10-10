@@ -29,8 +29,9 @@
 .english-panel { position: relative; }
 .english-panel::before { content: ""; position: absolute; top: 0; bottom: 0; left: -28px; width: 1px; background: var(--line); }
 .english-panel h2 { color: var(--navy); }
-.caption-window { height: 7.5em; overflow: hidden; color: #16233b; font-size: 25px; font-weight: 500; line-height: 1.5; overflow-wrap: anywhere; }
+.caption-window { position: relative; height: 7.5em; overflow: hidden; overflow-anchor: none; color: #16233b; font-size: 25px; font-weight: 500; line-height: 1.5; overflow-wrap: anywhere; }
 .caption-text { white-space: pre-wrap; }
+.caption-measure { position: absolute; top: 0; left: 0; height: auto; visibility: hidden; pointer-events: none; white-space: pre-wrap; overflow-wrap: anywhere; }
 .caption-empty { color: var(--muted); }
 .caption-note { margin: -4px 0 0; }
 .caption-warning { margin: 0 0 16px; color: var(--brand); }

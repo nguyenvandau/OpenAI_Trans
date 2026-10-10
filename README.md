@@ -120,6 +120,8 @@ Trên trang nghe, bấm **Bắt đầu nghe** nếu cần phát âm thanh, rồi
 
 Màn hình 16:9 hiển thị tiếng Việt bên trái dưới tiêu đề **DIỄN GIẢ**, tiếng Anh bên phải dưới tiêu đề **SPEAKER**. Mỗi bên đặt câu hoặc đoạn mới nhất ở trên cùng, giữ nguyên thứ tự từ trong câu. Cách hiển thị này áp dụng cả trang nghe và Full Screen. Dịch âm thanh diễn ra song song với nhận dạng phụ đề, vẫn có độ trễ xử lý. Khi đổi chiều, phụ đề đã nhận được giữ trong cột ngôn ngữ của đoạn đó.
 
+Khi câu dài vượt chiều cao ô phụ đề, phần tiếp theo tự bắt đầu ở đầu ô như một đoạn hiển thị mới. Mỗi ô chia đoạn theo kích thước và cỡ chữ hiện tại, ưu tiên ngắt giữa các từ. Việc chia đoạn chỉ để trình chiếu: không thêm dấu câu, không sửa câu gốc hoặc ảnh hưởng âm thanh dịch. Dùng **Xem lại toàn bộ** hoặc tải lời thoại để đọc đủ câu gốc.
+
 Nút **Xem lại toàn bộ** mở lời thoại song ngữ nhận được từ khi mở trang, với đoạn mới nhất ở trên cùng. Lịch sử giữ nội dung các phiên trước. Dùng **Tải lời thoại (.txt)** trước khi tải lại hoặc đóng trang; file tải xuống giữ thứ tự diễn tiến hội nghị. Lịch sử nằm trong bộ nhớ trang nghe, không lưu trên server.
 
 ## Triển khai cho nhiều người nghe

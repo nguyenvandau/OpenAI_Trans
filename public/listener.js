@@ -1,4 +1,5 @@
 import { CaptionModel } from './caption-model.js';
+import { CaptionPager } from './caption-pager.js';
 
 const $=(id)=>document.getElementById(id);
 let ctx=null, gain=null, nextTime=0, enabled=false;
@@ -8,6 +9,43 @@ let presentationRevision = 0;
 const captions = new CaptionModel();
 const scheduledAudio = new Set();
 const historyRows = new Map();
+let captionFontRevision = 0;
+const captionPanes = [
+  ['vi', 'vietnamese', 'Chờ lời thoại tiếng Việt…'],
+  ['en', 'english', 'Waiting for English captions…'],
+].map(([language, prefix, placeholder]) => {
+  const viewport = $(prefix+'Window');
+  const measure = document.createElement('div');
+  measure.className = 'caption-measure';
+  measure.setAttribute('aria-hidden', 'true');
+  viewport.append(measure);
+  return {language, placeholder, viewport, content: $(prefix+'Text'), measure, pager: new CaptionPager()};
+});
+
+function captionPageText(pane, text){
+  if(!text){
+    pane.pager.reset();
+    pane.content.dataset.pageNumber = 1;
+    return '';
+  }
+  const {viewport, measure, pager} = pane;
+  const firstBreak = text.indexOf('\n');
+  const newestSentence = firstBreak === -1 ? text : text.slice(0, firstBreak);
+  const earlierSentences = firstBreak === -1 ? '' : text.slice(firstBreak);
+  const style = getComputedStyle(viewport);
+  const width = viewport.clientWidth;
+  const height = viewport.clientHeight;
+  const layout = [width, height, style.font, style.lineHeight, style.letterSpacing,
+    style.wordSpacing, captionFontRevision].join('|');
+  if(measure.style.width !== width+'px') measure.style.width = width+'px';
+  const page = pager.page(newestSentence, layout, candidate => {
+    if(!candidate) return true;
+    measure.textContent = candidate;
+    return measure.getBoundingClientRect().height <= height;
+  });
+  pane.content.dataset.pageNumber = page.pageNumber;
+  return page.text + earlierSentences;
+}
 
 function interpretationError(detail){
   return `Lỗi dịch / Interpretation error: ${detail} • Vui lòng báo ban tổ chức. / Please ask the organizers to check the interpretation service.`;
@@ -49,6 +87,7 @@ function resetPlayback(){
 function resetSession(){
   resetPlayback();
   captions.reset();
+  for(const pane of captionPanes) pane.pager.reset();
   $('captionWarning').hidden = true;
   scheduleRender();
 }
@@ -63,15 +102,14 @@ $('listen').onclick=async()=>{
 
 function renderCaptions(){
   renderPending = false;
-  for(const [language, prefix, placeholder] of [
-    ['vi', 'vietnamese', 'Chờ lời thoại tiếng Việt…'],
-    ['en', 'english', 'Waiting for English captions…'],
-  ]){
-    const text = captions.liveText(language);
-    $(prefix+'Text').textContent = text || placeholder;
-    $(prefix+'Text').classList.toggle('caption-empty', !text);
-    const viewport = $(prefix+'Window');
-    viewport.scrollTop = 0;
+  for(const pane of captionPanes){
+    const text = captions.liveText(pane.language);
+    const displayText = captionPageText(pane, text) || pane.placeholder;
+    // Independent source/translation events must not replace an unchanged
+    // text node. Paging changes only the live view, never the transcript.
+    if(pane.content.textContent !== displayText) pane.content.textContent = displayText;
+    pane.content.classList.toggle('caption-empty', !text);
+    pane.viewport.scrollTop = 0;
   }
   if($('historyDialog').open) renderHistory();
 }
@@ -183,8 +221,13 @@ document.addEventListener('keydown', event=>{
 });
 window.addEventListener('resize', scheduleRender);
 document.addEventListener('visibilitychange', ()=>{ if(!document.hidden) scheduleRender(); });
-// Live captions always follow the newest line, including after a font finishes loading.
-document.fonts.ready.then(scheduleRender);
+// Re-page after font or viewport changes, including speaker/photo/QR/warning
+// updates that resize the fullscreen panes without resizing the browser.
+function refreshCaptionFonts(){ captionFontRevision++; scheduleRender(); }
+document.fonts.ready.then(refreshCaptionFonts);
+document.fonts.addEventListener('loadingdone', refreshCaptionFonts);
+const captionResizeObserver = new ResizeObserver(scheduleRender);
+for(const pane of captionPanes) captionResizeObserver.observe(pane.viewport);
 
 function receiveCaption(message){
   captions.update(message);
