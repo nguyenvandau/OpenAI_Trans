@@ -98,7 +98,7 @@ function renderHistory(){
       const pair = document.createElement('div');
       pair.className = 'history-pair';
       view = {row};
-      for(const [language, label] of [['vi', 'BÁO CÁO VIÊN / SPEAKER'], ['en', 'SPEAKER / BÁO CÁO VIÊN']]){
+      for(const [language, label] of [['vi', 'DIỄN GIẢ / SPEAKER'], ['en', 'SPEAKER / DIỄN GIẢ']]){
         const paragraph = document.createElement('p');
         paragraph.lang = language;
         const heading = document.createElement('strong');

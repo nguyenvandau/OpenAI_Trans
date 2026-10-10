@@ -156,7 +156,7 @@ async function savePresentation() {
       body: JSON.stringify(info),
     });
     const saved = await response.json();
-    if (!response.ok) throw new Error(saved.message || saved.error || 'Không cập nhật được thông tin bài trình bày.');
+    if (!response.ok) throw new Error(saved.message || saved.error || 'Không cập nhật được thông tin nội dung.');
     speakerPhotoUrl = typeof saved.speakerPhotoUrl === 'string' ? saved.speakerPhotoUrl : '';
     if (presentationRevision === revision) {
       $('speakerName').value = saved.speakerName;

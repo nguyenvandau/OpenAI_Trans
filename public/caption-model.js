@@ -134,13 +134,19 @@ export class CaptionModel {
   }
 
   liveText(language) {
-    // Keep rendering bounded while preserving the entire transcript separately.
-    const text = this.turns.slice(-40).map(turn => this.textFor(turn, language)).filter(Boolean).join('\n').slice(-12000);
+    // Bound each language separately: source items must not displace the
+    // independently growing translation stream from its caption pane.
+    const fragments = [];
+    for (let index = this.turns.length - 1; index >= 0 && fragments.length < 40; index--) {
+      const text = this.textFor(this.turns[index], language);
+      if (text) fragments.push(text);
+    }
+    const text = fragments.reverse().join('\n').slice(-12000);
     return newestSentencesFirst(text, language).slice(0, 12000);
   }
 
   downloadText() {
     return ['LỜI THOẠI HỘI NGHỊ / CONFERENCE TRANSCRIPT — ANH / ENGLISH ↔ VIỆT / VIETNAMESE', ...this.history.filter(turn => turn.source || turn.target).map(turn =>
-      `[${turn.time.toLocaleTimeString('vi-VN')}]\nBÁO CÁO VIÊN / SPEAKER (VI): ${this.textFor(turn, 'vi')}\nSPEAKER / BÁO CÁO VIÊN (EN): ${this.textFor(turn, 'en')}`)].join('\n\n');
+      `[${turn.time.toLocaleTimeString('vi-VN')}]\nDIỄN GIẢ / SPEAKER (VI): ${this.textFor(turn, 'vi')}\nSPEAKER / DIỄN GIẢ (EN): ${this.textFor(turn, 'en')}`)].join('\n\n');
   }
 }

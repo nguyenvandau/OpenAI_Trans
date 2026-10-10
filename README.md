@@ -38,11 +38,11 @@ Cho phép Windows Firewall TCP cổng 3000 trên mạng Private. Operator nên m
 
 ## Dịch song song và cài đặt
 
-Điền **Tên diễn giả (Speaker)** và **Tên bài trình bày** trên trang điều khiển, rồi bấm **Cập nhật thông tin**. Có thể chọn ảnh báo cáo viên, xem trước trên trang điều khiển và tích **Hiển thị ảnh báo cáo viên** để hiện ảnh trên trang nghe. Bỏ tích rồi cập nhật để ẩn ảnh; ảnh đã chọn vẫn được giữ để bật lại. Trang phụ đề và chế độ Full Screen cập nhật ngay cho mọi người nghe, kể cả khi phiên dịch đang chạy; âm thanh và lời thoại tiếp tục. Bấm Bắt đầu cũng lưu các ô vừa sửa. Để trống một ô để ẩn dòng đó; để trống cả hai và tắt ảnh rồi cập nhật để ẩn toàn bộ thông tin.
+Điền **Tên diễn giả (Speaker)** và **Nội dung / Speech** trên trang điều khiển, rồi bấm **Cập nhật thông tin**. Có thể chọn ảnh báo cáo viên, xem trước trên trang điều khiển và tích **Hiển thị ảnh báo cáo viên** để hiện ảnh trên trang nghe. Bỏ tích rồi cập nhật để ẩn ảnh; ảnh đã chọn vẫn được giữ để bật lại. Trang phụ đề và chế độ Full Screen cập nhật ngay cho mọi người nghe, kể cả khi phiên dịch đang chạy; âm thanh và lời thoại tiếp tục. Bấm Bắt đầu cũng lưu các ô vừa sửa. Để trống một ô để ẩn dòng đó; để trống cả hai và tắt ảnh rồi cập nhật để ẩn toàn bộ thông tin.
 
 Ảnh JPG/PNG/WebP được thu nhỏ trước khi gửi để tải nhanh; server web lưu tạm ảnh và thông tin báo cáo viên trong bộ nhớ, không gửi ảnh sang model dịch hoặc nhận dạng. Thông tin được giữ qua các phiên dịch và cần nhập/chọn lại sau khi khởi động lại server.
 
-Trang nghe có các nhãn, hướng dẫn và trạng thái song ngữ Việt/Anh. Trên Operator, tích **Hiển thị QR trên màn hình nghe** rồi bấm **Cập nhật thông tin** để hiện QR ở góc trên bên trái phần phụ đề, cả trong Full Screen; bỏ tích rồi cập nhật để ẩn. Thay đổi được áp dụng khi đang dịch và cho cả người nghe vào sau. QR dùng cùng đường dẫn nghe như QR ở Operator; cấu hình `PUBLIC_BASE_URL` đúng địa chỉ mà điện thoại người tham dự truy cập được. Nút **Hiện QR nghe** trên Operator vẫn dùng để mở/đóng bảng QR riêng của người điều khiển.
+Trang nghe có các nhãn, hướng dẫn và trạng thái song ngữ Việt/Anh. Trên Operator, tích **Hiển thị QR trên màn hình nghe** rồi bấm **Cập nhật thông tin** để hiện QR ở góc trên bên phải phần phụ đề; khi mở Full Screen, QR nằm dưới nút **Quay lại / Back**. Bỏ tích rồi cập nhật để ẩn QR. Thay đổi được áp dụng khi đang dịch và cho cả người nghe vào sau. QR dùng cùng đường dẫn nghe như QR ở Operator; cấu hình `PUBLIC_BASE_URL` đúng địa chỉ mà điện thoại người tham dự truy cập được. Nút **Hiện QR nghe** trên Operator vẫn dùng để mở/đóng bảng QR riêng của người điều khiển.
 
 Trang điều khiển có mục **Chiều dịch**: **Tiếng Anh → Tiếng Việt** (mặc định) hoặc **Tiếng Việt → Tiếng Anh**. Model tự nhận ngôn ngữ đầu vào nhưng cần một ngôn ngữ đầu ra cố định; ứng dụng không tự đổi sang ngôn ngữ còn lại. Đổi chiều bằng mục chọn khi diễn giả đổi ngôn ngữ. Có thể đổi trong cùng kết nối; nhãn trên trang nghe cập nhật khi OpenAI xác nhận cấu hình mới. Phụ đề và lịch sử trước đó được giữ lại.
 
@@ -118,7 +118,7 @@ Nếu hội nghị đã có bộ phát và tai nghe cho đại biểu, máy tín
 
 Trên trang nghe, bấm **Bắt đầu nghe** nếu cần phát âm thanh, rồi bấm **Full Screen**. Màn hình trình chiếu chỉ có phụ đề và nút **Quay lại**; âm thanh đang nghe tiếp tục phát. Dùng nút Quay lại hoặc phím Esc để về trang nghe.
 
-Màn hình 16:9 hiển thị tiếng Việt bên trái dưới tiêu đề **BÁO CÁO VIÊN**, tiếng Anh bên phải dưới tiêu đề **SPEAKER**. Mỗi bên đặt câu hoặc đoạn mới nhất ở trên cùng, giữ nguyên thứ tự từ trong câu. Cách hiển thị này áp dụng cả trang nghe và Full Screen. Dịch âm thanh diễn ra song song với nhận dạng phụ đề, vẫn có độ trễ xử lý. Khi đổi chiều, phụ đề đã nhận được giữ trong cột ngôn ngữ của đoạn đó.
+Màn hình 16:9 hiển thị tiếng Việt bên trái dưới tiêu đề **DIỄN GIẢ**, tiếng Anh bên phải dưới tiêu đề **SPEAKER**. Mỗi bên đặt câu hoặc đoạn mới nhất ở trên cùng, giữ nguyên thứ tự từ trong câu. Cách hiển thị này áp dụng cả trang nghe và Full Screen. Dịch âm thanh diễn ra song song với nhận dạng phụ đề, vẫn có độ trễ xử lý. Khi đổi chiều, phụ đề đã nhận được giữ trong cột ngôn ngữ của đoạn đó.
 
 Nút **Xem lại toàn bộ** mở lời thoại song ngữ nhận được từ khi mở trang, với đoạn mới nhất ở trên cùng. Lịch sử giữ nội dung các phiên trước. Dùng **Tải lời thoại (.txt)** trước khi tải lại hoặc đóng trang; file tải xuống giữ thứ tự diễn tiến hội nghị. Lịch sử nằm trong bộ nhớ trang nghe, không lưu trên server.
 
