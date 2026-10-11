@@ -3,6 +3,7 @@ import { CaptionPager } from './caption-pager.js';
 
 const $=(id)=>document.getElementById(id);
 let ctx=null, gain=null, nextTime=0, enabled=false;
+let listeningRequest = null;
 let presentation = false, renderPending = false;
 let presentationTransition = false;
 let renderedHistoryOrderVersion = 0;
@@ -96,10 +97,50 @@ const ws = new WebSocket(`${location.protocol==='https:'?'wss':'ws'}://${locatio
 ws.binaryType='arraybuffer';
 
 
-$('listen').onclick=async()=>{
-  if(!ctx){ ctx=new AudioContext(); gain=ctx.createGain(); gain.connect(ctx.destination); }
-  await ctx.resume(); enabled=true; nextTime=Math.max(ctx.currentTime+0.12,nextTime); $('listen').textContent='Đang nghe / Listening ✓';
-};
+function showAudioWarning(){
+  enabled = false;
+  resetPlayback();
+  $('listen').textContent = 'Bắt đầu nghe / Start to listen';
+  $('audioWarning').textContent = 'Âm thanh chưa bật hoặc đang tạm dừng. Nếu đang toàn màn hình, bấm Quay lại, rồi Bắt đầu nghe để thử lại. / Audio has not started or is paused. In Full Screen, press Back, then Start to listen to retry.';
+  $('audioWarning').hidden = false;
+}
+
+function startListening(){
+  if(listeningRequest) return listeningRequest;
+  try {
+    if(!ctx || ctx.state === 'closed'){
+      resetPlayback();
+      ctx = new AudioContext();
+      nextTime = ctx.currentTime + 0.12;
+      gain = ctx.createGain();
+      gain.connect(ctx.destination);
+      const audioContext = ctx;
+      audioContext.addEventListener('statechange', ()=>{
+        if(audioContext === ctx && enabled && !listeningRequest && audioContext.state !== 'running') showAudioWarning();
+      });
+    }
+    if(ctx.state !== 'running') $('listen').textContent = 'Đang bật âm thanh / Starting audio…';
+    // Invoke resume immediately inside the Start click, before any await.
+    const resume = ctx.resume();
+    listeningRequest = Promise.resolve(resume).then(()=>{
+      if(ctx.state !== 'running') throw new Error('Audio context is not running');
+      enabled = true;
+      nextTime = Math.max(ctx.currentTime + 0.12, nextTime);
+      $('listen').textContent = 'Đang nghe / Listening ✓';
+      $('audioWarning').hidden = true;
+      return true;
+    }).catch(()=>{
+      showAudioWarning();
+      return false;
+    }).finally(()=>{ listeningRequest = null; });
+    return listeningRequest;
+  } catch {
+    showAudioWarning();
+    return Promise.resolve(false);
+  }
+}
+
+$('listen').onclick=startListening;
 
 function renderCaptions(){
   renderPending = false;
@@ -261,7 +302,7 @@ function receiveCaption(message){
   scheduleRender();
 }
 function playPcm16(buf){
-  if(!enabled || !ctx || !gain) return;
+  if(!enabled || !ctx || !gain || ctx.state !== 'running') return;
   const pcm=new Int16Array(buf); const f=new Float32Array(pcm.length);
   for(let i=0;i<pcm.length;i++) f[i]=pcm[i]/32768;
   const ab=ctx.createBuffer(1,f.length,24000); ab.copyToChannel(f,0);

@@ -116,7 +116,7 @@ Nếu hội nghị đã có bộ phát và tai nghe cho đại biểu, máy tín
 
 ## Phụ đề trên TV hoặc máy chiếu
 
-Trên trang nghe, bấm **Bắt đầu nghe** nếu cần phát âm thanh, rồi bấm **Full Screen** hoặc nhấn phím **F** để mở toàn màn hình. Nhấn **F** lần nữa, nút **Quay lại / Back** hoặc phím **Esc** để về trang nghe; âm thanh và phiên dịch đang chạy tiếp tục, không tải lại trang. Phím tắt F chỉ hoạt động trên màn hình nghe, ngoài ô nhập liệu và cửa sổ lịch sử.
+Trên trang nghe, bấm **Bắt đầu nghe** để bật âm thanh phiên dịch. Nút **Full Screen** và phím **F** chỉ thay đổi chế độ màn hình; nếu cần nghe khi toàn màn hình, bấm **Bắt đầu nghe** trước. Nhấn **F** lần nữa, nút **Quay lại / Back** hoặc phím **Esc** để về trang nghe; âm thanh và phiên dịch đang chạy tiếp tục, không tải lại trang. Phím tắt F chỉ hoạt động trên màn hình nghe, ngoài ô nhập liệu và cửa sổ lịch sử. Nếu trình duyệt chưa bật được âm thanh, màn hình sẽ hiện hướng dẫn bấm **Quay lại**, rồi **Bắt đầu nghe** để thử lại.
 
 Màn hình 16:9 hiển thị tiếng Việt bên trái dưới tiêu đề **DIỄN GIẢ**, tiếng Anh bên phải dưới tiêu đề **SPEAKER**. Mỗi bên đặt câu hoặc đoạn mới nhất ở trên cùng, giữ nguyên thứ tự từ trong câu. Cách hiển thị này áp dụng cả trang nghe và Full Screen. Dịch âm thanh diễn ra song song với nhận dạng phụ đề, vẫn có độ trễ xử lý. Khi đổi chiều, phụ đề đã nhận được giữ trong cột ngôn ngữ của đoạn đó.
 
