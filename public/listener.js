@@ -4,6 +4,7 @@ import { CaptionPager } from './caption-pager.js';
 const $=(id)=>document.getElementById(id);
 let ctx=null, gain=null, nextTime=0, enabled=false;
 let presentation = false, renderPending = false;
+let presentationTransition = false;
 let renderedHistoryOrderVersion = 0;
 let presentationRevision = 0;
 const captions = new CaptionModel();
@@ -196,28 +197,54 @@ function leavePresentation(){
   scheduleRender();
 }
 
-$('fullScreen').onclick=async()=>{
+async function enterPresentation(){
+  if(presentation || presentationTransition) return;
+  presentationTransition = true;
   presentation = true;
   document.body.classList.add('caption-mode');
   $('returnFromFullScreen').hidden = false;
   // Keep the same caption elements and AudioContext so playback continues uninterrupted.
-  try { await $('captionStage').requestFullscreen({navigationUI:'hide'}); }
-  catch { /* Use the full-window layout when native fullscreen is unavailable. */ }
-  $('returnFromFullScreen').focus({preventScroll:true});
-  scheduleRender();
-};
-$('returnFromFullScreen').onclick=async()=>{
-  if(document.fullscreenElement){
-    try { await document.exitFullscreen(); } catch { return; }
-  }
-  leavePresentation();
-};
+  try {
+    try { await $('captionStage').requestFullscreen({navigationUI:'hide'}); }
+    catch { /* Use the full-window layout when native fullscreen is unavailable. */ }
+    if(presentation) $('returnFromFullScreen').focus({preventScroll:true});
+    scheduleRender();
+  } finally { presentationTransition = false; }
+}
+async function exitPresentation(){
+  if(!presentation || presentationTransition) return;
+  presentationTransition = true;
+  try {
+    if(document.fullscreenElement){
+      try { await document.exitFullscreen(); } catch { return; }
+    }
+    leavePresentation();
+  } finally { presentationTransition = false; }
+}
+function togglePresentation(){
+  return presentation ? exitPresentation() : enterPresentation();
+}
+$('fullScreen').onclick=togglePresentation;
+$('returnFromFullScreen').onclick=exitPresentation;
 document.addEventListener('fullscreenchange', ()=>{
   if(!document.fullscreenElement && presentation) leavePresentation();
   else scheduleRender();
 });
 document.addEventListener('keydown', event=>{
-  if(event.key==='Escape' && presentation && !document.fullscreenElement) leavePresentation();
+  if(event.defaultPrevented || event.isComposing || event.repeat || document.querySelector('dialog[open]')) return;
+  if(event.key === 'Escape'){
+    if(presentation && !document.fullscreenElement){
+      event.preventDefault();
+      exitPresentation();
+    }
+    return;
+  }
+  if(event.key.toLowerCase() !== 'f' || event.ctrlKey || event.altKey || event.metaKey || event.shiftKey) return;
+  const editing = event.composedPath().some(target => target instanceof Element
+    && (target.matches('input, textarea, select') || target.isContentEditable));
+  if(editing) return;
+  event.preventDefault();
+  togglePresentation();
 });
 window.addEventListener('resize', scheduleRender);
 document.addEventListener('visibilitychange', ()=>{ if(!document.hidden) scheduleRender(); });

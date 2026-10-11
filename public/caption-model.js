@@ -46,6 +46,7 @@ export class CaptionModel {
     this.sourcePrevious = new Map();
     this.historyStart = this.history.length;
     this.fallbackId = 0;
+    this.activity = 0;
   }
 
   turn(itemId) {
@@ -61,6 +62,7 @@ export class CaptionModel {
 
   update(event) {
     const turn = this.turn(event.itemId);
+    const hadSourceText = /\S/u.test(turn.source);
     let orderChanged = false;
     if (event.type.startsWith('source_') && !turn.isSource) {
       turn.isSource = true;
@@ -82,6 +84,15 @@ export class CaptionModel {
     if (event.type === 'source_delta') turn.source += event.delta || '';
     if (event.type === 'source_transcript' && typeof event.text === 'string') turn.source = event.text;
     if (event.type === 'target_delta') turn.target += event.delta || '';
+    // Display activity belongs to each independent text stream. A continuous
+    // translated stream can keep its original row ID after the speaker switches
+    // languages. Corrections and whitespace preserve raw text without taking
+    // the live head away from newly arriving speech/translation.
+    if (event.type === 'target_delta' && /\S/u.test(event.delta || '')) turn.targetActivity = ++this.activity;
+    if (event.type === 'source_delta' && /\S/u.test(event.delta || '')
+      || event.type === 'source_transcript' && !hadSourceText && /\S/u.test(turn.source)) {
+      turn.sourceActivity = ++this.activity;
+    }
     // Final ASR text replaces that item's provisional text. Translation is independent.
     // Do not pair deltas by timestamps or insert spaces between partial words.
     turn.sourceLanguage = detectCaptionLanguage(turn.source.slice(-1000))
@@ -134,14 +145,38 @@ export class CaptionModel {
   }
 
   liveText(language) {
-    // Bound each language separately: source items must not displace the
-    // independently growing translation stream from its caption pane.
+    // Keep source predecessor order and transcript rows untouched. Source and
+    // translation may share a language (or even an item ID), so give the active
+    // stream its own live fragment before applying the display limits.
     const fragments = [];
-    for (let index = this.turns.length - 1; index >= 0 && fragments.length < 40; index--) {
-      const text = this.textFor(this.turns[index], language);
-      if (text) fragments.push(text);
+    let sourceHead = null, targetHead = null;
+    for (let index = this.turns.length - 1; index >= 0; index--) {
+      const turn = this.turns[index];
+      const targetLanguage = turn.targetLanguage || (turn.sourceLanguage === 'vi' ? 'en' : 'vi');
+      // Gather only the latest 40 fragments, while still finding a continuous
+      // target stream whose original row can be far back in a long conference.
+      if (turn.target && targetLanguage === language
+        && (fragments.length < 40 || !targetHead || (turn.targetActivity || 0) > targetHead.activity)) {
+        const fragment = { text: turn.target, activity: turn.targetActivity || 0 };
+        if (fragments.length < 40) fragments.push(fragment);
+        if (!targetHead || fragment.activity > targetHead.activity) targetHead = fragment;
+      }
+      if (turn.source && turn.sourceLanguage === language && (fragments.length < 40 || !sourceHead)) {
+        const fragment = { text: turn.source, activity: turn.sourceActivity || 0 };
+        if (fragments.length < 40) fragments.push(fragment);
+        sourceHead ||= fragment;
+      }
     }
-    const text = fragments.reverse().join('\n').slice(-12000);
+    // Only the newest source in established speech order can claim the head;
+    // an older item's delayed ASR final must not reorder source sentences.
+    const head = !sourceHead || targetHead && targetHead.activity > sourceHead.activity ? targetHead : sourceHead;
+    fragments.reverse();
+    if (head) {
+      const index = fragments.indexOf(head);
+      if (index !== -1) fragments.splice(index, 1);
+      fragments.push(head);
+    }
+    const text = fragments.slice(-40).map(fragment => fragment.text).join('\n').slice(-12000);
     return newestSentencesFirst(text, language).slice(0, 12000);
   }
 

@@ -116,9 +116,11 @@ Nếu hội nghị đã có bộ phát và tai nghe cho đại biểu, máy tín
 
 ## Phụ đề trên TV hoặc máy chiếu
 
-Trên trang nghe, bấm **Bắt đầu nghe** nếu cần phát âm thanh, rồi bấm **Full Screen**. Màn hình trình chiếu chỉ có phụ đề và nút **Quay lại**; âm thanh đang nghe tiếp tục phát. Dùng nút Quay lại hoặc phím Esc để về trang nghe.
+Trên trang nghe, bấm **Bắt đầu nghe** nếu cần phát âm thanh, rồi bấm **Full Screen** hoặc nhấn phím **F** để mở toàn màn hình. Nhấn **F** lần nữa, nút **Quay lại / Back** hoặc phím **Esc** để về trang nghe; âm thanh và phiên dịch đang chạy tiếp tục, không tải lại trang. Phím tắt F chỉ hoạt động trên màn hình nghe, ngoài ô nhập liệu và cửa sổ lịch sử.
 
 Màn hình 16:9 hiển thị tiếng Việt bên trái dưới tiêu đề **DIỄN GIẢ**, tiếng Anh bên phải dưới tiêu đề **SPEAKER**. Mỗi bên đặt câu hoặc đoạn mới nhất ở trên cùng, giữ nguyên thứ tự từ trong câu. Cách hiển thị này áp dụng cả trang nghe và Full Screen. Dịch âm thanh diễn ra song song với nhận dạng phụ đề, vẫn có độ trễ xử lý. Khi đổi chiều, phụ đề đã nhận được giữ trong cột ngôn ngữ của đoạn đó.
+
+Khi chọn chiều dịch cố định, phụ đề nguồn vẫn vào cột ngôn ngữ nhận được từ mic. Nếu người nói chuyển sang ngôn ngữ đích rồi quay lại ngôn ngữ nguồn, bản dịch mới nhận sẽ xuất hiện trên cùng ngay khi đến. Các dòng từ mic không che hoặc loại bản dịch đang tiếp tục khỏi ô hiển thị; chiều dịch không tự thay đổi và lịch sử vẫn giữ câu gốc.
 
 Khi câu dài vượt chiều cao ô phụ đề, phần tiếp theo tự bắt đầu ở đầu ô như một đoạn hiển thị mới. Mỗi ô chia đoạn theo kích thước và cỡ chữ hiện tại, ưu tiên ngắt giữa các từ. Việc chia đoạn chỉ để trình chiếu: không thêm dấu câu, không sửa câu gốc hoặc ảnh hưởng âm thanh dịch. Dùng **Xem lại toàn bộ** hoặc tải lời thoại để đọc đủ câu gốc.
 
