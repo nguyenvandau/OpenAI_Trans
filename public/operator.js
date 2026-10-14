@@ -6,12 +6,31 @@ let presentationEdited = false, presentationRevision = 0, presentationSaveTask =
 let speakerPhotoUrl = '', pendingSpeakerPhoto, speakerPhotoTask = null, speakerPhotoRevision = 0;
 let speakerPhotoVisibilityRevision = 0;
 let pendingAudio = [], pendingBytes = 0, flushCapture = null;
+let providerInfo = {}, providerEdited = false;
 const MAX_BUFFERED_BYTES = 24000 * 2 * 20;
+const PROVIDER_HINTS = {
+  openai: 'GPT: âm thanh dịch (gpt-realtime-translate) và phụ đề gốc có bộ thuật ngữ (gpt-live-transcribe) chạy trên hai kết nối độc lập.',
+  gemini: 'Gemini: một kết nối gemini-3.5-live-translate-preview trả cùng lúc phụ đề gốc, phụ đề dịch và âm thanh dịch, nên ba luồng đi cùng nhịp. Bộ thuật ngữ chỉ gợi ý cho phụ đề gốc.',
+};
 
 function log(s) { $('log').textContent = `[${new Date().toLocaleTimeString()}] ${s}\n` + $('log').textContent; }
 function wsUrl(path) { return `${location.protocol === 'https:' ? 'wss' : 'ws'}://${location.host}${path}`; }
 function selectedTargetLanguage() { return $('manualDirection').value; }
+function selectedProvider() { return $('provider').value; }
+function providerLabel(provider) { return providerInfo[provider]?.label || (provider === 'gemini' ? 'Gemini' : 'OpenAI'); }
 function translationLabel(language) { return language === 'en' ? 'Việt → Anh' : 'Anh → Việt'; }
+function updateProviderControls() {
+  $('providerHint').textContent = PROVIDER_HINTS[selectedProvider()];
+  if (running || stopping) return;
+  const error = providerInfo[selectedProvider()]?.configurationError || '';
+  if (error) {
+    $('status').textContent = 'Chưa cấu hình API key';
+    $('detail').textContent = error;
+  } else if ($('status').textContent === 'Chưa cấu hình API key') {
+    $('status').textContent = 'Chưa chạy';
+    $('detail').textContent = '';
+  }
+}
 function updateTranslationControls() {
   $('translationHint').textContent = `Dịch liên tục ${translationLabel(selectedTargetLanguage())} khi diễn giả đang nói. Đổi chiều dịch khi diễn giả đổi ngôn ngữ.`;
 }
@@ -195,10 +214,13 @@ async function loadConfig() {
     $('manualDirection').value = cfg.targetLanguage;
     updateTranslationControls();
   }
-  if (cfg.configurationError) {
-    $('status').textContent = 'Chưa cấu hình API key';
-    $('detail').textContent = cfg.configurationError;
+  providerInfo = cfg.providers && typeof cfg.providers === 'object' ? cfg.providers : {};
+  for (const option of $('provider').options) {
+    const name = option.textContent.replace(/ \(chưa có API key\)$/, '');
+    option.textContent = providerInfo[option.value]?.configurationError ? `${name} (chưa có API key)` : name;
   }
+  if (!providerEdited && !running && Object.hasOwn(providerInfo, cfg.provider)) $('provider').value = cfg.provider;
+  updateProviderControls();
 }
 
 async function refreshDevices() {
@@ -244,6 +266,7 @@ async function start() {
   pendingAudio = [];
   pendingBytes = 0;
   $('start').disabled = true;
+  $('provider').disabled = true;
   $('detail').textContent = '';
   $('status').textContent = 'Đang mở nguồn âm thanh';
   if (presentationEdited || presentationSaveTask || speakerPhotoTask) await savePresentation();
@@ -267,18 +290,19 @@ async function start() {
   zeroGain.connect(ctx.destination);
 
   const initialLanguage = selectedTargetLanguage();
-  const socket = ws = new WebSocket(wsUrl(`/ws/source?targetLanguage=${initialLanguage}`));
+  const sessionProvider = selectedProvider();
+  const socket = ws = new WebSocket(wsUrl(`/ws/source?targetLanguage=${initialLanguage}&provider=${sessionProvider}`));
   socket.binaryType = 'arraybuffer';
   socket.onopen = () => {
     for (const audio of pendingAudio) socket.send(audio);
     pendingAudio = [];
     pendingBytes = 0;
     if (!stopping) {
-      $('status').textContent = 'Đang kết nối OpenAI';
+      $('status').textContent = `Đang kết nối ${providerLabel(sessionProvider)}`;
       $('stop').disabled = false;
       if (selectedTargetLanguage() !== initialLanguage) changeTranslationSettings();
     }
-    log('Nguồn âm thanh đã nối tới server.');
+    log(`Nguồn âm thanh đã nối tới server (mô hình dịch ${providerLabel(sessionProvider)}).`);
   };
   socket.onclose = event => {
     log('WebSocket nguồn âm thanh đã đóng.');
@@ -313,7 +337,8 @@ async function start() {
       if (message.captionWarning && lastCaptionWarning !== message.captionWarning) log(message.captionWarning);
       lastCaptionWarning = message.captionWarning || '';
       $('status').textContent = message.draining || stopping ? 'Đang hoàn tất phần dịch cuối…'
-        : message.aiReady ? `Đang dịch song song ${translationLabel(message.targetLanguage)}` : 'Đang kết nối OpenAI';
+        : message.aiReady ? `Đang dịch song song ${translationLabel(message.targetLanguage)} · ${providerLabel(message.provider)}`
+          : `Đang kết nối ${providerLabel(message.provider)}`;
     }
     if (message.message === 'Translation settings updated') log(`Đã đổi chiều dịch sang ${translationLabel(message.targetLanguage)}.`);
   };
@@ -360,7 +385,7 @@ function stop() {
         socket.close();
       }
     } else { try { socket?.close(); } catch {} }
-    // An unexpected source disconnect still leaves OpenAI finishing its last audio.
+    // An unexpected source disconnect still leaves the AI finishing its last audio.
     const deadline = Date.now() + 35000;
     while (Date.now() < deadline) {
       let config;
@@ -380,6 +405,7 @@ function stop() {
     $('start').disabled = false;
     $('stop').disabled = true;
     $('manualDirection').disabled = false;
+    $('provider').disabled = false;
   });
   return stopTask;
 }
@@ -395,6 +421,7 @@ $('refresh').onclick = () => refreshDevices().catch(error => log(error.message))
 $('start').onclick = () => start().catch(async error => { lastReportedError = error.message; await stop(); log(error.message); });
 $('stop').onclick = () => stop().catch(error => log(error.message));
 $('manualDirection').onchange = changeTranslationSettings;
+$('provider').onchange = () => { providerEdited = true; updateProviderControls(); };
 $('speakerName').oninput = editPresentation;
 $('talkTitle').oninput = editPresentation;
 $('showSpeakerPhoto').onchange = () => { speakerPhotoVisibilityRevision++; editPresentation(); };

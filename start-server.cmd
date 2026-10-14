@@ -20,9 +20,9 @@ if not exist "node_modules\dotenv\package.json" (
 )
 
 if not exist ".env" (
-  if not defined OPENAI_API_KEY (
+  if not defined OPENAI_API_KEY if not defined GEMINI_API_KEY (
     copy /y ".env.example" ".env" >nul
-    echo Da tao file .env mau. Dien OPENAI_API_KEY va PUBLIC_BASE_URL vao file .env.
+    echo Da tao file .env mau. Dien OPENAI_API_KEY va/hoac GEMINI_API_KEY, va PUBLIC_BASE_URL vao file .env.
   )
 )
 

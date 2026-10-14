@@ -6,6 +6,7 @@ import QRCode from 'qrcode';
 import WebSocket, { WebSocketServer } from 'ws';
 import { RealtimeInterpreter, REALTIME_MODEL, TRANSCRIPTION_MODEL, isTranslationTarget } from './realtime-interpreter.mjs';
 import { LiveTranscriber, LIVE_TRANSCRIPTION_MODEL } from './live-transcriber.mjs';
+import { GeminiInterpreter, GEMINI_TRANSLATE_MODEL } from './gemini-interpreter.mjs';
 import { loadConferenceGlossary } from './conference-glossary.mjs';
 
 const PORT = Number(process.env.PORT || 3000);
@@ -17,6 +18,7 @@ const speakerPhotos = new Map();
 const noiseReductionType = process.env.OPENAI_NOISE_REDUCTION || 'none';
 const noiseReduction = ['near_field', 'far_field'].includes(noiseReductionType) ? { type: noiseReductionType } : null;
 const OPENAI_API_KEY = (process.env.OPENAI_API_KEY || '').trim();
+const GEMINI_API_KEY = (process.env.GEMINI_API_KEY || '').trim();
 const PUBLIC_BASE_URL = (process.env.PUBLIC_BASE_URL || '').replace(/\/$/, '');
 const requestedTranscriptionModel = process.env.OPENAI_SOURCE_TRANSCRIPTION || LIVE_TRANSCRIPTION_MODEL;
 let glossary = null;
@@ -30,17 +32,36 @@ const defaultTranscriptionModel = glossary && requestedTranscriptionModel === LI
   ? LIVE_TRANSCRIPTION_MODEL : TRANSCRIPTION_MODEL;
 let transcriptionModel = defaultTranscriptionModel;
 
-const configurationError = !OPENAI_API_KEY || /^(sk-\.\.\.|API_KEY_CUA_BAN|your[_ -]?api[_ -]?key.*)$/i.test(OPENAI_API_KEY)
-  ? 'Chưa có OpenAI API key thật. Điền OPENAI_API_KEY trong file .env rồi khởi động lại server.'
-  : '';
-if (configurationError) console.error(configurationError);
+const placeholderKey = key => !key || /^(sk-\.\.\.|AIza\.\.\.|API_KEY_CUA_BAN|your[_ -]?api[_ -]?key.*)$/i.test(key);
+// GPT: gpt-realtime-translate audio plus independent gpt-live-transcribe captions.
+// Gemini: one Live Translate stream carries source captions, translation captions and audio.
+const PROVIDERS = {
+  openai: {
+    label: 'OpenAI', model: REALTIME_MODEL,
+    configurationError: placeholderKey(OPENAI_API_KEY) ? 'Chưa có OpenAI API key thật. Điền OPENAI_API_KEY trong file .env rồi khởi động lại server.' : '',
+  },
+  gemini: {
+    label: 'Gemini', model: GEMINI_TRANSLATE_MODEL,
+    configurationError: placeholderKey(GEMINI_API_KEY) ? 'Chưa có Gemini API key thật. Điền GEMINI_API_KEY trong file .env rồi khởi động lại server.' : '',
+  },
+};
+const isProvider = value => typeof value === 'string' && Object.hasOwn(PROVIDERS, value);
+const requestedProvider = (process.env.TRANSLATION_PROVIDER || '').trim().toLowerCase();
+const DEFAULT_PROVIDER = isProvider(requestedProvider) ? requestedProvider
+  : PROVIDERS.openai.configurationError && !PROVIDERS.gemini.configurationError ? 'gemini' : 'openai';
+let provider = DEFAULT_PROVIDER;
+for (const { configurationError } of Object.values(PROVIDERS)) if (configurationError) console.warn(configurationError);
 
 const app = express();
 app.use(express.static('public'));
 app.get('/', (_req, res) => res.redirect('/operator.html'));
 app.get('/api/config', (req, res) => {
   const base = PUBLIC_BASE_URL || `${req.protocol}://${req.get('host')}`;
-  res.json({ targetLanguage, model: REALTIME_MODEL, transcriptionModel, glossary: glossary?.metadata || null, presentation, sessionActive: sessionsActive(), listenerUrl: `${base}/listen.html`, configurationError });
+  const providers = Object.fromEntries(Object.entries(PROVIDERS).map(([id, { label, model, configurationError }]) => [id, { label, model, configurationError }]));
+  res.json({
+    targetLanguage, provider, providers, model: PROVIDERS[provider].model, transcriptionModel, glossary: glossary?.metadata || null,
+    presentation, sessionActive: sessionsActive(), listenerUrl: `${base}/listen.html`, configurationError: PROVIDERS[provider].configurationError,
+  });
 });
 app.get('/api/speaker-photo/:id', (req, res) => {
   const photo = /^[a-f0-9]{64}$/.test(req.params.id) ? speakerPhotos.get(req.params.id) : null;
@@ -139,8 +160,8 @@ let interpreter = null;
 let transcriber = null;
 let sourceFinishing = false;
 let aiReady = false;
-let lastError = configurationError;
-let captionWarning = glossaryWarning;
+let lastError = PROVIDERS[provider].configurationError;
+let captionWarning = provider === 'openai' ? glossaryWarning : '';
 
 function sessionsActive() { return Boolean(interpreter && !interpreter.closed || transcriber && !transcriber.closed); }
 function sessionsDraining() { return Boolean(interpreter?.closing && !interpreter.closed || transcriber?.closing && !transcriber.closed); }
@@ -166,6 +187,7 @@ function currentStatus(message = '') {
     aiReady,
     listeners: listenerWss.clients.size,
     targetLanguage,
+    provider,
     presentation,
     draining: sessionsDraining(),
     captionWarning,
@@ -181,14 +203,14 @@ function broadcastStatus(message = '') {
 function scrubError(message) {
   // Authentication errors can echo credentials. Never forward those to browsers or logs.
   let result = String(message);
-  if (OPENAI_API_KEY) result = result.split(OPENAI_API_KEY).join('[hidden]');
-  return result.replace(/sk-[A-Za-z0-9_.*-]+/g, '[hidden]');
+  for (const key of [OPENAI_API_KEY, GEMINI_API_KEY]) if (key) result = result.split(key).join('[hidden]');
+  return result.replace(/sk-[A-Za-z0-9_.*-]+|AIza[A-Za-z0-9_-]{20,}/g, '[hidden]');
 }
 
 function reportError(message) {
   lastError = scrubError(message);
   aiReady = false;
-  console.error('OpenAI:', lastError);
+  console.error(`${PROVIDERS[provider].label}:`, lastError);
   broadcastStatus();
 }
 
@@ -244,16 +266,19 @@ function openSourceCaptions() {
 }
 
 function openTranslationSession() {
+  const { label, configurationError } = PROVIDERS[provider];
   if (configurationError) {
     reportError(configurationError);
     return;
   }
   if (interpreter && !interpreter.closed) return;
   lastError = '';
-  const session = new RealtimeInterpreter({
-    apiKey: OPENAI_API_KEY, noiseReduction, targetLanguage,
-    sourceTranscription: transcriptionModel === TRANSCRIPTION_MODEL,
-  });
+  const session = provider === 'gemini'
+    ? new GeminiInterpreter({ apiKey: GEMINI_API_KEY, targetLanguage, profiles: glossary?.profiles })
+    : new RealtimeInterpreter({
+      apiKey: OPENAI_API_KEY, noiseReduction, targetLanguage,
+      sourceTranscription: transcriptionModel === TRANSCRIPTION_MODEL,
+    });
   interpreter = session;
   session.on('configured', config => {
     if (interpreter !== session) return;
@@ -264,7 +289,7 @@ function openTranslationSession() {
   session.on('ready', () => {
     if (interpreter !== session) return;
     aiReady = true;
-    broadcastStatus('OpenAI interpreter connected');
+    broadcastStatus(`${label} interpreter connected`);
   });
   session.on('audio', buffer => {
     if (interpreter === session) broadcastAudio(buffer);
@@ -280,12 +305,22 @@ function openTranslationSession() {
     interpreter = null;
     aiReady = false;
     if (!drained && sourceClient?.readyState === WebSocket.OPEN && !lastError) {
-      lastError = 'Mất kết nối OpenAI. Bấm Dừng rồi Bắt đầu để thử lại.';
+      lastError = `Mất kết nối ${label}. Bấm Dừng rồi Bắt đầu để thử lại.`;
     }
-    broadcastStatus('OpenAI disconnected');
+    broadcastStatus(`${label} disconnected`);
     finishSourceIfDrained();
   });
 
+  if (provider === 'gemini') {
+    session.on('warning', message => {
+      if (interpreter === session) reportCaptionWarning(`Gemini: ${message}`);
+    });
+    // Gemini messages already explain the cause and the fix.
+    session.on('fault', message => {
+      if (interpreter === session) reportError(message);
+    });
+    return;
+  }
   session.on('fault', (message) => {
     if (interpreter !== session) return;
     const status = String(message).match(/Unexpected server response: (\d+)/)?.[1];
@@ -311,9 +346,15 @@ function closeTranslationSession() {
 }
 
 sourceWss.on('connection', (ws, req) => {
-  const requestedLanguage = new URL(req.url, 'http://localhost').searchParams.get('targetLanguage') ?? DEFAULT_TARGET_LANGUAGE;
+  const params = new URL(req.url, 'http://localhost').searchParams;
+  const requestedLanguage = params.get('targetLanguage') ?? DEFAULT_TARGET_LANGUAGE;
   if (!isTranslationTarget(requestedLanguage)) {
     ws.close(1008, 'Translation target must be vi or en.');
+    return;
+  }
+  const requestedSessionProvider = params.get('provider') ?? DEFAULT_PROVIDER;
+  if (!isProvider(requestedSessionProvider)) {
+    ws.close(1008, 'Translation provider must be openai or gemini.');
     return;
   }
   if (sessionsDraining()) {
@@ -326,9 +367,11 @@ sourceWss.on('connection', (ws, req) => {
   sourceClient = ws;
   targetLanguage = requestedLanguage;
   closeTranslationSession();
+  provider = requestedSessionProvider;
   sourceFinishing = false;
   transcriptionModel = defaultTranscriptionModel;
-  captionWarning = glossaryWarning;
+  captionWarning = provider === 'openai' ? glossaryWarning
+    : glossary ? '' : 'Chưa đọc được bộ thuật ngữ; phụ đề gốc Gemini chạy không có gợi ý thuật ngữ.';
   broadcastJson({ type: 'session_reset' });
   openTranslationSession();
   broadcastStatus('Operator connected');
@@ -391,6 +434,7 @@ server.on('upgrade', (req, socket, head) => {
 
 server.listen(PORT, '0.0.0.0', () => {
   console.log(`AI Cabin running on http://localhost:${server.address().port}`);
-  console.log(`Continuous translation: English ↔ Vietnamese (${REALTIME_MODEL})`);
+  const available = Object.values(PROVIDERS).filter(({ configurationError }) => !configurationError).map(({ label, model }) => `${label} ${model}`);
+  console.log(`Continuous translation: English ↔ Vietnamese (${available.join(', ') || 'no API key configured'})`);
   if (PUBLIC_BASE_URL) console.log(`Listener URL: ${PUBLIC_BASE_URL}/listen.html`);
 });

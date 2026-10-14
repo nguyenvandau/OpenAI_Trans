@@ -108,9 +108,14 @@ function showAudioWarning(){
 function startListening(){
   if(listeningRequest) return listeningRequest;
   try {
+    // Safari uses the media playback route for interpretation, including when
+    // the iPhone ring/silent switch is on. Other browsers may omit this API.
+    try { if(navigator.audioSession) navigator.audioSession.type = 'playback'; } catch {}
+    const unlock = ctx?.state !== 'running';
     if(!ctx || ctx.state === 'closed'){
       resetPlayback();
-      ctx = new AudioContext();
+      const AudioContextClass = window.AudioContext || window.webkitAudioContext;
+      ctx = new AudioContextClass();
       nextTime = ctx.currentTime + 0.12;
       gain = ctx.createGain();
       gain.connect(ctx.destination);
@@ -120,20 +125,39 @@ function startListening(){
       });
     }
     if(ctx.state !== 'running') $('listen').textContent = 'Đang bật âm thanh / Starting audio…';
+    if(unlock){
+      // Start one silent sample in the same tap. The first network audio chunk
+      // arrives later, outside Safari's user-activation window.
+      const source = ctx.createBufferSource();
+      source.buffer = ctx.createBuffer(1, 1, ctx.sampleRate);
+      source.connect(ctx.destination);
+      source.onended = ()=>source.disconnect();
+      source.start(0);
+    }
     // Invoke resume immediately inside the Start click, before any await.
     const resume = ctx.resume();
-    listeningRequest = Promise.resolve(resume).then(()=>{
-      if(ctx.state !== 'running') throw new Error('Audio context is not running');
+    const audioContext = ctx;
+    let timeout;
+    const startupTimeout = new Promise((_, reject)=>{
+      timeout = setTimeout(()=>reject(new Error('Audio startup timed out')), 8000);
+    });
+    const request = Promise.race([Promise.resolve(resume), startupTimeout]).then(()=>{
+      if(listeningRequest !== request || ctx !== audioContext) return false;
+      if(audioContext.state !== 'running') throw new Error('Audio context is not running');
       enabled = true;
       nextTime = Math.max(ctx.currentTime + 0.12, nextTime);
       $('listen').textContent = 'Đang nghe / Listening ✓';
       $('audioWarning').hidden = true;
       return true;
     }).catch(()=>{
-      showAudioWarning();
+      if(listeningRequest === request && ctx === audioContext) showAudioWarning();
       return false;
-    }).finally(()=>{ listeningRequest = null; });
-    return listeningRequest;
+    }).finally(()=>{
+      clearTimeout(timeout);
+      if(listeningRequest === request) listeningRequest = null;
+    });
+    listeningRequest = request;
+    return request;
   } catch {
     showAudioWarning();
     return Promise.resolve(false);

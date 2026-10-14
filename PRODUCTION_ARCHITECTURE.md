@@ -11,6 +11,8 @@
 7. Khi dừng, kết thúc cả hai luồng: gửi `session.close` cho phiên dịch và nhận hết phần đuôi trước `session.closed`; commit phần âm thanh nhận dạng còn lại rồi nhận bản phụ đề cuối. Kết quả nguồn cuối thay bản tạm theo đúng `item_id`, không nối thêm một bản trùng.
 8. MVP phát PCM tới người nghe qua WebSocket. Với hệ thống đông người, thêm Media Gateway để mã hóa Opus 24–48 kbps rồi phát một track bản dịch qua WebRTC SFU. Phụ đề có thể đi qua data channel hoặc WebSocket.
 
+Các bước 3–7 mô tả lựa chọn **OpenAI GPT**. Khi Operator chọn **Google Gemini**, server đổi âm thanh sang PCM16 16 kHz và gửi tới một kết nối `gemini-3.5-live-translate-preview` duy nhất; kết nối này trả cùng lúc phụ đề gốc, phụ đề dịch và âm thanh dịch 24 kHz. Mỗi kết nối Gemini Live kéo dài khoảng 10 phút, nên server mở sẵn kết nối kế tiếp và chuyển ở khoảng lặng; khi dừng, server gửi `audioStreamEnd` rồi chờ phần dịch cuối. Xem [Chọn mô hình dịch](README.md#chọn-mô-hình-dịch-gpt-hoặc-gemini).
+
 Cả phòng dùng chung một phiên dịch và một phiên nhận dạng nguồn; không tạo hai phiên cho mỗi điện thoại. Phụ đề nguồn, phụ đề dịch và âm thanh có độ trễ khác nhau. Không coi các đoạn hiển thị là cặp đã căn chỉnh từng câu hoặc từng từ; `gpt-live-transcribe` không cung cấp timestamp từng từ. Xem [hướng dẫn Realtime transcription](https://developers.openai.com/api/docs/guides/realtime-transcription) và [Realtime translation](https://developers.openai.com/api/docs/guides/realtime-translation).
 
 ## Bộ thuật ngữ và giới hạn sử dụng

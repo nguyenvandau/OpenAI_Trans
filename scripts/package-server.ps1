@@ -10,7 +10,7 @@ $packageRoot = Join-Path $stagePath 'AI-Cabin'
 
 try {
   New-Item -ItemType Directory -Path $packageRoot | Out-Null
-  foreach ($name in @('server.mjs', 'realtime-interpreter.mjs', 'live-transcriber.mjs', 'conference-glossary.mjs', 'package.json', 'package-lock.json', 'README.md', 'SERVER-SETUP.md', 'PRODUCTION_ARCHITECTURE.md', 'start-server.cmd', 'start-server.sh', '.env.example')) {
+  foreach ($name in @('server.mjs', 'realtime-interpreter.mjs', 'gemini-interpreter.mjs', 'live-transcriber.mjs', 'conference-glossary.mjs', 'package.json', 'package-lock.json', 'README.md', 'SERVER-SETUP.md', 'PRODUCTION_ARCHITECTURE.md', 'start-server.cmd', 'start-server.sh', '.env.example')) {
     Copy-Item -LiteralPath (Join-Path $workspaceRoot $name) -Destination $packageRoot
   }
   # Preserve every original dictionary version, plus the XLSX-only reference pairs.

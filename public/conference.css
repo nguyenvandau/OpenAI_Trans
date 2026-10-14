@@ -64,8 +64,8 @@ h2 { margin-bottom: 0; font-size: 16px; font-weight: 800; line-height: 1.4; }
 .meter { flex: 1; height: 12px; overflow: hidden; border-radius: 999px; background: #eef2f7; }
 .meter > div { width: 0; height: 100%; background: var(--brand); }
 .direction-row { display: flex; flex-wrap: wrap; align-items: center; gap: 14px; }
-.direction-row .field-label { margin: 0; }
-.direction-row select { flex: 1; min-width: 150px; }
+.direction-row .field-label { min-width: 88px; margin: 0; }
+.direction-row select { flex: 1; min-width: 150px; text-overflow: ellipsis; }
 .direction-row select:disabled { opacity: .6; cursor: not-allowed; }
 .presentation-controls { padding-bottom: 18px; margin-bottom: 18px; border-bottom: 1px solid var(--line); }
 .presentation-fields { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.5fr); gap: 14px; }

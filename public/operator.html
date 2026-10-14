@@ -73,6 +73,14 @@
           </div>
         </div>
         <div class="direction-row">
+          <label class="field-label" for="provider">Mô hình dịch</label>
+          <select id="provider" aria-describedby="providerHint">
+            <option value="openai">OpenAI GPT — gpt-realtime-translate</option>
+            <option value="gemini">Google Gemini — gemini-3.5-live-translate-preview</option>
+          </select>
+        </div>
+        <p class="hint" id="providerHint">GPT: âm thanh dịch và phụ đề gốc (có bộ thuật ngữ) chạy trên hai kết nối độc lập.</p>
+        <div class="direction-row">
           <label class="field-label" for="manualDirection">Chiều dịch</label>
           <select id="manualDirection" aria-describedby="translationHint">
             <option value="vi">Tiếng Anh → Tiếng Việt</option>

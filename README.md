@@ -1,6 +1,6 @@
-# AI Cabin – OpenAI Realtime Translation MVP
+# AI Cabin – Realtime Translation MVP (OpenAI GPT / Google Gemini)
 
-MVP một phòng hội nghị: **dịch song song Anh ↔ Việt bằng `gpt-realtime-translate`**, tạo một luồng âm thanh trên server rồi phát PCM và phụ đề cho nhiều người nghe. Mặc định Anh → Việt; chọn Việt → Anh khi đổi ngôn ngữ diễn giả.
+MVP một phòng hội nghị: **dịch song song Anh ↔ Việt bằng `gpt-realtime-translate` hoặc `gemini-3.5-live-translate-preview`**, tạo một luồng âm thanh trên server rồi phát PCM và phụ đề cho nhiều người nghe. Mặc định Anh → Việt; chọn Việt → Anh khi đổi ngôn ngữ diễn giả. Chọn mô hình GPT hoặc Gemini trên trang điều khiển, xem [Chọn mô hình dịch](#chọn-mô-hình-dịch-gpt-hoặc-gemini).
 
 ## Sơ đồ
 
@@ -11,7 +11,7 @@ Mặc định, cùng âm thanh mic được gửi sang một kết nối `gpt-li
 ## Yêu cầu và cài đặt
 
 - Node.js 20 trở lên.
-- OpenAI API key có quyền dùng `gpt-realtime-translate` và `gpt-live-transcribe` cho phụ đề nguyên văn có từ khóa. Có thể chọn `gpt-realtime-whisper` nếu chưa có quyền dùng Live Transcribe.
+- Ít nhất một API key: OpenAI API key có quyền dùng `gpt-realtime-translate` và `gpt-live-transcribe` cho phụ đề nguyên văn có từ khóa (có thể chọn `gpt-realtime-whisper` nếu chưa có quyền dùng Live Transcribe), và/hoặc Gemini API key (`GEMINI_API_KEY`) cho `gemini-3.5-live-translate-preview`.
 - Laptop có Internet ổn định và USB audio interface nhận âm thanh trực tiếp từ mixer.
 - Điện thoại kết nối được tới server qua LAN/Wi-Fi hoặc địa chỉ public.
 
@@ -35,6 +35,46 @@ PUBLIC_BASE_URL=http://192.168.1.50:3000
 ```
 
 Cho phép Windows Firewall TCP cổng 3000 trên mạng Private. Operator nên mở bằng `localhost` trên máy server; thu mic từ máy khác qua IP/tên miền cần HTTPS. Xem hướng dẫn triển khai trong [SERVER-SETUP.md](SERVER-SETUP.md).
+
+## Chọn mô hình dịch: GPT hoặc Gemini
+
+Trang điều khiển có mục **Mô hình dịch**. Chọn trước khi bấm **Bắt đầu phiên dịch**; mục này bị khóa trong lúc dịch. Lựa chọn quyết định server nối tới API của OpenAI hay Google.
+
+| | OpenAI GPT | Google Gemini |
+|---|---|---|
+| Âm thanh dịch | `gpt-realtime-translate` | `gemini-3.5-live-translate-preview` |
+| Phụ đề gốc | `gpt-live-transcribe`, kết nối riêng, có bộ thuật ngữ | Cùng kết nối Gemini; bộ thuật ngữ gửi làm `customVocabulary` |
+| Phụ đề dịch | Cùng kết nối dịch | Cùng kết nối Gemini |
+| Khóa trong `.env` | `OPENAI_API_KEY` | `GEMINI_API_KEY` |
+
+Với Gemini, một kết nối Live API trả cùng lúc phụ đề gốc, phụ đề dịch và âm thanh dịch, nên ba luồng đi cùng nhịp. Xem [Live Translate của Gemini](https://ai.google.dev/gemini-api/docs/live-api/live-translate).
+
+- Server đổi âm thanh mic 24 kHz sang PCM16 mono 16 kHz, đúng định dạng đầu vào Gemini yêu cầu, rồi gửi khung 100 ms. Âm thanh dịch về ở 24 kHz và được phát thẳng cho người nghe.
+- Ứng dụng đặt `echoTargetLanguage: false`. Khi người nói dùng đúng ngôn ngữ đích, ví dụ người dẫn nói tiếng Việt trong chiều Anh → Việt, Gemini im lặng như phiên dịch viên cabin; phụ đề gốc vẫn hiện.
+- Mỗi kết nối Gemini Live chỉ kéo dài khoảng 10 phút. Ứng dụng mở sẵn kết nối mới ở phút thứ 7,5 và chuyển sang ở khoảng lặng kế tiếp. Nếu Gemini gửi `GoAway`, ứng dụng chuyển trước hạn. Kết nối cũ dịch nốt câu cuối rồi mới phát giọng của kết nối mới, nên hai giọng không chồng lên nhau.
+- Gemini cố định ngôn ngữ đích khi mở kết nối. Khi đổi **Chiều dịch**, ứng dụng mở kết nối mới cho chiều mới; lời nói trong lúc đang kết nối được giữ lại rồi gửi đi.
+- Gemini Live Translate không nhận prompt hay glossary cho bản dịch; bộ thuật ngữ chỉ gợi ý nhận dạng cho phụ đề gốc. Nếu Gemini từ chối gợi ý này, ứng dụng tự chạy lại không có gợi ý và báo trên trang điều khiển.
+- Model đang ở bản preview. Hãy kiểm tra trên bản ghi thật trước hội nghị.
+
+Lấy Gemini API key:
+
+1. Đăng nhập [Google AI Studio → API keys](https://aistudio.google.com/apikey) bằng tài khoản Google.
+2. Bấm **Create API key**, chọn hoặc tạo một Google Cloud project.
+3. Nên bật Billing cho project (gói Paid). Gói Free có giới hạn thấp, và dữ liệu gói Free có thể được Google dùng để cải thiện sản phẩm. Giá gói Paid khoảng 0,037 USD mỗi phút âm thanh, tức khoảng 2,2 USD mỗi giờ; xem [bảng giá](https://ai.google.dev/gemini-api/docs/pricing).
+4. Thêm vào `.env` rồi khởi động lại server:
+
+```env
+GEMINI_API_KEY=AIza...
+# Tùy chọn: chọn sẵn Gemini trên trang điều khiển.
+TRANSLATION_PROVIDER=gemini
+```
+
+Nếu báo **"Your project has been denied access. Please contact support."**, Google đã gắn cờ tài khoản hoặc project: mọi model đều bị từ chối, kể cả yêu cầu văn bản nhỏ nhất, nên ứng dụng không tự sửa được. Theo hướng dẫn của Google trên [diễn đàn Gemini API](https://discuss.ai.google.dev/t/gemini-api-returns-403-permission-denied-your-project-has-been-denied-access/188415):
+
+1. Xác minh tuổi tại [myaccount.google.com/age-verification](https://myaccount.google.com/age-verification) và kiểm tra ngày sinh trong [Thông tin cá nhân](https://myaccount.google.com/personal-info).
+2. Xác minh số điện thoại và bật xác minh 2 bước cho tài khoản Google.
+3. Tạo API key mới trong AI Studio rồi thay vào `.env`.
+4. Nếu vẫn lỗi, bật Billing hoặc nạp trả trước cho project, hoặc tạo key từ một tài khoản Google khác đã xác minh. Nếu vẫn không được, gửi project ID lên diễn đàn để Google xem xét thủ công.
 
 ## Dịch song song và cài đặt
 
@@ -117,6 +157,8 @@ Nếu hội nghị đã có bộ phát và tai nghe cho đại biểu, máy tín
 ## Phụ đề trên TV hoặc máy chiếu
 
 Trên trang nghe, bấm **Bắt đầu nghe** để bật âm thanh phiên dịch. Nút **Full Screen** và phím **F** chỉ thay đổi chế độ màn hình; nếu cần nghe khi toàn màn hình, bấm **Bắt đầu nghe** trước. Nhấn **F** lần nữa, nút **Quay lại / Back** hoặc phím **Esc** để về trang nghe; âm thanh và phiên dịch đang chạy tiếp tục, không tải lại trang. Phím tắt F chỉ hoạt động trên màn hình nghe, ngoài ô nhập liệu và cửa sổ lịch sử. Nếu trình duyệt chưa bật được âm thanh, màn hình sẽ hiện hướng dẫn bấm **Quay lại**, rồi **Bắt đầu nghe** để thử lại.
+
+Trên iPhone, nên mở đường dẫn nghe trực tiếp bằng Safari rồi chạm **Bắt đầu nghe**. Trang nghe bật chế độ phát âm thanh khi trình duyệt hỗ trợ và khởi động Web Audio ngay trong lần chạm; không xin quyền micro trên máy của đại biểu. Nếu trình duyệt chưa bật được âm thanh sau 8 giây, trang hiện hướng dẫn thử lại. Kiểm tra âm lượng media và thiết bị Bluetooth đang nhận âm thanh; với phiên bản iOS cũ không hỗ trợ chế độ phát này, hãy tắt chế độ im lặng. Sau cuộc gọi, khóa màn hình hoặc chuyển ứng dụng, nếu âm thanh bị tạm dừng, quay lại trang và bấm **Bắt đầu nghe** để tiếp tục.
 
 Màn hình 16:9 hiển thị tiếng Việt bên trái dưới tiêu đề **DIỄN GIẢ**, tiếng Anh bên phải dưới tiêu đề **SPEAKER**. Mỗi bên đặt câu hoặc đoạn mới nhất ở trên cùng, giữ nguyên thứ tự từ trong câu. Cách hiển thị này áp dụng cả trang nghe và Full Screen. Dịch âm thanh diễn ra song song với nhận dạng phụ đề, vẫn có độ trễ xử lý. Khi đổi chiều, phụ đề đã nhận được giữ trong cột ngôn ngữ của đoạn đó.
 

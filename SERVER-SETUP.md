@@ -18,7 +18,7 @@ PUBLIC_BASE_URL=http://192.168.1.50:3000
 PUBLIC_BASE_URL=https://dich.example.com
 ```
 
-Giữ `OPENAI_API_KEY` thật trong `.env` và `PORT=3000`, hoặc đổi PORT nếu server đã dùng cổng đó. Có thể cấu hình bằng biến môi trường thay cho `.env`. Khi chưa có khóa, file chạy tạo `.env` mẫu và thông báo cách điền; không ghi đè `.env` đã có.
+Giữ `OPENAI_API_KEY` thật trong `.env` và `PORT=3000`, hoặc đổi PORT nếu server đã dùng cổng đó. Để dùng Gemini, thêm `GEMINI_API_KEY` (tạo tại [Google AI Studio](https://aistudio.google.com/apikey)); server chạy được khi có ít nhất một trong hai khóa. `TRANSLATION_PROVIDER=gemini` chọn sẵn Gemini trên trang điều khiển. Xem [Chọn mô hình dịch](README.md#chọn-mô-hình-dịch-gpt-hoặc-gemini). Có thể cấu hình bằng biến môi trường thay cho `.env`. Khi chưa có khóa, file chạy tạo `.env` mẫu và thông báo cách điền; không ghi đè `.env` đã có.
 
 Để dùng từ khóa cho phụ đề nguồn, cấu hình mặc định là:
 

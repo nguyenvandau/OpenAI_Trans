@@ -12,9 +12,9 @@ if [ ! -f node_modules/dotenv/package.json ]; then
   npm ci --omit=dev --ignore-scripts --no-audit --no-fund
 fi
 
-if [ ! -f .env ] && [ -z "${OPENAI_API_KEY:-}" ]; then
+if [ ! -f .env ] && [ -z "${OPENAI_API_KEY:-}" ] && [ -z "${GEMINI_API_KEY:-}" ]; then
   cp .env.example .env
-  printf '%s\n' 'Da tao file .env mau. Dien OPENAI_API_KEY va PUBLIC_BASE_URL vao file .env.'
+  printf '%s\n' 'Da tao file .env mau. Dien OPENAI_API_KEY va/hoac GEMINI_API_KEY, va PUBLIC_BASE_URL vao file .env.'
 fi
 
 node scripts/check-server.mjs
