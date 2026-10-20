@@ -8,20 +8,29 @@ let presentation = false, renderPending = false;
 let presentationTransition = false;
 let renderedHistoryOrderVersion = 0;
 let presentationRevision = 0;
+let targetLanguage = 'vi';
 const captions = new CaptionModel();
+const pip = { open:false, opening:false, video:false, panel:$('pipCaption'), title:$('pipTitle'), viewport:$('pipWindow'), text:$('pipText') };
+// A video PiP window has no browser title bar, unlike Document PiP, so captions are drawn on a canvas.
+// The window keeps the canvas's aspect ratio: the Width slider changes that shape, Lines the text size.
+const PIP_HEIGHT = 400, PIP_PADDING = 36;
+const pipCanvas = document.createElement('canvas');
+const pipVideo = Object.assign(document.createElement('video'), { muted:true, playsInline:true });
+const renderChannel = new MessageChannel();
+renderChannel.port1.onmessage = ()=>renderCaptions();
 const scheduledAudio = new Set();
 const historyRows = new Map();
 let captionFontRevision = 0;
 const captionPanes = [
-  ['vi', 'vietnamese', 'Chờ lời thoại tiếng Việt…'],
-  ['en', 'english', 'Waiting for English captions…'],
-].map(([language, prefix, placeholder]) => {
+  ['vi', 'vietnamese', 'Chờ lời thoại tiếng Việt…', 'Tiếng Việt'],
+  ['en', 'english', 'Waiting for English captions…', 'English'],
+].map(([language, prefix, placeholder, title]) => {
   const viewport = $(prefix+'Window');
   const measure = document.createElement('div');
   measure.className = 'caption-measure';
   measure.setAttribute('aria-hidden', 'true');
   viewport.append(measure);
-  return {language, placeholder, viewport, content: $(prefix+'Text'), measure, pager: new CaptionPager()};
+  return {language, placeholder, title, viewport, content: $(prefix+'Text'), measure, pager: new CaptionPager()};
 });
 
 function captionPageText(pane, text){
@@ -166,6 +175,12 @@ function startListening(){
 
 $('listen').onclick=startListening;
 
+function showCaption(textElement, viewport, text, placeholder){
+  textElement.textContent = text || placeholder;
+  textElement.classList.toggle('caption-empty', !text);
+  viewport.scrollTop = 0;
+}
+
 function renderCaptions(){
   renderPending = false;
   for(const pane of captionPanes){
@@ -176,6 +191,12 @@ function renderCaptions(){
     if(pane.content.textContent !== displayText) pane.content.textContent = displayText;
     pane.content.classList.toggle('caption-empty', !text);
     pane.viewport.scrollTop = 0;
+    if(pip.open && pane.language === targetLanguage){
+      pip.title.textContent = pane.title;
+      pip.viewport.lang = pane.language;
+      showCaption(pip.text, pip.viewport, text, pane.placeholder);
+      if(pip.video) drawPipFrame(text, pane.placeholder);
+    }
   }
   if($('historyDialog').open) renderHistory();
 }
@@ -183,8 +204,63 @@ function renderCaptions(){
 function scheduleRender(){
   if(renderPending) return;
   renderPending = true;
-  requestAnimationFrame(renderCaptions);
+  // The page is often in a background tab while its PiP window is showing, and frames pause there.
+  if(pip.video) renderChannel.port2.postMessage(null);
+  else requestAnimationFrame(renderCaptions);
 }
+
+function wrapLines(context, text, maxWidth, maxLines){
+  const lines = [];
+  for(const paragraph of text.split('\n')){
+    let line = '';
+    for(const word of paragraph.split(/\s+/).filter(Boolean)){
+      const candidate = line ? `${line} ${word}` : word;
+      if(context.measureText(candidate).width <= maxWidth){ line = candidate; continue; }
+      if(line) lines.push(line);
+      line = word;
+      // Break a word wider than the window, like overflow-wrap: anywhere.
+      while(line.length > 1 && context.measureText(line).width > maxWidth){
+        let fit = line.length - 1;
+        while(fit > 1 && context.measureText(line.slice(0, fit)).width > maxWidth) fit--;
+        lines.push(line.slice(0, fit));
+        line = line.slice(fit);
+      }
+      if(lines.length >= maxLines) return lines.slice(0, maxLines);
+    }
+    if(line) lines.push(line);
+    if(lines.length >= maxLines) break;
+  }
+  return lines.slice(0, maxLines);
+}
+
+function drawPipFrame(text, placeholder){
+  const {width, height} = pipCanvas, lines = Number($('pipLines').value);
+  const lineHeight = (height - PIP_PADDING*2) / lines, fontSize = Math.round(lineHeight / 1.4);
+  const context = pipCanvas.getContext('2d');
+  context.fillStyle = '#0d1729';
+  context.fillRect(0, 0, width, height);
+  context.font = `500 ${fontSize}px "Segoe UI", Tahoma, Arial, sans-serif`;
+  context.textBaseline = 'top';
+  context.fillStyle = text ? '#fff' : '#98a7bc';
+  // Newest sentences come first, so the top lines are the latest speech.
+  wrapLines(context, text || placeholder, width - PIP_PADDING*2, lines)
+    .forEach((line, index)=>context.fillText(line, PIP_PADDING, PIP_PADDING + index*lineHeight + (lineHeight - fontSize)/2));
+}
+
+function resizePipCanvas(){
+  pipCanvas.width = Math.round(PIP_HEIGHT * Number($('pipRatio').value));
+  pipCanvas.height = PIP_HEIGHT;
+  $('pipLinesValue').textContent = `${$('pipLines').value} dòng / lines`;
+}
+for(const input of [$('pipRatio'), $('pipLines')]){
+  try { const saved = localStorage.getItem(input.id); if(saved) input.value = saved; } catch {}
+  input.addEventListener('input', ()=>{
+    try { localStorage.setItem(input.id, input.value); } catch {}
+    resizePipCanvas();
+    renderCaptions(); // Resizing clears the canvas; redraw in the same task so no blank frame is sent.
+  });
+}
+resizePipCanvas();
 
 function renderHistory(){
   const content = $('historyContent');
@@ -311,6 +387,99 @@ document.addEventListener('keydown', event=>{
   event.preventDefault();
   togglePresentation();
 });
+
+// Picture in Picture: target-language captions only. Chrome, Edge and Safari get an always-on-top
+// video window without a title bar; other browsers get a draggable, resizable overlay in the page.
+function placeOverlay(left, top, width, height){
+  const margin = 8, {clientWidth, clientHeight} = document.documentElement; // Excludes scrollbars.
+  width = Math.min(Math.max(width, 240), clientWidth - margin*2);
+  height = Math.min(Math.max(height, 120), clientHeight - margin*2);
+  left = Math.min(Math.max(left, margin), clientWidth - width - margin);
+  top = Math.min(Math.max(top, margin), clientHeight - height - margin);
+  Object.assign(pip.panel.style, {left:`${left}px`, top:`${top}px`, width:`${width}px`, height:`${height}px`});
+}
+
+async function openPip(){
+  pip.open = pip.opening = true;
+  if(document.pictureInPictureEnabled){
+    try {
+      pipVideo.srcObject ??= pipCanvas.captureStream();
+      pip.video = true;
+      renderCaptions(); // The stream needs a first frame before the video can play.
+      await pipVideo.play();
+      await pipVideo.requestPictureInPicture();
+    } catch {
+      pip.video = false;
+      pipVideo.pause();
+    }
+  }
+  if(!pip.video){
+    const {clientWidth, clientHeight} = document.documentElement;
+    const width = Math.min(480, clientWidth - 32), height = 220;
+    placeOverlay(clientWidth - width - 16, clientHeight - height - 16, width, height);
+    pip.panel.hidden = false;
+  }
+  pip.opening = false;
+  $('pipSize').hidden = !pip.video;
+  $('pictureInPicture').setAttribute('aria-pressed', 'true');
+  renderPending = false;
+  scheduleRender();
+}
+
+function closedPip(){
+  pip.open = pip.video = false;
+  pip.panel.hidden = true;
+  $('pipSize').hidden = true;
+  pipVideo.pause();
+  $('pictureInPicture').setAttribute('aria-pressed', 'false');
+  renderPending = false;
+  scheduleRender();
+}
+
+function closePip(){
+  if(document.pictureInPictureElement === pipVideo) document.exitPictureInPicture(); // Fires leavepictureinpicture.
+  else closedPip();
+}
+
+pipVideo.addEventListener('leavepictureinpicture', closedPip);
+// A paused video would freeze the captions in the PiP window.
+pipVideo.addEventListener('pause', ()=>{ if(pip.video && !pip.opening) pipVideo.play().catch(()=>{}); });
+
+$('pictureInPicture').onclick=()=>{
+  if(pip.opening) return;
+  if(pip.open) closePip();
+  else openPip();
+};
+$('closePip').onclick=closePip;
+
+function onDrag(handle, update){
+  handle.addEventListener('pointerdown', down=>{
+    if(down.button !== 0 || down.target.closest('.pip-close')) return;
+    down.preventDefault();
+    const start = pip.panel.getBoundingClientRect();
+    const move = event=>update(start, event.clientX - down.clientX, event.clientY - down.clientY);
+    handle.setPointerCapture(down.pointerId);
+    handle.addEventListener('pointermove', move);
+    handle.addEventListener('lostpointercapture', ()=>handle.removeEventListener('pointermove', move), {once:true});
+  });
+}
+onDrag($('pipBar'), (start, dx, dy)=>placeOverlay(start.left + dx, start.top + dy, start.width, start.height));
+onDrag($('pipResize'), (start, dx, dy)=>placeOverlay(start.left, start.top, start.width + dx, start.height + dy));
+$('pipBar').addEventListener('keydown', event=>{
+  const step = {ArrowLeft:[-24, 0], ArrowRight:[24, 0], ArrowUp:[0, -24], ArrowDown:[0, 24]}[event.key];
+  if(!step) return;
+  event.preventDefault();
+  const box = pip.panel.getBoundingClientRect();
+  if(event.shiftKey) placeOverlay(box.left, box.top, box.width + step[0], box.height + step[1]);
+  else placeOverlay(box.left + step[0], box.top + step[1], box.width, box.height);
+});
+window.addEventListener('resize', ()=>{
+  if(pip.open && !pip.video){
+    const box = pip.panel.getBoundingClientRect();
+    placeOverlay(box.left, box.top, box.width, box.height);
+  }
+});
+
 window.addEventListener('resize', scheduleRender);
 document.addEventListener('visibilitychange', ()=>{ if(!document.hidden) scheduleRender(); });
 // Re-page after font or viewport changes, including speaker/photo/QR/warning
@@ -352,6 +521,8 @@ ws.onmessage=(ev)=>{
     showPresentation(m.presentation);
     $('captionWarning').hidden = !m.captionWarning;
     $('direction').textContent=m.targetLanguage === 'en' ? 'Việt / Vietnamese → Anh / English' : 'Anh / English → Việt / Vietnamese';
+    const language = m.targetLanguage === 'en' ? 'en' : 'vi';
+    if(language !== targetLanguage){ targetLanguage = language; scheduleRender(); }
     $('status').textContent = m.error ? interpretationError(m.error) : m.draining ? 'Đang phát phần dịch cuối… / Playing the remaining interpretation…'
       : m.aiReady ? `Đang dịch song song / Simultaneous interpretation • ${m.listeners||1} người nghe / listeners`
         : m.sourceConnected ? 'Đang khởi tạo AI… / Starting interpretation…' : 'Chờ ban tổ chức bắt đầu / Waiting for the organizers to start';
