@@ -3,6 +3,7 @@ import { CaptionPager } from './caption-pager.js';
 
 const $=(id)=>document.getElementById(id);
 let ctx=null, gain=null, nextTime=0, enabled=false;
+let voiceMuted = false; // Set by the PiP window's speaker button or the Listen button.
 let listeningRequest = null;
 let presentation = false, renderPending = false;
 let presentationTransition = false;
@@ -16,6 +17,7 @@ const pip = { open:false, opening:false, video:false, panel:$('pipCaption'), tit
 const PIP_HEIGHT = 400, PIP_PADDING = 36;
 const pipCanvas = document.createElement('canvas');
 const pipVideo = Object.assign(document.createElement('video'), { muted:true, playsInline:true });
+let pipAudio = null;
 const pipPager = new CaptionPager();
 const pipMeasure = Object.assign(document.createElement('div'), {className:'caption-measure'});
 pipMeasure.setAttribute('aria-hidden', 'true');
@@ -123,6 +125,20 @@ function showAudioWarning(){
   $('listen').textContent = 'Bắt đầu nghe / Start to listen';
   $('audioWarning').textContent = 'Âm thanh chưa bật hoặc đang tạm dừng. Nếu đang toàn màn hình, bấm Quay lại, rồi Bắt đầu nghe để thử lại. / Audio has not started or is paused. In Full Screen, press Back, then Start to listen to retry.';
   $('audioWarning').hidden = false;
+  syncPipMute();
+}
+
+function showListeningState(){
+  $('listen').textContent = voiceMuted ? 'Đã tắt tiếng – bấm để bật / Muted – tap to unmute' : 'Đang nghe / Listening ✓';
+  syncPipMute();
+}
+
+// Muting keeps scheduling the voice silently, so unmuting resumes at the live point.
+function setVoiceMuted(muted){
+  voiceMuted = muted;
+  if(gain) gain.gain.setTargetAtTime(muted ? 0 : 1, ctx.currentTime, 0.015);
+  if(enabled) showListeningState();
+  else syncPipMute();
 }
 
 function startListening(){
@@ -138,6 +154,7 @@ function startListening(){
       ctx = new AudioContextClass();
       nextTime = ctx.currentTime + 0.12;
       gain = ctx.createGain();
+      gain.gain.value = voiceMuted ? 0 : 1;
       gain.connect(ctx.destination);
       const audioContext = ctx;
       audioContext.addEventListener('statechange', ()=>{
@@ -166,7 +183,7 @@ function startListening(){
       if(audioContext.state !== 'running') throw new Error('Audio context is not running');
       enabled = true;
       nextTime = Math.max(ctx.currentTime + 0.12, nextTime);
-      $('listen').textContent = 'Đang nghe / Listening ✓';
+      showListeningState();
       $('audioWarning').hidden = true;
       return true;
     }).catch(()=>{
@@ -184,7 +201,10 @@ function startListening(){
   }
 }
 
-$('listen').onclick=startListening;
+$('listen').onclick=()=>{
+  if(enabled && voiceMuted) setVoiceMuted(false);
+  else startListening();
+};
 
 function showCaption(textElement, viewport, text, placeholder){
   textElement.textContent = text || placeholder;
@@ -446,7 +466,18 @@ async function openPip(){
   resizePipCanvas();
   if(document.pictureInPictureEnabled){
     try {
-      pipVideo.srcObject ??= pipCanvas.captureStream();
+      if(!pipVideo.srcObject){
+        const tracks = pipCanvas.captureStream().getVideoTracks();
+        // Chrome hides the PiP speaker button for a video without audio, so add a silent
+        // track. It is created in this click, so the context is allowed to run.
+        try {
+          pipAudio = new (window.AudioContext || window.webkitAudioContext)();
+          tracks.push(...pipAudio.createMediaStreamDestination().stream.getAudioTracks());
+        } catch {}
+        pipVideo.srcObject = new MediaStream(tracks);
+      }
+      pipAudio?.resume().catch(()=>{});
+      syncPipMute();
       pip.video = true;
       renderCaptions(); // The stream needs a first frame before the video can play.
       await pipVideo.play();
@@ -474,6 +505,7 @@ function closedPip(){
   pip.panel.hidden = true;
   $('pipSize').hidden = true;
   pipVideo.pause();
+  pipAudio?.suspend().catch(()=>{});
   $('pictureInPicture').setAttribute('aria-pressed', 'false');
   renderPending = false;
   scheduleRender();
@@ -485,6 +517,18 @@ function closePip(){
 }
 
 pipVideo.addEventListener('leavepictureinpicture', closedPip);
+
+// The caption video is silent: its muted state mirrors the interpretation voice, so the
+// PiP window's speaker button shows and switches the voice.
+function syncPipMute(){ pipVideo.muted = !enabled || voiceMuted; }
+pipVideo.addEventListener('volumechange', async ()=>{
+  if(pipVideo.muted === (!enabled || voiceMuted)) return; // Our own change.
+  if(pipVideo.muted){ setVoiceMuted(true); return; }
+  voiceMuted = false;
+  if(enabled) setVoiceMuted(false);
+  // Not listening yet: start now; if audio cannot start, show the speaker as muted again.
+  else if(!await startListening()) syncPipMute();
+});
 // A paused video would freeze the captions in the PiP window.
 pipVideo.addEventListener('pause', ()=>{ if(pip.video && !pip.opening) pipVideo.play().catch(()=>{}); });
 
