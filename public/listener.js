@@ -286,6 +286,13 @@ function resizePipCanvas(){
   pipCanvas.height = PIP_HEIGHT;
   $('pipLinesValue').textContent = `${$('pipLines').value} dòng / lines`;
 }
+// Chrome keeps a video PiP window within 80% of the screen width and at least 160 px tall,
+// so a wider shape would only add black bars and shrink the text. Allow up to this screen's limit.
+function updatePipRatioLimit(){
+  const widest = Math.floor(screen.availWidth * 0.8 / 160 * 4) / 4;
+  $('pipRatio').max = String(Math.min(16, Math.max(6, widest)));
+}
+updatePipRatioLimit();
 for(const input of [$('pipRatio'), $('pipLines')]){
   try { const saved = localStorage.getItem(input.id); if(saved) input.value = saved; } catch {}
   input.addEventListener('input', ()=>{
@@ -435,6 +442,8 @@ function placeOverlay(left, top, width, height){
 
 async function openPip(){
   pip.open = pip.opening = true;
+  updatePipRatioLimit(); // The page may have moved to another screen.
+  resizePipCanvas();
   if(document.pictureInPictureEnabled){
     try {
       pipVideo.srcObject ??= pipCanvas.captureStream();
