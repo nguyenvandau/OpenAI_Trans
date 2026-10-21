@@ -253,12 +253,17 @@ function drawPipFrame(text, placeholder){
   context.font = `500 ${fontSize}px "Segoe UI", Tahoma, Arial, sans-serif`;
   context.textBaseline = 'top';
   context.fillStyle = text ? '#fff' : '#98a7bc';
+  // Roll-up captions, like live captions on YouTube or Meet: every sentence starts on a new
+  // line and the bottom line holds the latest words. Once the window is full, the oldest
+  // line scrolls off the top, so the window always shows the most context it can.
+  // Wrapping each sentence from its own start keeps its words from jumping between lines.
   const maxWidth = width - PIP_PADDING*2;
-  if(!text) pipPager.reset();
-  // Newest sentences come first, so the top lines are the latest speech.
-  const shown = text ? newestPageText(pipPager, text, ['video', width, height, lines, context.font].join('|'),
-    candidate => wrapLines(context, candidate, maxWidth, lines + 1).length <= lines).text : placeholder;
-  wrapLines(context, shown, maxWidth, lines)
+  let shown = [];
+  for(const sentence of (text || placeholder).split('\n')){ // Newest sentence first.
+    shown = wrapLines(context, sentence, maxWidth, Infinity).concat(shown);
+    if(shown.length >= lines) break;
+  }
+  shown.slice(-lines)
     .forEach((line, index)=>context.fillText(line, PIP_PADDING, PIP_PADDING + index*lineHeight + (lineHeight - fontSize)/2));
 }
 
