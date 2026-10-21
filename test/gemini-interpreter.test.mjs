@@ -349,3 +349,35 @@ test('invalid PCM, unexpected output format and a 20-second startup backlog fail
     t.mock.timers.reset();
   }
 });
+
+// Measured on the real API (2026-10-16): after the translated voice ends, Live
+// Translate keeps streaming exact digital silence in real time until the socket closes.
+const silence250 = { serverContent: { modelTurn: { parts: [{ inlineData: { mimeType: 'audio/pcm;rate=24000', data: Buffer.alloc(12000).toString('base64') } }] } } };
+const forwardedSilence = events => events.filter(([type, value]) => type === 'audio' && value.every(byte => byte === 0))
+  .reduce((bytes, [, value]) => bytes + value.length, 0);
+
+test('streamed digital silence neither stretches Stop to the 20 s limit nor floods listeners', t => {
+  const { interpreter, sockets, events, advance } = createInterpreter(t);
+  sockets[0].ready();
+  interpreter.appendAudio(tone(250));
+  interpreter.finish();
+  sockets[0].receive(translated('đoạn cuối', 5));
+  for (let i = 0; i < 40 && !interpreter.closed; i++) { sockets[0].receive(silence250); advance(250); }
+  assert.deepEqual(events.filter(([type]) => type === 'closed'), [['closed', { drained: true }]]);
+  assert.ok(events.findIndex(([type]) => type === 'closed') > 0);
+  assert.ok(forwardedSilence(events) <= 24000 * 2 * 0.6, 'only a natural pause of silence reaches listeners');
+  assert.deepEqual(spoken(events).filter(text => text !== 'audio:0'), ['audio:5', 'đoạn cuối']);
+});
+
+test('a finishing connection that streams silence does not hold back the next connection', t => {
+  const { interpreter, sockets, events, advance } = createInterpreter(t);
+  sockets[0].ready();
+  interpreter.appendAudio(tone(400));
+  assert.equal(interpreter.setTargetLanguage('en'), true);
+  sockets[1].ready();
+  sockets[0].receive(translated('Phần cuối', 1));
+  sockets[1].receive(translated('English now', 2));
+  for (let i = 0; i < 8; i++) { sockets[0].receive(silence250); advance(250); }
+  assert.deepEqual(spoken(events).filter(text => text !== 'audio:0'), ['audio:1', 'Phần cuối', 'audio:2', 'English now']);
+  assert.equal(sockets[0].readyState, 3);
+});

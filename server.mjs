@@ -422,7 +422,9 @@ listenerWss.on('connection', (ws) => {
 });
 
 server.on('upgrade', (req, socket, head) => {
-  const url = new URL(req.url, `http://${req.headers.host}`);
+  // Route by path only: a malformed Host header or request target must not crash the shared process.
+  let url;
+  try { url = new URL(req.url, 'http://localhost'); } catch { socket.destroy(); return; }
   if (url.pathname === '/ws/source') {
     sourceWss.handleUpgrade(req, socket, head, (ws) => sourceWss.emit('connection', ws, req));
   } else if (url.pathname === '/ws/listen') {
@@ -433,7 +435,7 @@ server.on('upgrade', (req, socket, head) => {
 });
 
 server.listen(PORT, '0.0.0.0', () => {
-  console.log(`AI Cabin running on http://localhost:${server.address().port}`);
+  console.log(`AI Cabin running on http://localhost:${server.address()?.port}`);
   const available = Object.values(PROVIDERS).filter(({ configurationError }) => !configurationError).map(({ label, model }) => `${label} ${model}`);
   console.log(`Continuous translation: English ↔ Vietnamese (${available.join(', ') || 'no API key configured'})`);
   if (PUBLIC_BASE_URL) console.log(`Listener URL: ${PUBLIC_BASE_URL}/listen.html`);

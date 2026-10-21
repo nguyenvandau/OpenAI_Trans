@@ -20,6 +20,14 @@ export const DRAIN_IDLE_MS = 4000;
 const DRAIN_HANDOFF_IDLE_MS = 1500;
 const DRAIN_TURN_GRACE_MS = 1000;
 const DRAIN_MAX_MS = 20000;
+// Live Translate streams digital silence in real time for as long as the socket
+// is open. Keep natural pauses, but drop long silence: it is not translation
+// activity, costs listener bandwidth, and would queue behind the next voice.
+const KEEP_SILENCE_BYTES = 24000 * 2 * 0.6;
+const isSilent = audio => {
+  for (let offset = 0; offset < audio.length; offset += 2) if (Math.abs(audio.readInt16LE(offset)) > 2) return false;
+  return true;
+};
 const validTarget = value => value === 'vi' || value === 'en';
 const baseLanguage = code => typeof code === 'string' && code ? code.split(/[-_]/)[0].toLowerCase() : null;
 
@@ -161,7 +169,7 @@ export class GeminiInterpreter extends EventEmitter {
       sequence: ++this.sequence, targetLanguage, openedAt: this.now(), deadline: Infinity,
       transcriptionHints: this.transcriptionHints, ready: false, ended: false, finished: false, socketClosed: false,
       frames: [], pendingBytes: 0, output: [], streamEndAt: 0, lastActivity: 0, turnComplete: false,
-      source: null, sourceCount: 0, sourceFresh: false, targetFresh: false, error: '',
+      source: null, sourceCount: 0, sourceFresh: false, targetFresh: false, silentBytes: 0, error: '',
     };
     connection.targetItemId = `${this.streamId}:${connection.sequence}`;
     const socket = connection.socket = this.createSocket(`${GEMINI_LIVE_URL}?key=${encodeURIComponent(this.apiKey)}`, { handshakeTimeout: 15000 });
@@ -286,7 +294,15 @@ export class GeminiInterpreter extends EventEmitter {
       }
       const audio = Buffer.from(data.data, 'base64');
       if (audio.length % 2) { this.fail('Đoạn âm thanh bản dịch Gemini không đúng định dạng PCM16.'); return; }
-      if (audio.length) { this.output(connection, ['audio', audio]); activity = true; }
+      if (!audio.length) continue;
+      if (isSilent(audio)) {
+        connection.silentBytes += audio.length;
+        if (connection.silentBytes <= KEEP_SILENCE_BYTES) this.output(connection, ['audio', audio]);
+        continue;
+      }
+      connection.silentBytes = 0;
+      this.output(connection, ['audio', audio]);
+      activity = true;
     }
     const translated = this.transcriptText(connection, content.outputTranscription, 'target');
     if (translated) {

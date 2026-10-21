@@ -2,6 +2,7 @@ import assert from 'node:assert/strict';
 import { spawn } from 'node:child_process';
 import { createHash } from 'node:crypto';
 import { once } from 'node:events';
+import { connect as connectTcp } from 'node:net';
 import { fileURLToPath } from 'node:url';
 import test from 'node:test';
 import WebSocket from 'ws';
@@ -381,3 +382,41 @@ for (const apiKey of ['', 'sk-...']) {
     assert.equal(geminiConfig.configurationError, geminiConfig.providers.gemini.configurationError);
   });
 }
+
+test('a malformed Host header or request target on a WebSocket upgrade cannot crash the shared server', { timeout: 20000 }, async t => {
+  const child = spawn(process.execPath, ['server.mjs'], {
+    cwd: fileURLToPath(new URL('../', import.meta.url)),
+    env: { ...process.env, OPENAI_API_KEY: '', GEMINI_API_KEY: '', TRANSLATION_PROVIDER: '', PORT: '0', PUBLIC_BASE_URL: '' },
+    windowsHide: true, stdio: ['ignore', 'pipe', 'pipe'],
+  });
+  child.stderr.resume();
+  t.after(async () => {
+    if (child.exitCode === null && child.signalCode === null) { const exited = once(child, 'exit'); child.kill(); await exited; }
+  });
+  const port = await new Promise((resolve, reject) => {
+    let stdout = '';
+    const timer = setTimeout(() => reject(new Error('Server startup timed out')), 4000);
+    child.once('error', error => { clearTimeout(timer); reject(error); });
+    child.stdout.on('data', chunk => {
+      stdout += chunk;
+      const match = stdout.match(/running on http:\/\/localhost:(\d+)/);
+      if (match) { clearTimeout(timer); resolve(Number(match[1])); }
+    });
+  });
+  const upgrade = 'Upgrade: websocket\r\nConnection: Upgrade\r\nSec-WebSocket-Key: dGhlIHNhbXBsZSBub25jZQ==\r\nSec-WebSocket-Version: 13\r\n\r\n';
+  // Anyone on the venue Wi-Fi can send these; the process holds every listener and the AI session.
+  for (const request of [`GET /ws/listen HTTP/1.1\r\nHost: bad host\r\n${upgrade}`, `GET http://[bad/ws/listen HTTP/1.1\r\nHost: localhost\r\n${upgrade}`]) {
+    await new Promise(resolve => {
+      const socket = connectTcp(port, '127.0.0.1', () => socket.write(request));
+      socket.once('data', () => { socket.destroy(); resolve(); });
+      socket.once('close', resolve);
+      socket.on('error', () => {});
+    });
+  }
+  const config = await fetch(`http://localhost:${port}/api/config`).then(response => response.json());
+  assert.equal(config.sessionActive, false);
+  assert.equal(child.exitCode, null);
+  const listener = new WebSocket(`ws://localhost:${port}/ws/listen`);
+  t.after(() => listener.terminate());
+  await once(listener, 'open');
+});
