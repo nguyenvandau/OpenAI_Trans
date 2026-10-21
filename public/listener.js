@@ -16,6 +16,10 @@ const pip = { open:false, opening:false, video:false, panel:$('pipCaption'), tit
 const PIP_HEIGHT = 400, PIP_PADDING = 36;
 const pipCanvas = document.createElement('canvas');
 const pipVideo = Object.assign(document.createElement('video'), { muted:true, playsInline:true });
+const pipPager = new CaptionPager();
+const pipMeasure = Object.assign(document.createElement('div'), {className:'caption-measure'});
+pipMeasure.setAttribute('aria-hidden', 'true');
+pip.viewport.append(pipMeasure);
 const renderChannel = new MessageChannel();
 renderChannel.port1.onmessage = ()=>renderCaptions();
 const scheduledAudio = new Set();
@@ -40,22 +44,28 @@ function captionPageText(pane, text){
     return '';
   }
   const {viewport, measure, pager} = pane;
-  const firstBreak = text.indexOf('\n');
-  const newestSentence = firstBreak === -1 ? text : text.slice(0, firstBreak);
-  const earlierSentences = firstBreak === -1 ? '' : text.slice(firstBreak);
   const style = getComputedStyle(viewport);
   const width = viewport.clientWidth;
   const height = viewport.clientHeight;
   const layout = [width, height, style.font, style.lineHeight, style.letterSpacing,
     style.wordSpacing, captionFontRevision].join('|');
   if(measure.style.width !== width+'px') measure.style.width = width+'px';
-  const page = pager.page(newestSentence, layout, candidate => {
-    if(!candidate) return true;
+  const shown = newestPageText(pager, text, layout, candidate => {
     measure.textContent = candidate;
     return measure.getBoundingClientRect().height <= height;
   });
-  pane.content.dataset.pageNumber = page.pageNumber;
-  return page.text + earlierSentences;
+  pane.content.dataset.pageNumber = shown.pageNumber;
+  return shown.text;
+}
+
+// Newest sentence first: when it outgrows the window, show the page holding
+// its latest words, then earlier sentences in whatever space remains.
+function newestPageText(pager, text, layout, fits){
+  const firstBreak = text.indexOf('\n');
+  const newestSentence = firstBreak === -1 ? text : text.slice(0, firstBreak);
+  const earlierSentences = firstBreak === -1 ? '' : text.slice(firstBreak);
+  const page = pager.page(newestSentence, layout, candidate => !candidate || fits(candidate));
+  return {text: page.text + earlierSentences, pageNumber: page.pageNumber};
 }
 
 function interpretationError(detail){
@@ -99,6 +109,7 @@ function resetSession(){
   resetPlayback();
   captions.reset();
   for(const pane of captionPanes) pane.pager.reset();
+  pipPager.reset();
   $('captionWarning').hidden = true;
   scheduleRender();
 }
@@ -194,8 +205,8 @@ function renderCaptions(){
     if(pip.open && pane.language === targetLanguage){
       pip.title.textContent = pane.title;
       pip.viewport.lang = pane.language;
-      showCaption(pip.text, pip.viewport, text, pane.placeholder);
       if(pip.video) drawPipFrame(text, pane.placeholder);
+      else showCaption(pip.text, pip.viewport, pipOverlayText(text), pane.placeholder);
     }
   }
   if($('historyDialog').open) renderHistory();
@@ -242,9 +253,27 @@ function drawPipFrame(text, placeholder){
   context.font = `500 ${fontSize}px "Segoe UI", Tahoma, Arial, sans-serif`;
   context.textBaseline = 'top';
   context.fillStyle = text ? '#fff' : '#98a7bc';
+  const maxWidth = width - PIP_PADDING*2;
+  if(!text) pipPager.reset();
   // Newest sentences come first, so the top lines are the latest speech.
-  wrapLines(context, text || placeholder, width - PIP_PADDING*2, lines)
+  const shown = text ? newestPageText(pipPager, text, ['video', width, height, lines, context.font].join('|'),
+    candidate => wrapLines(context, candidate, maxWidth, lines + 1).length <= lines).text : placeholder;
+  wrapLines(context, shown, maxWidth, lines)
     .forEach((line, index)=>context.fillText(line, PIP_PADDING, PIP_PADDING + index*lineHeight + (lineHeight - fontSize)/2));
+}
+
+// The in-page overlay pages its text the same way as the caption panes.
+function pipOverlayText(text){
+  if(!text){ pipPager.reset(); return ''; }
+  const viewport = pip.viewport, style = getComputedStyle(viewport);
+  const width = viewport.clientWidth - parseFloat(style.paddingLeft) - parseFloat(style.paddingRight);
+  const height = viewport.clientHeight - parseFloat(style.paddingTop) - parseFloat(style.paddingBottom);
+  const layout = ['overlay', width, height, style.font, style.lineHeight, captionFontRevision].join('|');
+  if(pipMeasure.style.width !== width+'px') pipMeasure.style.width = width+'px';
+  return newestPageText(pipPager, text, layout, candidate => {
+    pipMeasure.textContent = candidate;
+    return pipMeasure.getBoundingClientRect().height <= height;
+  }).text;
 }
 
 function resizePipCanvas(){
@@ -489,6 +518,7 @@ document.fonts.ready.then(refreshCaptionFonts);
 document.fonts.addEventListener('loadingdone', refreshCaptionFonts);
 const captionResizeObserver = new ResizeObserver(scheduleRender);
 for(const pane of captionPanes) captionResizeObserver.observe(pane.viewport);
+captionResizeObserver.observe(pip.viewport); // Dragging the overlay's corner re-pages its captions.
 
 function receiveCaption(message){
   captions.update(message);
