@@ -267,12 +267,15 @@ function wrapLines(context, text, maxWidth, maxLines){
 function drawPipFrame(text, placeholder){
   const {width, height} = pipCanvas, lines = Number($('pipLines').value);
   const lineHeight = (height - PIP_PADDING*2) / lines, fontSize = Math.round(lineHeight / 1.4);
+  const {background, color, fontFamily} = pipStyle();
   const context = pipCanvas.getContext('2d');
-  context.fillStyle = '#0d1729';
+  context.globalAlpha = 1;
+  context.fillStyle = background;
   context.fillRect(0, 0, width, height);
-  context.font = `500 ${fontSize}px "Segoe UI", Tahoma, Arial, sans-serif`;
+  context.font = `500 ${fontSize}px ${fontFamily}`;
   context.textBaseline = 'top';
-  context.fillStyle = text ? '#fff' : '#98a7bc';
+  context.fillStyle = color;
+  context.globalAlpha = text ? 1 : 0.6; // Dim the placeholder, like .caption-empty in the overlay.
   // Roll-up captions, like live captions on YouTube or Meet: every sentence starts on a new
   // line and the bottom line holds the latest words. Once the window is full, the oldest
   // line scrolls off the top, so the window always shows the most context it can.
@@ -322,6 +325,33 @@ for(const input of [$('pipRatio'), $('pipLines')]){
   });
 }
 resizePipCanvas();
+
+// Caption color and font apply to both the video window and the in-page overlay.
+const pipColors = [...document.querySelectorAll('input[name="pipColor"]')];
+for(const radio of pipColors){
+  const [background, color] = radio.value.split(' ');
+  Object.assign(radio.parentElement.style, {background, color});
+  radio.parentElement.title = radio.getAttribute('aria-label');
+}
+for(const option of $('pipFont').options) option.style.fontFamily = option.value;
+function pipStyle(){
+  const [background, color] = pipColors.find(radio=>radio.checked).value.split(' ');
+  return {background, color, fontFamily: $('pipFont').value};
+}
+try {
+  const color = localStorage.getItem('pipColor'), font = localStorage.getItem('pipFont');
+  const savedColor = pipColors.find(radio=>radio.value === color);
+  if(savedColor) savedColor.checked = true;
+  if([...$('pipFont').options].some(option=>option.value === font)) $('pipFont').value = font;
+} catch {}
+Object.assign(pip.panel.style, pipStyle());
+for(const control of [...pipColors, $('pipFont')]){
+  control.addEventListener('change', ()=>{
+    try { localStorage.setItem(control.name || control.id, control.value); } catch {}
+    Object.assign(pip.panel.style, pipStyle());
+    renderCaptions();
+  });
+}
 
 function renderHistory(){
   const content = $('historyContent');
@@ -494,7 +524,8 @@ async function openPip(){
     pip.panel.hidden = false;
   }
   pip.opening = false;
-  $('pipSize').hidden = !pip.video;
+  $('pipOptions').hidden = false;
+  for(const control of document.querySelectorAll('.pip-video-only')) control.hidden = !pip.video;
   $('pictureInPicture').setAttribute('aria-pressed', 'true');
   renderPending = false;
   scheduleRender();
@@ -503,7 +534,7 @@ async function openPip(){
 function closedPip(){
   pip.open = pip.video = false;
   pip.panel.hidden = true;
-  $('pipSize').hidden = true;
+  $('pipOptions').hidden = true;
   pipVideo.pause();
   pipAudio?.suspend().catch(()=>{});
   $('pictureInPicture').setAttribute('aria-pressed', 'false');

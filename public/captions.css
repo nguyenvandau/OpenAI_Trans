@@ -6,11 +6,19 @@
 .fullscreen-button { flex: 1 1 180px; max-width: 240px; min-height: 58px; font-size: 18px; }
 .fullscreen-shortcut { margin: -6px 0 12px; color: var(--muted); font-size: 12px; text-align: center; }
 .fullscreen-button[aria-pressed="true"] { border-color: var(--navy); color: var(--navy); background: #eef3fb; }
-.pip-size { display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 8px 28px; max-width: 760px; margin: -4px auto 16px; padding: 12px 16px; border: 1px solid var(--line); border-radius: 8px; background: #f8fafc; }
-.pip-size label { display: flex; align-items: center; gap: 10px; color: #475569; font-size: 13px; font-weight: 700; }
-.pip-size input[type="range"] { width: 170px; min-height: 0; padding: 0; border: 0; accent-color: var(--brand); }
-.pip-size output { min-width: 8em; color: var(--muted); font-weight: 400; text-align: left; }
-.pip-size .hint { flex-basis: 100%; margin: 0; }
+.pip-options { display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 12px 28px; max-width: 760px; margin: -4px auto 16px; padding: 12px 16px; border: 1px solid var(--line); border-radius: 8px; background: #f8fafc; }
+.pip-sliders { display: flex; flex-wrap: wrap; flex-basis: 100%; justify-content: center; gap: 8px 28px; }
+.pip-sliders label, .pip-field { display: flex; align-items: center; gap: 10px; color: #475569; font-size: 13px; font-weight: 700; }
+.pip-options input[type="range"] { width: 170px; min-height: 0; padding: 0; border: 0; accent-color: var(--brand); }
+.pip-options output { min-width: 8em; color: var(--muted); font-weight: 400; text-align: left; }
+.pip-options .hint { flex-basis: 100%; margin: 0; }
+.pip-options .pip-field { flex-direction: column; align-items: flex-start; align-self: flex-start; gap: 8px; }
+.pip-field select { width: 220px; min-height: 40px; padding: 8px 12px; font-size: 14px; font-weight: 400; }
+.pip-swatches { display: grid; grid-template-columns: repeat(4, 52px); gap: 8px; }
+.pip-swatch { position: relative; display: grid; place-items: center; height: 34px; border: 1px solid #94a3b8; border-radius: 6px; font-size: 14px; font-weight: 500; }
+.pip-swatch input { position: absolute; inset: 0; width: 100%; height: 100%; min-height: 0; margin: 0; padding: 0; opacity: 0; cursor: pointer; }
+.pip-swatch:has(:checked) { outline: 2px solid var(--navy); outline-offset: 2px; }
+.pip-swatch:has(:focus-visible) { outline: 3px solid #ee6828; outline-offset: 3px; }
 .listen-layout .listener-status { margin: 0 auto 16px; max-width: 602px; }
 .caption-toolbar { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
 .caption-toolbar h2 { color: var(--navy); }
@@ -76,15 +84,16 @@ body.caption-mode .listener-qr { width: clamp(112px, 15vh, 160px); color: #bed6f
 body.caption-mode .listener-qr img { width: clamp(96px, 12vh, 144px); height: clamp(96px, 12vh, 144px); }
 .return-button { position: absolute; top: 3vh; right: 4.5vw; padding: 8px 16px; min-height: 44px; color: #dce5f3; background: #ffffff0d; border: 1px solid #ffffff40; font-size: 15px; }
 .return-button:hover { background: #ffffff1f; }
-.pip-caption { position: fixed; z-index: 200; top: 16px; left: 16px; width: 480px; height: 220px; display: flex; flex-direction: column; overflow: hidden; container-type: size; border: 1px solid #ffffff29; border-radius: 10px; background: #0d1729; color: #fff; box-shadow: 0 12px 32px rgb(13 23 41 / 45%); }
-.pip-bar { flex: 0 0 auto; display: flex; align-items: center; justify-content: space-between; gap: 8px; padding: 2px 2px 2px 14px; border-bottom: 1px solid #ffffff1f; background: #ffffff0d; cursor: move; touch-action: none; user-select: none; }
-.pip-bar h2 { min-width: 0; overflow: hidden; color: #f1c186; font-size: 13px; letter-spacing: .08em; text-transform: uppercase; text-overflow: ellipsis; white-space: nowrap; }
-.pip-close { flex: 0 0 auto; min-height: 36px; padding: 0 12px; border: 0; color: #dce5f3; background: transparent; font-size: 22px; line-height: 1; }
-.pip-close:hover { background: #ffffff1f; }
+/* Background, text color and font come from the caption style options; the rest follows the text color. */
+.pip-caption { position: fixed; z-index: 200; top: 16px; left: 16px; width: 480px; height: 220px; display: flex; flex-direction: column; overflow: hidden; container-type: size; border: 1px solid color-mix(in srgb, currentColor 16%, transparent); border-radius: 10px; background: #0d1729; color: #fff; box-shadow: 0 12px 32px rgb(13 23 41 / 45%); }
+.pip-bar { flex: 0 0 auto; display: flex; align-items: center; justify-content: space-between; gap: 8px; padding: 2px 2px 2px 14px; border-bottom: 1px solid color-mix(in srgb, currentColor 12%, transparent); background: color-mix(in srgb, currentColor 5%, transparent); cursor: move; touch-action: none; user-select: none; }
+.pip-bar h2 { min-width: 0; overflow: hidden; opacity: .75; font-size: 13px; letter-spacing: .08em; text-transform: uppercase; text-overflow: ellipsis; white-space: nowrap; }
+.pip-close { flex: 0 0 auto; min-height: 36px; padding: 0 12px; border: 0; color: inherit; background: transparent; font-size: 22px; line-height: 1; }
+.pip-close:hover { background: color-mix(in srgb, currentColor 12%, transparent); }
 /* Text grows with the window, so a larger PiP is readable from farther away. */
 .pip-window { flex: 1 1 auto; min-height: 0; padding: 10px 16px 14px; overflow: hidden; font-size: 22px; font-size: clamp(16px, min(5.5cqw, 12cqh), 72px); font-weight: 500; line-height: 1.45; overflow-wrap: anywhere; }
-.pip-caption .caption-empty { color: #98a7bc; }
-.pip-resize { position: absolute; right: 0; bottom: 0; width: 28px; height: 28px; cursor: nwse-resize; touch-action: none; background: linear-gradient(135deg, transparent 55%, #ffffff59 55% 62%, transparent 62% 72%, #ffffff59 72% 79%, transparent 79%); }
+.pip-caption .caption-empty { color: inherit; opacity: .6; }
+.pip-resize { position: absolute; right: 0; bottom: 0; width: 28px; height: 28px; cursor: nwse-resize; touch-action: none; opacity: .35; background: linear-gradient(135deg, transparent 55%, currentColor 55% 62%, transparent 62% 72%, currentColor 72% 79%, transparent 79%); }
 body.caption-mode .pip-caption { display: none; }
 .history-dialog { width: min(1050px, calc(100% - 28px)); max-height: 90dvh; margin: auto; padding: 26px; border: 1px solid var(--line); border-radius: 10px; color: #16233b; background: #fff; }
 .history-dialog[open] { display: flex; flex-direction: column; }
